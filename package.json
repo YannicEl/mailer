@@ -1,0 +1,14 @@
+{
+	"name": "mailer",
+	"version": "1.0.0",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"run": "tsx ./index.ts",
+		"watch": "tsx watch ./index.ts"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"tsx": "4.15.7"
+	}
+}
