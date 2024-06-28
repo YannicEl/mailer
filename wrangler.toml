@@ -1,0 +1,28 @@
+name = "mailer"
+compatibility_date = "2024-05-27"
+pages_build_output_dir = ".svelte-kit/cloudflare"
+
+[placement]
+mode = "smart"
+
+[env.preview.vars]
+NODE_VERSION = "20"
+PNPM_VERSION = "9"
+FRONTEND_URL = "https://ez-share.pages.dev"
+
+[env.production.vars]
+NODE_VERSION = "20"
+PNPM_VERSION = "9"
+FRONTEND_URL = "https://share.yannic.at"
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "ez-share-dev"
+database_id = "b17f1388-92c0-42c4-a28a-04fe1a5d2223"
+migrations_dir = "./drizzle/migrations"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "ez-share-prod"
+database_id = "f434d564-f3a4-43aa-bd2b-fb11649d0216"
+migrations_dir = "./drizzle/migrations"
