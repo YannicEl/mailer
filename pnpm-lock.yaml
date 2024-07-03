@@ -22,14 +22,14 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(svelte@5.0.0-next.1)(vite@5.0.3(@types/node@20.14.9))
       prettier-plugin-organize-imports:
-        specifier: 3.2.4
-        version: 3.2.4(prettier@3.3.1)(typescript@5.5.2)
+        specifier: 4.0.0
+        version: 4.0.0(prettier@3.3.1)(typescript@5.5.2)
       prettier-plugin-svelte:
         specifier: 3.2.4
         version: 3.2.4(prettier@3.3.1)(svelte@5.0.0-next.1)
       prettier-plugin-tailwindcss:
         specifier: 0.6.1
-        version: 0.6.1(prettier-plugin-organize-imports@3.2.4(prettier@3.3.1)(typescript@5.5.2))(prettier-plugin-svelte@3.2.4(prettier@3.3.1)(svelte@5.0.0-next.1))(prettier@3.3.1)
+        version: 0.6.1(prettier-plugin-organize-imports@4.0.0(prettier@3.3.1)(typescript@5.5.2))(prettier-plugin-svelte@3.2.4(prettier@3.3.1)(svelte@5.0.0-next.1))(prettier@3.3.1)
       svelte:
         specifier: 5.0.0-next.1
         version: 5.0.0-next.1
@@ -1451,17 +1451,17 @@ packages:
     resolution: {integrity: sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==}
     engines: {node: ^10 || ^12 || >=14}
 
-  prettier-plugin-organize-imports@3.2.4:
-    resolution: {integrity: sha512-6m8WBhIp0dfwu0SkgfOxJqh+HpdyfqSSLfKKRZSFbDuEQXDDndb8fTpRWkUrX/uBenkex3MgnVk0J3b3Y5byog==}
+  prettier-plugin-organize-imports@4.0.0:
+    resolution: {integrity: sha512-vnKSdgv9aOlqKeEFGhf9SCBsTyzDSyScy1k7E0R1Uo4L0cTcOV7c1XQaT7jfXIOc/p08WLBfN2QUQA9zDSZMxA==}
     peerDependencies:
-      '@volar/vue-language-plugin-pug': ^1.0.4
-      '@volar/vue-typescript': ^1.0.4
+      '@vue/language-plugin-pug': ^2.0.24
       prettier: '>=2.0'
       typescript: '>=2.9'
+      vue-tsc: ^2.0.24
     peerDependenciesMeta:
-      '@volar/vue-language-plugin-pug':
+      '@vue/language-plugin-pug':
         optional: true
-      '@volar/vue-typescript':
+      vue-tsc:
         optional: true
 
   prettier-plugin-svelte@3.2.4:
@@ -3176,7 +3176,7 @@ snapshots:
       picocolors: 1.0.1
       source-map-js: 1.2.0
 
-  prettier-plugin-organize-imports@3.2.4(prettier@3.3.1)(typescript@5.5.2):
+  prettier-plugin-organize-imports@4.0.0(prettier@3.3.1)(typescript@5.5.2):
     dependencies:
       prettier: 3.3.1
       typescript: 5.5.2
@@ -3186,11 +3186,11 @@ snapshots:
       prettier: 3.3.1
       svelte: 5.0.0-next.1
 
-  prettier-plugin-tailwindcss@0.6.1(prettier-plugin-organize-imports@3.2.4(prettier@3.3.1)(typescript@5.5.2))(prettier-plugin-svelte@3.2.4(prettier@3.3.1)(svelte@5.0.0-next.1))(prettier@3.3.1):
+  prettier-plugin-tailwindcss@0.6.1(prettier-plugin-organize-imports@4.0.0(prettier@3.3.1)(typescript@5.5.2))(prettier-plugin-svelte@3.2.4(prettier@3.3.1)(svelte@5.0.0-next.1))(prettier@3.3.1):
     dependencies:
       prettier: 3.3.1
     optionalDependencies:
-      prettier-plugin-organize-imports: 3.2.4(prettier@3.3.1)(typescript@5.5.2)
+      prettier-plugin-organize-imports: 4.0.0(prettier@3.3.1)(typescript@5.5.2)
       prettier-plugin-svelte: 3.2.4(prettier@3.3.1)(svelte@5.0.0-next.1)
 
   prettier@3.3.1: {}
