@@ -1,0 +1,16 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "backend"
+main = "src/index.ts"
+compatibility_date = "2024-07-11"
+
+[placement]
+mode = "smart"
+
+[vars]
+NODE_VERSION = "20"
+PNPM_VERSION = "9"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mailer-dev"
+database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
