@@ -10,10 +10,10 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "0.4.11",
-    "@cloudflare/workers-types": "^4.20240620.0",
-    "typescript": "^5.5.2",
+    "@cloudflare/workers-types": "4.20240620.0",
+    "typescript": "5.5.3",
     "vitest": "1.6.0",
-    "wrangler": "^3.60.3"
+    "wrangler": "3.64.0"
   },
   "dependencies": {
     "h3-nightly": "1.12.1-1720314224.a15b8de"
