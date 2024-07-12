@@ -19,5 +19,6 @@
 	},
 	"npm": {
 		"commitMessageTopic": "{{prettyDepType}} {{depName}}"
-	}
+	},
+	"ignoreDeps": ["vitest"]
 }

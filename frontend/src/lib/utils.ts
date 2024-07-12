@@ -18,10 +18,7 @@ export function sha256(value: string): Promise<ArrayBuffer> {
 	return crypto.subtle.digest('SHA-256', buffer);
 }
 
-export async function hmacSha256(
-	key: string | ArrayBuffer,
-	value: string
-): Promise<ArrayBuffer> {
+export async function hmacSha256(key: string | ArrayBuffer, value: string): Promise<ArrayBuffer> {
 	const cryptoKey = await crypto.subtle.importKey(
 		'raw',
 		typeof key === 'string' ? stringToArrayBuffer(key) : key,

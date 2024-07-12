@@ -1,15 +1,16 @@
 {
-  "engines": {
-    "node": "20",
-    "pnpm": "9"
-  },
-  "scripts": {
-    "lint": "prettier --check .",
-    "format": "prettier --write ."
-  },
-  "devDependencies": {
-    "prettier-plugin-organize-imports": "4.0.0",
-    "prettier-plugin-svelte": "3.2.5",
-    "prettier-plugin-tailwindcss": "0.6.5"
-  }
+	"type": "module",
+	"engines": {
+		"node": "20",
+		"pnpm": "9"
+	},
+	"scripts": {
+		"lint": "prettier --check .",
+		"format": "prettier --write ."
+	},
+	"devDependencies": {
+		"prettier-plugin-organize-imports": "4.0.0",
+		"prettier-plugin-svelte": "3.2.5",
+		"prettier-plugin-tailwindcss": "0.6.5"
+	}
 }
