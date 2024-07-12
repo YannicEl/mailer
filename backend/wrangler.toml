@@ -1,7 +1,8 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "backend"
 main = "src/index.ts"
-compatibility_date = "2024-07-11"
+compatibility_date = "2024-07-12"
+compatibility_flags = ["nodejs_compat"]
 
 [placement]
 mode = "smart"

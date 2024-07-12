@@ -6,16 +6,23 @@
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"db:push": "drizzle-kit push",
+		"studio:local": "drizzle-kit studio",
+		"migrations:generate": "drizzle-kit generate",
+		"migrations:run": "drizzle-kit migrate"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.4.11",
 		"@cloudflare/workers-types": "4.20240620.0",
+		"better-sqlite3": "11.1.2",
+		"drizzle-kit": "0.23.0",
 		"typescript": "5.5.3",
 		"vitest": "1.5.0",
 		"wrangler": "3.64.0"
 	},
 	"dependencies": {
-		"h3-nightly": "1.12.1-1720314224.a15b8de"
+		"drizzle-orm": "0.32.0",
+		"h3-nightly": "2.0.0-1720699896.4a34c89"
 	}
 }
