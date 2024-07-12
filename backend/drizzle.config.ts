@@ -7,6 +7,6 @@ export default defineConfig({
 	verbose: true,
 	strict: true,
 	dbCredentials: {
-		url: './.wrangler/state/v3/d1/miniflare-D1DatabaseObject/0793164f3fd595b5e9dc144561732b42bb3b8c9d3d6d8a57e69f2753f2849d3d.sqlite',
+		url: './.wrangler/state/v3/d1/miniflare-D1DatabaseObject/459595b4ac61c3b0406f203582db5ea67f73df925030d4e8bbd4c08baa9a841c.sqlite',
 	},
 });

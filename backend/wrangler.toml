@@ -14,4 +14,4 @@ PNPM_VERSION = "9"
 [[d1_databases]]
 binding = "DB"
 database_name = "mailer-dev"
-database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+database_id = "c3351312-2e11-41bf-b3a3-38e251968ec6"
