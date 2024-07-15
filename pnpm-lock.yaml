@@ -20,12 +20,18 @@ importers:
 
   backend:
     dependencies:
+      '@yannicel/typed-api':
+        specifier: ^0.1.4
+        version: 0.1.4(zod@3.23.8)
       drizzle-orm:
         specifier: 0.32.0
         version: 0.32.0(@cloudflare/workers-types@4.20240712.0)(better-sqlite3@11.1.2)
       h3-nightly:
         specifier: 2.0.0-1720699896.4a34c89
         version: 2.0.0-1720699896.4a34c89(crossws@0.2.4)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@cloudflare/vitest-pool-workers':
         specifier: 0.4.11
@@ -1150,6 +1156,12 @@ packages:
 
   '@vitest/utils@2.0.2':
     resolution: {integrity: sha512-pxCY1v7kmOCWYWjzc0zfjGTA3Wmn8PKnlPvSrsA643P1NHl1fOyXj2Q9SaNlrlFE+ivCsxM80Ov3AR82RmHCWQ==}
+
+  '@yannicel/typed-api@0.1.4':
+    resolution: {integrity: sha512-QJxhqYklVOkBY627ifY1ga4pc0LOPKGcl5ylTO1Cl9uio/sFsiawMvC+Eo28d/bZ+3PqTErpcdEZIJF2eHzlSQ==}
+    engines: {node: '20', pnpm: '9'}
+    peerDependencies:
+      zod: '3'
 
   acorn-typescript@1.4.13:
     resolution: {integrity: sha512-xsc9Xv0xlVfwp2o7sQ+GCQ1PgbkdcpWdTzrwXxO3xDMTAywVS3oXVOcOHuRjAPkS4P9b+yc/qNF15460v+jp4Q==}
@@ -3438,6 +3450,10 @@ snapshots:
       estree-walker: 3.0.3
       loupe: 3.1.1
       tinyrainbow: 1.2.0
+
+  '@yannicel/typed-api@0.1.4(zod@3.23.8)':
+    dependencies:
+      zod: 3.23.8
 
   acorn-typescript@1.4.13(acorn@8.12.1):
     dependencies:
