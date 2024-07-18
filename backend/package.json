@@ -13,18 +13,18 @@
 		"migrations:run": "drizzle-kit migrate"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "0.4.11",
+		"@cloudflare/vitest-pool-workers": "0.4.12",
 		"@cloudflare/workers-types": "4.20240712.0",
 		"better-sqlite3": "11.1.2",
 		"drizzle-kit": "0.23.0",
 		"typescript": "5.5.3",
 		"vitest": "1.5.0",
-		"wrangler": "3.64.0"
+		"wrangler": "3.65.0"
 	},
 	"dependencies": {
 		"@yannicel/typed-api": "0.1.4",
 		"drizzle-orm": "0.32.0",
-		"h3-nightly": "2.0.0-1720699896.4a34c89",
+		"h3-nightly": "2.0.0-1721181167.4a34c89",
 		"zod": "3.23.8"
 	}
 }
