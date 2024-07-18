@@ -10,7 +10,7 @@
 	},
 	"devDependencies": {
 		"prettier-plugin-organize-imports": "4.0.0",
-		"prettier-plugin-svelte": "3.2.5",
+		"prettier-plugin-svelte": "3.2.6",
 		"prettier-plugin-tailwindcss": "0.6.5"
 	}
 }

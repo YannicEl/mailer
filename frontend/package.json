@@ -12,15 +12,15 @@
 		"@sveltejs/adapter-cloudflare": "4.6.1",
 		"@sveltejs/kit": "2.5.18",
 		"@sveltejs/vite-plugin-svelte": "3.1.1",
-		"svelte": "5.0.0-next.185",
+		"svelte": "5.0.0-next.190",
 		"svelte-check": "3.8.4",
 		"tslib": "2.6.3",
 		"typescript": "5.5.3",
-		"unocss": "0.61.4",
+		"unocss": "0.61.5",
 		"vite": "5.3.4",
-		"wrangler": "3.64.0"
+		"wrangler": "3.65.0"
 	},
 	"dependencies": {
-		"@unocss/reset": "0.61.4"
+		"@unocss/reset": "0.61.5"
 	}
 }
