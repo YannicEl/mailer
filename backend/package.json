@@ -14,7 +14,7 @@
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.4.12",
-		"@cloudflare/workers-types": "4.20240712.0",
+		"@cloudflare/workers-types": "4.20240718.0",
 		"better-sqlite3": "11.1.2",
 		"drizzle-kit": "0.23.0",
 		"typescript": "5.5.3",
@@ -24,7 +24,7 @@
 	"dependencies": {
 		"@yannicel/typed-api": "0.1.4",
 		"drizzle-orm": "0.32.0",
-		"h3-nightly": "2.0.0-1721181167.4a34c89",
+		"h3-nightly": "2.0.0-1721341234.374e489",
 		"zod": "3.23.8"
 	}
 }
