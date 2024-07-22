@@ -4,7 +4,7 @@ import deleteDomain from './routes/domains/delete';
 import sendEmail from './routes/emails/send';
 
 const app = createH3({ debug: true });
-app.post('/domains', addDomain);
+app.get('/domains', addDomain);
 app.delete('/domains', deleteDomain);
 app.delete('/email', sendEmail);
 app.all('*', (req) => new Response('Not found', { status: 404 }));

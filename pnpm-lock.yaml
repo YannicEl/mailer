@@ -21,8 +21,8 @@ importers:
   backend:
     dependencies:
       '@yannicel/typed-api':
-        specifier: 0.2.1
-        version: 0.2.1(zod@3.23.8)
+        specifier: 0.2.7
+        version: 0.2.7(zod@3.23.8)
       drizzle-orm:
         specifier: 0.32.0
         version: 0.32.0(@cloudflare/workers-types@4.20240718.0)(better-sqlite3@11.1.2)
@@ -1157,8 +1157,8 @@ packages:
   '@vitest/utils@2.0.2':
     resolution: {integrity: sha512-pxCY1v7kmOCWYWjzc0zfjGTA3Wmn8PKnlPvSrsA643P1NHl1fOyXj2Q9SaNlrlFE+ivCsxM80Ov3AR82RmHCWQ==}
 
-  '@yannicel/typed-api@0.2.1':
-    resolution: {integrity: sha512-WWRM0FSFcKNQWtNz9LUM3psxQ+NmSCXtTT0p0SkGqggIerk85KnDU6UPrIskATLsHaEhBq/kiB898+4RVvQ5rg==}
+  '@yannicel/typed-api@0.2.7':
+    resolution: {integrity: sha512-daguI94VdcTQLGM0opOjnj6G2HV0/kvV80Rs1doZjgVhG2ddm3ecf/ETu8ajGwXf9bdlJ+SaCREwLCzQzAjmkg==}
     engines: {node: '20', pnpm: '9'}
     peerDependencies:
       zod: '3'
@@ -3476,7 +3476,7 @@ snapshots:
       loupe: 3.1.1
       tinyrainbow: 1.2.0
 
-  '@yannicel/typed-api@0.2.1(zod@3.23.8)':
+  '@yannicel/typed-api@0.2.7(zod@3.23.8)':
     dependencies:
       zod: 3.23.8
 
