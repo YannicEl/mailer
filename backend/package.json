@@ -22,7 +22,7 @@
 		"wrangler": "3.66.0"
 	},
 	"dependencies": {
-		"@yannicel/typed-api": "0.2.7",
+		"@yannicel/typed-api": "0.2.8",
 		"drizzle-orm": "0.32.1",
 		"h3-nightly": "2.0.0-1721834829.5ca45e1",
 		"zod": "3.23.8"
