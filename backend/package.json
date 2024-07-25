@@ -1,27 +1,22 @@
 {
-	"name": "backend",
+	"name": "@mailer/backend",
 	"type": "module",
 	"scripts": {
 		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
+		"dev": "wrangler dev --persist-to=../db/local-db",
 		"start": "wrangler dev",
 		"test": "vitest",
-		"cf-typegen": "wrangler types",
-		"db:push": "drizzle-kit push",
-		"studio:local": "drizzle-kit studio",
-		"migrations:generate": "drizzle-kit generate",
-		"migrations:run": "drizzle-kit migrate"
+		"cf-typegen": "wrangler types"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.4.14",
 		"@cloudflare/workers-types": "4.20240722.0",
-		"better-sqlite3": "11.1.2",
-		"drizzle-kit": "0.23.0",
 		"typescript": "5.5.4",
 		"vitest": "1.5.0",
 		"wrangler": "3.66.0"
 	},
 	"dependencies": {
+		"@mailer/db": "workspace:",
 		"@yannicel/typed-api": "0.2.8",
 		"drizzle-orm": "0.32.1",
 		"h3-nightly": "2.0.0-1721834829.5ca45e1",

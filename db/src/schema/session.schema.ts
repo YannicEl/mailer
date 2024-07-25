@@ -7,6 +7,6 @@ export const sessionTable = sqliteTable('session', {
 	userId: integer('user_id')
 		.notNull()
 		.references(() => userTable.id),
-	expiresAt: integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
+	expiresAt: integer('expires_at').notNull(),
 	...timestamps,
 });

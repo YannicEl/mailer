@@ -1,7 +1,7 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "mailer-backend"
 main = "src/index.ts"
-compatibility_date = "2024-07-22"
+compatibility_date = "2024-07-25"
 compatibility_flags = ["nodejs_compat"]
 
 [placement]
@@ -15,4 +15,4 @@ PNPM_VERSION = "9"
 [[d1_databases]]
 binding = "DB"
 database_name = "mailer-dev"
-database_id = "c3351312-2e11-41bf-b3a3-38e251968ec6"
+database_id = "01c3ff83-fa8a-432f-aee6-e437bdb2a8d3"

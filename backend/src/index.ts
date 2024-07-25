@@ -2,8 +2,10 @@ import { createH3 } from 'h3-nightly';
 import addDomain from './routes/domains/add';
 import deleteDomain from './routes/domains/delete';
 import sendEmail from './routes/emails/send';
+import test from './routes/test';
 
 const app = createH3({ debug: true });
+app.get('/test', test);
 app.get('/domains', addDomain);
 app.delete('/domains', deleteDomain);
 app.delete('/email', sendEmail);

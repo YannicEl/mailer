@@ -36,14 +36,14 @@ export function getSESClient(event: H3Event) {
 						responseSchema: createIdentity.responseSchema,
 					},
 					get: {
-						path: '/',
+						path: '/:email_identity',
 						requestInit: {
 							method: 'GET',
 						},
 						responseSchema: getIdentity.responseSchema,
 					},
 					delete: {
-						path: '/',
+						path: '/:email_identity',
 						requestInit: {
 							method: 'DELETE',
 						},

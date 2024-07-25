@@ -12,7 +12,9 @@ const config = {
 			platformProxy: {
 				configPath: 'wrangler.toml',
 				environment: 'preview',
-				persist: true,
+				persist: {
+					path: '../db/local-db/v3',
+				},
 			},
 		}),
 	},

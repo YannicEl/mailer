@@ -1,12 +1,13 @@
 {
-	"name": "frontend",
+	"name": "@mailer/frontend",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev --port 3000",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"cf-typegen": "wrangler types --env preview && move worker-configuration.d.ts src/"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-cloudflare": "4.7.0",
@@ -21,6 +22,12 @@
 		"wrangler": "3.66.0"
 	},
 	"dependencies": {
-		"@unocss/reset": "0.61.5"
+		"@lucia-auth/adapter-drizzle": "1.0.7",
+		"@mailer/db": "workspace:",
+		"@unocss/reset": "0.61.5",
+		"@yannicel/typed-api": "0.2.8",
+		"drizzle-orm": "0.32.1",
+		"lucia": "3.2.0",
+		"zod": "3.23.8"
 	}
 }
