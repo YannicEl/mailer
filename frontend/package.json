@@ -19,7 +19,7 @@
 		"typescript": "5.5.4",
 		"unocss": "0.61.5",
 		"vite": "5.3.5",
-		"wrangler": "3.67.0"
+		"wrangler": "3.67.1"
 	},
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "1.0.7",
