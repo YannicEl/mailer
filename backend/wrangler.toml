@@ -1,18 +1,33 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "mailer-backend"
 main = "src/index.ts"
 compatibility_date = "2024-07-25"
 compatibility_flags = ["nodejs_compat"]
 
+[env.dev]
+name = "mailer_backend_dev"
+
+[env.prod]
+name = "mailer_backend_prod"
+
 [placement]
 mode = "smart"
 
-[vars]
+[env.dev.vars]
 AWS_REGION = "eu-central-1"
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
 
-[[d1_databases]]
+[env.prod.vars]
+AWS_REGION = "eu-central-1"
+NODE_VERSION = "20"
+PNPM_VERSION = "9"
+
+[[env.dev.d1_databases]]
 binding = "DB"
 database_name = "mailer-dev"
 database_id = "01c3ff83-fa8a-432f-aee6-e437bdb2a8d3"
+
+[[env.prod.d1_databases]]
+binding = "DB"
+database_name = "mailer-prod"
+database_id = "84f04dd9-8f7c-4463-be83-64782df4139f"

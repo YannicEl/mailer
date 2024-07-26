@@ -10,6 +10,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.db = getDb(DB);
 
 	const lucia = getLucia(event.locals.db);
+	event.locals.lucia = lucia;
 
 	const sessionId = event.cookies.get(lucia.sessionCookieName);
 	if (!sessionId) {

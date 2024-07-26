@@ -2,11 +2,12 @@
 	"name": "@mailer/backend",
 	"type": "module",
 	"scripts": {
-		"deploy": "wrangler deploy",
 		"dev": "wrangler dev --persist-to=../db/local-db",
-		"start": "wrangler dev",
-		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"cf-typegen": "wrangler types --env dev",
+		"deploy:dev": "wrangler deploy --env dev",
+		"deploy:prod": "wrangler deploy --env prod"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.4.15",

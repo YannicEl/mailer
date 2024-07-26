@@ -3,6 +3,7 @@ import { H3Event } from 'h3-nightly';
 import { signWithAwsV4 } from '../aws';
 import { createIdentity } from './schemas/createIdentity';
 import { getIdentity } from './schemas/getIdentity';
+import { sendEmail } from './schemas/sendEmail';
 
 export function getSESClient(event: H3Event) {
 	const env = event.context.env as Env;
@@ -54,7 +55,12 @@ export function getSESClient(event: H3Event) {
 				path: '/',
 				endpoints: {
 					send: {
-						path: '/',
+						path: '/outbound-emails',
+						requestInit: {
+							method: 'POST',
+						},
+						requestSchema: sendEmail.requestSchema,
+						responseSchema: sendEmail.responseSchema,
 					},
 				},
 			},

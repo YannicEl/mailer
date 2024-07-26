@@ -1,6 +1,7 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import { drizzle, type DrizzleD1Database } from 'drizzle-orm/d1';
 import { apiKeyTable } from './schema/apiKey.schema';
+import { emailVerificationCodeTable } from './schema/emailVerifictationCode.schema';
 import { sessionTable } from './schema/session.schema';
 import { userTable } from './schema/user.schema';
 
@@ -8,6 +9,7 @@ export const schema = {
 	apiKey: apiKeyTable,
 	session: sessionTable,
 	user: userTable,
+	emailVerificationCode: emailVerificationCodeTable,
 };
 
 export type DB = DrizzleD1Database<typeof schema>;

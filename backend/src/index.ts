@@ -8,7 +8,7 @@ const app = createH3({ debug: true });
 app.get('/test', test);
 app.get('/domains', addDomain);
 app.delete('/domains', deleteDomain);
-app.delete('/email', sendEmail);
+app.post('/emails/send', sendEmail);
 app.all('*', (req) => new Response('Not found', { status: 404 }));
 
 export default {

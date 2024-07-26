@@ -18,6 +18,12 @@ export function getLucia(db: DB) {
 				secure: !dev,
 			},
 		},
+		getUserAttributes: ({ email, email_verified }) => {
+			return {
+				email,
+				emailVerified: email_verified,
+			};
+		},
 	});
 
 	return lucia;
@@ -27,5 +33,9 @@ declare module 'lucia' {
 	interface Register {
 		Lucia: ReturnType<typeof getLucia>;
 		UserId: number;
+		DatabaseUserAttributes: {
+			email: string;
+			email_verified: boolean;
+		};
 	}
 }

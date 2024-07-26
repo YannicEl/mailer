@@ -28,6 +28,7 @@
 		"@yannicel/typed-api": "0.2.8",
 		"drizzle-orm": "0.32.1",
 		"lucia": "3.2.0",
+		"oslo": "1.2.1",
 		"zod": "3.23.8"
 	}
 }

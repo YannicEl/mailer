@@ -9,6 +9,7 @@ declare global {
 			db: DB;
 			user: import('lucia').User | null;
 			session: import('lucia').Session | null;
+			lucia: import('lucia');
 		}
 		// interface PageData {}
 		// interface PageState {}
