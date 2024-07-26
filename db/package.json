@@ -10,11 +10,11 @@
 		"db:migrate:prod": "drizzle-kit generate && drizzle-kit migrate -- --prod"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "4.20240722.0",
+		"@cloudflare/workers-types": "4.20240725.0",
 		"better-sqlite3": "11.1.2",
 		"dotenv": "16.4.5",
 		"drizzle-kit": "0.23.0",
-		"wrangler": "3.66.0"
+		"wrangler": "3.67.0"
 	},
 	"dependencies": {
 		"drizzle-orm": "0.32.1"

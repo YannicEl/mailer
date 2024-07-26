@@ -9,17 +9,17 @@
 		"cf-typegen": "wrangler types"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "0.4.14",
-		"@cloudflare/workers-types": "4.20240722.0",
+		"@cloudflare/vitest-pool-workers": "0.4.15",
+		"@cloudflare/workers-types": "4.20240725.0",
 		"typescript": "5.5.4",
 		"vitest": "1.5.0",
-		"wrangler": "3.66.0"
+		"wrangler": "3.67.0"
 	},
 	"dependencies": {
 		"@mailer/db": "workspace:",
 		"@yannicel/typed-api": "0.2.8",
 		"drizzle-orm": "0.32.1",
-		"h3-nightly": "2.0.0-1721834829.5ca45e1",
+		"h3-nightly": "2.0.0-1721905439.b337fe7",
 		"zod": "3.23.8"
 	}
 }
