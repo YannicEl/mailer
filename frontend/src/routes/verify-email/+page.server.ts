@@ -1,24 +1,30 @@
 import { validateFormData } from '$lib/server/validation';
+import type { DB } from '@mailer/db';
 import { schema as tables } from '@mailer/db';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
+import { eq } from 'drizzle-orm';
+import type { User } from 'lucia';
+import { isWithinExpirationDate } from 'oslo';
 import { z } from 'zod';
 
 const schema = z.object({
-	email: z.string().email(),
+	verificationCode: z.string(),
 });
 
+export const load = async ({ locals: { user } }) => {
+	return { email: user?.email };
+};
+
 export const actions = {
-	default: async ({ request, cookies, locals: { db, lucia } }) => {
+	default: async ({ request, cookies, locals: { db, user, lucia } }) => {
 		const data = await validateFormData(schema, request);
+		if (!user) return error(401, 'Unauthorized');
 
-		const [user] = await db
-			.insert(tables.user)
-			.values({
-				email: data.email,
-			})
-			.returning();
+		const validCode = await verifyVerificationCode(db, user, data.verificationCode);
+		if (!validCode) return error(401, 'Unauthorized');
 
-		console.log(user);
+		await lucia.invalidateUserSessions(user.id);
+		await db.update(tables.user).set({ emailVerified: true }).where(eq(tables.user.id, user.id));
 
 		const session = await lucia.createSession(user.id, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
@@ -31,3 +37,24 @@ export const actions = {
 		redirect(302, '/');
 	},
 };
+
+async function verifyVerificationCode(db: DB, user: User, code: string): Promise<boolean> {
+	const databaseCode = await db.query.emailVerificationCode.findFirst({
+		where: eq(tables.emailVerificationCode.code, code),
+	});
+
+	if (!databaseCode || databaseCode.code !== code) return false;
+
+	await db
+		.delete(tables.emailVerificationCode)
+		.where(eq(tables.emailVerificationCode.id, databaseCode.id));
+
+	if (!isWithinExpirationDate(databaseCode.expiresAt)) {
+		console.log('Code expired');
+		return false;
+	}
+
+	if (databaseCode.email !== user.email) return false;
+
+	return true;
+}

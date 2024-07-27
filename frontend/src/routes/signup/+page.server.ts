@@ -2,6 +2,7 @@ import { env } from '$env/dynamic/public';
 import { validateFormData } from '$lib/server/validation';
 import { schema as tables } from '@mailer/db';
 import { redirect } from '@sveltejs/kit';
+import { eq } from 'drizzle-orm';
 import { createDate, TimeSpan } from 'oslo';
 import { alphabet, generateRandomString } from 'oslo/crypto';
 import { z } from 'zod';
@@ -20,6 +21,10 @@ export const actions = {
 				email: data.email,
 			})
 			.returning();
+
+		await db
+			.delete(tables.emailVerificationCode)
+			.where(eq(tables.emailVerificationCode.userId, user.id));
 
 		const verifictationCode = generateRandomString(8, alphabet('0-9'));
 		await db.insert(tables.emailVerificationCode).values({
@@ -47,6 +52,6 @@ export const actions = {
 			...sessionCookie.attributes,
 		});
 
-		redirect(302, '/');
+		redirect(302, '/verify-email');
 	},
 };

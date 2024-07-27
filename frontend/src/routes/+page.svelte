@@ -5,7 +5,9 @@
 	let { data }: Props = $props();
 </script>
 
-<h1>Users</h1>
+<div>Logged in user: {data.user?.email}</div>
+
+<div>DB Users</div>
 
 <table>
 	<thead>
