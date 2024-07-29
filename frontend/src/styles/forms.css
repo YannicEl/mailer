@@ -1,2 +1,7 @@
 label {
+	--apply: flex flex-col gap-0.5 text-sm font-semibold;
+}
+
+label input {
+	--apply: border-1 w-full appearance-none rounded-sm border-black bg-white px-2 py-1 text-base;
 }
