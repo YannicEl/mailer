@@ -1,9 +1,8 @@
 import { env } from '$env/dynamic/public';
 import { setSessionCookie } from '$lib/server/auth';
+import { useDb } from '$lib/server/db.js';
 import { validateFormData } from '$lib/server/validation';
-import { schema as tables } from '@mailer/db';
 import { redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
 import { generateIdFromEntropySize } from 'lucia';
 import { createDate, TimeSpan } from 'oslo';
 import { alphabet, generateRandomString } from 'oslo/crypto';
@@ -14,23 +13,20 @@ const schema = z.object({
 });
 
 export const actions = {
-	default: async ({ request, cookies, locals: { db, lucia } }) => {
+	default: async ({ request, cookies, locals: { lucia } }) => {
 		const data = await validateFormData(schema, request);
 
-		const [user] = await db
-			.insert(tables.users)
-			.values({
-				id: generateIdFromEntropySize(16),
-				email: data.email,
-			})
-			.returning();
+		const db = useDb();
 
-		await db
-			.delete(tables.emailVerificationCodes)
-			.where(eq(tables.emailVerificationCodes.userId, user.id));
+		const user = await db.users.insert({
+			id: generateIdFromEntropySize(16),
+			email: data.email,
+		});
+
+		await db.emailVerificationCodes.delete((table, { eq }) => eq(table.userId, user.id));
 
 		const verifictationCode = generateRandomString(8, alphabet('0-9'));
-		await db.insert(tables.emailVerificationCodes).values({
+		await db.emailVerificationCodes.insert({
 			userId: user.id,
 			code: verifictationCode,
 			email: user.email,
@@ -39,6 +35,10 @@ export const actions = {
 
 		await fetch(`${env.PUBLIC_BACKEND_URL}/emails/send`, {
 			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer key`,
+			},
 			body: JSON.stringify({
 				to: user.email,
 				from: 'me@yannic.at',

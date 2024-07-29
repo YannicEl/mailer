@@ -13,7 +13,7 @@ export const sessions = sqliteTable('sessions', {
 });
 
 export const sessionsRelations = relations(sessions, ({ one }) => ({
-	author: one(users, {
+	user: one(users, {
 		fields: [sessions.userId],
 		references: [users.id],
 	}),

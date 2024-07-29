@@ -1,11 +1,15 @@
 import { getLucia, setSessionCookie } from '$lib/server/auth';
 import { context } from '$lib/server/context';
+import { useDb } from '$lib/server/db';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	context.event = event;
 
-	const lucia = getLucia(event.locals.db);
+	context.db = useDb();
+	event.locals.db = context.db;
+
+	const lucia = getLucia(context.db.drizzle);
 	event.locals.lucia = lucia;
 
 	const sessionId = event.cookies.get(lucia.sessionCookieName);

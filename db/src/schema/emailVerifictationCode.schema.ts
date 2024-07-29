@@ -15,7 +15,7 @@ export const emailVerificationCodes = sqliteTable('email_verification_codes', {
 });
 
 export const emailVerificationCodesRelations = relations(emailVerificationCodes, ({ one }) => ({
-	author: one(users, {
+	user: one(users, {
 		fields: [emailVerificationCodes.userId],
 		references: [users.id],
 	}),

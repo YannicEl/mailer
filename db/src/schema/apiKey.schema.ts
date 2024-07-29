@@ -13,7 +13,7 @@ export const apiKeys = sqliteTable('api_keys', {
 });
 
 export const apiKeysRelationRelations = relations(apiKeys, ({ one }) => ({
-	author: one(users, {
+	user: one(users, {
 		fields: [apiKeys.userId],
 		references: [users.id],
 	}),

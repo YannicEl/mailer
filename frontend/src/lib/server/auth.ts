@@ -1,7 +1,7 @@
 import { dev } from '$app/environment';
 import { useEvent } from '$lib/server/context';
 import { DrizzleSQLiteAdapter } from '@lucia-auth/adapter-drizzle';
-import type { DB } from '@mailer/db';
+import type { DrizzleDB } from '@mailer/db';
 import { schema } from '@mailer/db';
 import type { Cookies } from '@sveltejs/kit';
 import type { Cookie, Session, User } from 'lucia';
@@ -17,7 +17,7 @@ declare module 'lucia' {
 	}
 }
 
-export function getLucia(db: DB) {
+export function getLucia(db: DrizzleDB) {
 	const adapter = new DrizzleSQLiteAdapter(db, schema.sessions, schema.users);
 	const lucia = new Lucia(adapter, {
 		sessionCookie: {

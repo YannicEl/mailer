@@ -1,5 +1,5 @@
+import { useDb } from '$lib/server/db.js';
 import { validateFormData } from '$lib/server/validation';
-import type { DB } from '@mailer/db';
 import { schema as tables } from '@mailer/db';
 import { error, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
@@ -20,11 +20,11 @@ export const actions = {
 		const data = await validateFormData(schema, request);
 		if (!user) return error(401, 'Unauthorized');
 
-		const validCode = await verifyVerificationCode(db, user, data.verificationCode);
+		const validCode = await verifyVerificationCode(user, data.verificationCode);
 		if (!validCode) return error(401, 'Unauthorized');
 
 		await lucia.invalidateUserSessions(user.id);
-		await db.update(tables.users).set({ emailVerified: true }).where(eq(tables.users.id, user.id));
+		await db.users.update({ emailVerified: true }, (table, { eq }) => eq(table.id, user.id));
 
 		const session = await lucia.createSession(user.id, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
@@ -38,23 +38,34 @@ export const actions = {
 	},
 };
 
-async function verifyVerificationCode(db: DB, user: User, code: string): Promise<boolean> {
-	const databaseCode = await db.query.emailVerificationCodes.findFirst({
+async function verifyVerificationCode(user: User, code: string): Promise<boolean> {
+	const db = useDb();
+
+	const databaseCode = await db.emailVerificationCodes.query.findFirst({
 		where: eq(tables.emailVerificationCodes.code, code),
 	});
 
-	if (!databaseCode || databaseCode.code !== code) return false;
+	if (!databaseCode) {
+		console.log('Code not found');
+		return false;
+	}
 
-	await db
-		.delete(tables.emailVerificationCodes)
-		.where(eq(tables.emailVerificationCodes.id, databaseCode.id));
+	if (databaseCode.code !== code) {
+		console.log('Code doesnt match');
+		return false;
+	}
+
+	await db.emailVerificationCodes.delete((table, { eq }) => eq(table.id, databaseCode.id));
 
 	if (!isWithinExpirationDate(databaseCode.expiresAt)) {
 		console.log('Code expired');
 		return false;
 	}
 
-	if (databaseCode.email !== user.email) return false;
+	if (databaseCode.email !== user.email) {
+		console.log('Email doesnt match');
+		return false;
+	}
 
 	return true;
 }

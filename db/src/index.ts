@@ -1,19 +1,13 @@
 import type { D1Database } from '@cloudflare/workers-types';
-import { drizzle, type DrizzleD1Database } from 'drizzle-orm/d1';
-import * as apiKeys from './schema/apiKey.schema';
-import * as emailVerificationCodes from './schema/emailVerifictationCode.schema';
-import * as sessions from './schema/session.schema';
-import * as users from './schema/user.schema';
+import { drizzle } from 'drizzle-orm/d1';
+import { defineDbClient } from './client';
+import { schema } from './schema';
 
-export const schema = {
-	...users,
-	...sessions,
-	...emailVerificationCodes,
-	...apiKeys,
-};
-
-export type DB = DrizzleD1Database<typeof schema>;
+export type DB = ReturnType<typeof getDb>;
 export function getDb(D1: D1Database) {
 	const db = drizzle(D1, { schema });
-	return db;
+	return defineDbClient({ db, schema });
 }
+
+export { schema } from './schema';
+export type { DrizzleDB } from './schema';
