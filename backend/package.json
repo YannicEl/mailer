@@ -2,7 +2,7 @@
 	"name": "@mailer/backend",
 	"type": "module",
 	"scripts": {
-		"dev": "wrangler dev --persist-to=../db/local-db",
+		"dev": "wrangler dev --env dev --persist-to=../db/local-db",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"cf-typegen": "wrangler types --env dev",

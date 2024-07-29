@@ -23,11 +23,11 @@ export const actions = {
 			.returning();
 
 		await db
-			.delete(tables.emailVerificationCode)
-			.where(eq(tables.emailVerificationCode.userId, user.id));
+			.delete(tables.emailVerificationCodes)
+			.where(eq(tables.emailVerificationCodes.userId, user.id));
 
 		const verifictationCode = generateRandomString(8, alphabet('0-9'));
-		await db.insert(tables.emailVerificationCode).values({
+		await db.insert(tables.emailVerificationCodes).values({
 			userId: user.id,
 			code: verifictationCode,
 			email: user.email,

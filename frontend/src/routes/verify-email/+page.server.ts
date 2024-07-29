@@ -24,7 +24,7 @@ export const actions = {
 		if (!validCode) return error(401, 'Unauthorized');
 
 		await lucia.invalidateUserSessions(user.id);
-		await db.update(tables.user).set({ emailVerified: true }).where(eq(tables.user.id, user.id));
+		await db.update(tables.users).set({ emailVerified: true }).where(eq(tables.users.id, user.id));
 
 		const session = await lucia.createSession(user.id, {});
 		const sessionCookie = lucia.createSessionCookie(session.id);
@@ -39,15 +39,15 @@ export const actions = {
 };
 
 async function verifyVerificationCode(db: DB, user: User, code: string): Promise<boolean> {
-	const databaseCode = await db.query.emailVerificationCode.findFirst({
-		where: eq(tables.emailVerificationCode.code, code),
+	const databaseCode = await db.query.emailVerificationCodes.findFirst({
+		where: eq(tables.emailVerificationCodes.code, code),
 	});
 
 	if (!databaseCode || databaseCode.code !== code) return false;
 
 	await db
-		.delete(tables.emailVerificationCode)
-		.where(eq(tables.emailVerificationCode.id, databaseCode.id));
+		.delete(tables.emailVerificationCodes)
+		.where(eq(tables.emailVerificationCodes.id, databaseCode.id));
 
 	if (!isWithinExpirationDate(databaseCode.expiresAt)) {
 		console.log('Code expired');

@@ -1,6 +1,18 @@
-import type { H3Event } from 'h3-nightly';
+import { getDb } from '@mailer/db';
+import { defineEventHandler } from 'h3-nightly';
 
-export async function validateToken(event: H3Event): Promise<void> {
-	const token = event.request.headers.get('Authorization');
+export const authMiddleware = defineEventHandler(async (event) => {
+	const token = event.request.headers.get('Authorization') ?? 'key';
 	if (!token) return new Response('Unauthorized', { status: 401 });
-}
+
+	const db = getDb(event.context.env.DB);
+	const user = await db.query.users.findFirst({
+		with: {
+			apiKeys: {
+				where: (table, { eq }) => eq(table.key, token),
+			},
+		},
+	});
+
+	if (!user || !user.emailVerified) return new Response('Unauthorized', { status: 401 });
+});

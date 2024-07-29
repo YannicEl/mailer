@@ -3,8 +3,11 @@ import addDomain from './routes/domains/add';
 import deleteDomain from './routes/domains/delete';
 import sendEmail from './routes/emails/send';
 import test from './routes/test';
+import { authMiddleware } from './utils/auth';
 
 const app = createH3({ debug: true });
+app.use(authMiddleware);
+
 app.get('/test', test);
 app.get('/domains', addDomain);
 app.delete('/domains', deleteDomain);
