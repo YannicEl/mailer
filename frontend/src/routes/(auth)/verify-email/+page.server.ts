@@ -1,8 +1,6 @@
 import { useDb } from '$lib/server/db.js';
 import { validateFormData } from '$lib/server/validation';
-import { schema as tables } from '@mailer/db';
 import { error, redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
 import type { User } from 'lucia';
 import { isWithinExpirationDate } from 'oslo';
 import { z } from 'zod';
@@ -12,15 +10,19 @@ const schema = z.object({
 });
 
 export const load = async ({ locals: { user } }) => {
-	return { email: user?.email };
+	if (!user) return redirect(302, '/login');
+	if (user.emailVerified) redirect(302, '/app');
+
+	return { email: user.email };
 };
 
 export const actions = {
 	default: async ({ request, cookies, locals: { db, user, lucia } }) => {
-		const data = await validateFormData(schema, request);
+		const { verificationCode } = await validateFormData(schema, request);
+
 		if (!user) return error(401, 'Unauthorized');
 
-		const validCode = await verifyVerificationCode(user, data.verificationCode);
+		const validCode = await verifyVerificationCode(user, verificationCode);
 		if (!validCode) return error(401, 'Unauthorized');
 
 		await lucia.invalidateUserSessions(user.id);
@@ -34,7 +36,7 @@ export const actions = {
 			...sessionCookie.attributes,
 		});
 
-		redirect(302, '/');
+		redirect(302, '/app');
 	},
 };
 
@@ -42,7 +44,7 @@ async function verifyVerificationCode(user: User, code: string): Promise<boolean
 	const db = useDb();
 
 	const databaseCode = await db.emailVerificationCodes.query.findFirst({
-		where: eq(tables.emailVerificationCodes.code, code),
+		where: (table, { eq }) => eq(table.code, code),
 	});
 
 	if (!databaseCode) {
