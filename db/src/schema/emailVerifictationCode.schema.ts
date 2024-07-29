@@ -1,13 +1,13 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { users } from './user.schema.js';
-import { timestamps } from './utils.js';
+import { users } from './user.schema';
+import { timestamps } from './utils';
 
 export const emailVerificationCodes = sqliteTable('email_verification_codes', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
-	userId: integer('user_id')
-		.notNull()
-		.references(() => users.id),
+	userId: text('user_id')
+		.references(() => users.id)
+		.notNull(),
 	code: text('code').notNull(),
 	email: text('email').notNull(),
 	expiresAt: integer('expires_at', { mode: 'timestamp_ms' }).notNull(),

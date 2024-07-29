@@ -1,13 +1,9 @@
-import { getLucia } from '$lib/server/auth';
-import { getDb } from '$lib/server/db';
+import { getLucia, setSessionCookie } from '$lib/server/auth';
+import { context } from '$lib/server/context';
 import type { Handle } from '@sveltejs/kit';
-import { error } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	if (!event.platform?.env) error(500, 'Cloudflare bindings not found');
-
-	const { DB } = event.platform.env;
-	event.locals.db = getDb(DB);
+	context.event = event;
 
 	const lucia = getLucia(event.locals.db);
 	event.locals.lucia = lucia;
@@ -22,18 +18,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const { session, user } = await lucia.validateSession(sessionId);
 	if (session && session.fresh) {
 		const sessionCookie = lucia.createSessionCookie(session.id);
-		event.cookies.set(sessionCookie.name, sessionCookie.value, {
-			path: '.',
-			...sessionCookie.attributes,
-		});
+		setSessionCookie(event.cookies, sessionCookie);
 	}
 
 	if (!session) {
 		const sessionCookie = lucia.createBlankSessionCookie();
-		event.cookies.set(sessionCookie.name, sessionCookie.value, {
-			path: '.',
-			...sessionCookie.attributes,
-		});
+		setSessionCookie(event.cookies, sessionCookie);
 	}
 
 	event.locals.user = user;

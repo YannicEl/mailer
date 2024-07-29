@@ -1,9 +1,9 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import { drizzle, type DrizzleD1Database } from 'drizzle-orm/d1';
-import * as apiKeys from './schema/apiKey.schema.js';
-import * as emailVerificationCodes from './schema/emailVerifictationCode.schema.js';
-import * as sessions from './schema/session.schema.js';
-import * as users from './schema/user.schema.js';
+import * as apiKeys from './schema/apiKey.schema';
+import * as emailVerificationCodes from './schema/emailVerifictationCode.schema';
+import * as sessions from './schema/session.schema';
+import * as users from './schema/user.schema';
 
 export const schema = {
 	...users,

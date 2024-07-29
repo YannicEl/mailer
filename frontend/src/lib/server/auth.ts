@@ -1,16 +1,24 @@
 import { dev } from '$app/environment';
+import { useEvent } from '$lib/server/context';
 import { DrizzleSQLiteAdapter } from '@lucia-auth/adapter-drizzle';
 import type { DB } from '@mailer/db';
 import { schema } from '@mailer/db';
+import type { Cookies } from '@sveltejs/kit';
+import type { Cookie, Session, User } from 'lucia';
 import { Lucia } from 'lucia';
 
-export function getLuciaDbAdapter(db: DB): DrizzleSQLiteAdapter {
-	const adapter = new DrizzleSQLiteAdapter(db, schema.session, schema.user);
-	return adapter;
+declare module 'lucia' {
+	interface Register {
+		Lucia: ReturnType<typeof getLucia>;
+		DatabaseUserAttributes: {
+			email: string;
+			emailVerified: boolean;
+		};
+	}
 }
 
 export function getLucia(db: DB) {
-	const adapter = getLuciaDbAdapter(db);
+	const adapter = new DrizzleSQLiteAdapter(db, schema.sessions, schema.users);
 	const lucia = new Lucia(adapter, {
 		sessionCookie: {
 			attributes: {
@@ -18,10 +26,10 @@ export function getLucia(db: DB) {
 				secure: !dev,
 			},
 		},
-		getUserAttributes: ({ email, email_verified }) => {
+		getUserAttributes: ({ email, emailVerified }) => {
 			return {
 				email,
-				emailVerified: email_verified,
+				emailVerified,
 			};
 		},
 	});
@@ -29,13 +37,19 @@ export function getLucia(db: DB) {
 	return lucia;
 }
 
-declare module 'lucia' {
-	interface Register {
-		Lucia: ReturnType<typeof getLucia>;
-		UserId: number;
-		DatabaseUserAttributes: {
-			email: string;
-			email_verified: boolean;
-		};
-	}
+export function useUser(): User | null {
+	const event = useEvent();
+	return event.locals.user;
+}
+
+export function useSeassion(): Session | null {
+	const event = useEvent();
+	return event.locals.session;
+}
+
+export function setSessionCookie(cookies: Cookies, cookie: Cookie) {
+	cookies.set(cookie.name, cookie.value, {
+		path: '.',
+		...cookie.attributes,
+	});
 }

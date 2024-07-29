@@ -1,3 +1,4 @@
+import type { getLucia } from '$lib/server/auth';
 import type { DB } from '@mailer/db';
 
 // See https://kit.svelte.dev/docs/types#app
@@ -9,7 +10,7 @@ declare global {
 			db: DB;
 			user: import('lucia').User | null;
 			session: import('lucia').Session | null;
-			lucia: import('lucia');
+			lucia: ReturnType<typeof getLucia>;
 		}
 		// interface PageData {}
 		// interface PageState {}

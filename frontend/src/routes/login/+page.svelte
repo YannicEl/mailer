@@ -3,8 +3,6 @@
 
 	type Props = { data: PageData };
 	const { data }: Props = $props();
-
-	console.log(data);
 </script>
 
 <form>

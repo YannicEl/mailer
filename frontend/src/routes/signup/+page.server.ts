@@ -1,8 +1,10 @@
 import { env } from '$env/dynamic/public';
+import { setSessionCookie } from '$lib/server/auth';
 import { validateFormData } from '$lib/server/validation';
 import { schema as tables } from '@mailer/db';
 import { redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
+import { generateIdFromEntropySize } from 'lucia';
 import { createDate, TimeSpan } from 'oslo';
 import { alphabet, generateRandomString } from 'oslo/crypto';
 import { z } from 'zod';
@@ -16,8 +18,9 @@ export const actions = {
 		const data = await validateFormData(schema, request);
 
 		const [user] = await db
-			.insert(tables.user)
+			.insert(tables.users)
 			.values({
+				id: generateIdFromEntropySize(16),
 				email: data.email,
 			})
 			.returning();
@@ -45,12 +48,9 @@ export const actions = {
 		});
 
 		const session = await lucia.createSession(user.id, {});
-		const sessionCookie = lucia.createSessionCookie(session.id);
 
-		cookies.set(sessionCookie.name, sessionCookie.value, {
-			path: '.',
-			...sessionCookie.attributes,
-		});
+		const sessionCookie = lucia.createSessionCookie(session.id);
+		setSessionCookie(cookies, sessionCookie);
 
 		redirect(302, '/verify-email');
 	},
