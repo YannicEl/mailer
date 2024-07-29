@@ -1,5 +1,6 @@
 {
 	"name": "@mailer/db",
+	"type": "module",
 	"main": "src/index.ts",
 	"scripts": {
 		"db:studio:local": "drizzle-kit studio",
