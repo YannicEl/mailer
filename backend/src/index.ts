@@ -10,8 +10,7 @@ const app = createH3({ debug: true });
 
 app.use(
 	defineEventHandler(async (event) => {
-		const text = await event.request.text();
-		console.log(text);
+		console.log('Event:', event);
 	})
 );
 

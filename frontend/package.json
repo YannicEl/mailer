@@ -7,7 +7,9 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"cf-typegen": "wrangler types --env preview && move worker-configuration.d.ts src/"
+		"cf-typegen": "wrangler types --env preview && move worker-configuration.d.ts src/",
+		"deploy:dev": "pnpm run build && wrangler deploy .svelte-kit/cloudflare/_worker.js --env preveiw",
+		"deploy:prod": "pnpm run build && wrangler deploy --env production"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-cloudflare": "4.7.0",
