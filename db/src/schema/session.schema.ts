@@ -1,20 +1,20 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { users } from './user.schema';
+import { user } from './user.schema';
 import { timestamps } from './utils';
 
-export const sessions = sqliteTable('sessions', {
+export const session = sqliteTable('session', {
 	id: text('id').primaryKey(),
 	userId: text('user_id')
-		.references(() => users.id)
+		.references(() => user.id)
 		.notNull(),
 	expiresAt: integer('expires_at').notNull(),
 	...timestamps,
 });
 
-export const sessionsRelations = relations(sessions, ({ one }) => ({
-	user: one(users, {
-		fields: [sessions.userId],
-		references: [users.id],
+export const sessionRelations = relations(session, ({ one }) => ({
+	user: one(user, {
+		fields: [session.userId],
+		references: [user.id],
 	}),
 }));

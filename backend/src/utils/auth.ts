@@ -9,9 +9,9 @@ export const authMiddleware = defineEventHandler(async (event) => {
 	if (!apiKey) return new Response('Unauthorized', { status: 401 });
 
 	const db = getDb(event.context.env.DB);
-	const user = await db.users.query.findFirst({
+	const user = await db.user.query.findFirst({
 		with: {
-			apiKeys: {
+			apiKey: {
 				where: (table, { eq }) => eq(table.key, token),
 			},
 		},

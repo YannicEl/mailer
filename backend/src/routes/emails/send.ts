@@ -1,3 +1,4 @@
+import { getDb } from '@mailer/db';
 import { defineEventHandler } from 'h3-nightly';
 import { z } from 'zod';
 import { getSESClient } from '../../utils/ses';
@@ -33,6 +34,12 @@ export default defineEventHandler(async (event) => {
 					},
 				},
 			},
+		});
+
+		const db = getDb(event.context.env.DB);
+		await db.email.insert({
+			userId: "event.context.user.id",
+			messageId,
 		});
 
 		return Response.json({ messageId });

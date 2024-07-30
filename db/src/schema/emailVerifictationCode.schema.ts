@@ -1,12 +1,12 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { users } from './user.schema';
+import { user } from './user.schema';
 import { timestamps } from './utils';
 
-export const emailVerificationCodes = sqliteTable('email_verification_codes', {
+export const emailVerificationCode = sqliteTable('email_verification_code', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	userId: text('user_id')
-		.references(() => users.id)
+		.references(() => user.id)
 		.notNull(),
 	code: text('code').notNull(),
 	email: text('email').notNull(),
@@ -14,9 +14,9 @@ export const emailVerificationCodes = sqliteTable('email_verification_codes', {
 	...timestamps,
 });
 
-export const emailVerificationCodesRelations = relations(emailVerificationCodes, ({ one }) => ({
-	user: one(users, {
-		fields: [emailVerificationCodes.userId],
-		references: [users.id],
+export const emailVerificationCodeRelations = relations(emailVerificationCode, ({ one }) => ({
+	user: one(user, {
+		fields: [emailVerificationCode.userId],
+		references: [user.id],
 	}),
 }));

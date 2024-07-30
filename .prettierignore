@@ -4,3 +4,4 @@ package-lock.json
 yarn.lock
 worker-configuration.d.ts
 .svelte-kit
+db/src/migrations

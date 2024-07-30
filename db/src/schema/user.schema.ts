@@ -1,19 +1,19 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { apiKeys } from './apiKey.schema';
-import { emailVerificationCodes } from './emailVerifictationCode.schema';
-import { sessions } from './session.schema';
+import { apiKey } from './apiKey.schema';
+import { emailVerificationCode } from './emailVerifictationCode.schema';
+import { session } from './session.schema';
 import { timestamps } from './utils';
 
-export const users = sqliteTable('users', {
+export const user = sqliteTable('user', {
 	id: text('id').primaryKey(),
 	email: text('email').unique().notNull(),
 	emailVerified: integer('email_verified', { mode: 'boolean' }).notNull().default(false),
 	...timestamps,
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
-	sessions: many(sessions),
-	apiKeys: many(apiKeys),
-	emailVerificationCodes: many(emailVerificationCodes),
+export const userRelations = relations(user, ({ many }) => ({
+	session: many(session),
+	apiKey: many(apiKey),
+	emailVerificationCode: many(emailVerificationCode),
 }));

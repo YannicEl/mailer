@@ -18,7 +18,7 @@ declare module 'lucia' {
 }
 
 export function getLucia(db: DrizzleDB) {
-	const adapter = new DrizzleSQLiteAdapter(db, schema.sessions, schema.users);
+	const adapter = new DrizzleSQLiteAdapter(db, schema.session, schema.user);
 	const lucia = new Lucia(adapter, {
 		sessionCookie: {
 			attributes: {
