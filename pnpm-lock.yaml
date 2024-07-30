@@ -3887,7 +3887,7 @@ snapshots:
   '@vitest/snapshot@2.0.2':
     dependencies:
       '@vitest/pretty-format': 2.0.2
-      magic-string: 0.30.10
+      magic-string: 0.30.11
       pathe: 1.1.2
 
   '@vitest/spy@1.5.0':
