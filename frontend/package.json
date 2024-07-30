@@ -17,14 +17,14 @@
 		"svelte-check": "3.8.4",
 		"tslib": "2.6.3",
 		"typescript": "5.5.4",
-		"unocss": "0.61.6",
+		"unocss": "0.61.7",
 		"vite": "5.3.5",
 		"wrangler": "3.67.1"
 	},
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "1.0.7",
 		"@mailer/db": "workspace:",
-		"@unocss/reset": "0.61.6",
+		"@unocss/reset": "0.61.7",
 		"@yannicel/typed-api": "0.2.8",
 		"drizzle-orm": "0.32.1",
 		"lucia": "3.2.0",
