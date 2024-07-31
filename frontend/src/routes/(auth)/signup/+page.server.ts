@@ -18,14 +18,23 @@ export const actions = {
 
 		const db = useDb();
 
+		const project = await db.project.insert({});
+
 		const user = await db.user.insert({
 			id: generateIdFromEntropySize(16),
+			projectId: project.id,
 			email: data.email,
+		});
+
+		await db.projectsToUsers.insert({
+			projectId: project.id,
+			userId: user.id,
 		});
 
 		await db.emailVerificationCode.delete((table, { eq }) => eq(table.userId, user.id));
 
 		const verifictationCode = generateRandomString(8, alphabet('0-9'));
+		console.log({ verifictationCode });
 		await db.emailVerificationCode.insert({
 			userId: user.id,
 			code: verifictationCode,

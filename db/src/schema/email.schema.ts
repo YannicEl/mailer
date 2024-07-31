@@ -1,20 +1,30 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { user } from './user.schema';
+import { contact } from './contact.schema';
+import { emailEvent } from './emailEvent.schema';
+import { project } from './project.schema';
 import { timestamps } from './utils';
 
 export const email = sqliteTable('email', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
-	userId: text('user_id')
-  .references(() => user.id)
-  .notNull(),
+	contactId: integer('contact_id')
+		.references(() => project.id)
+		.notNull(),
+	projectId: integer('project_id')
+		.references(() => project.id)
+		.notNull(),
 	messageId: text('message_id').unique().notNull(),
 	...timestamps,
 });
 
-export const apiKeyRelationRelations = relations(email, ({ one }) => ({
-	user: one(user, {
-		fields: [email.userId],
-		references: [user.id],
+export const emailRelations = relations(email, ({ one, many }) => ({
+	events: many(emailEvent),
+	contact: one(contact, {
+		fields: [email.contactId],
+		references: [contact.id],
+	}),
+	project: one(project, {
+		fields: [email.projectId],
+		references: [project.id],
 	}),
 }));

@@ -1,4 +1,4 @@
-import { createH3, defineEventHandler } from 'h3-nightly';
+import { createH3 } from 'h3-nightly';
 import addDomain from './routes/domains/add';
 import deleteDomain from './routes/domains/delete';
 import sendEmail from './routes/emails/send';
@@ -6,13 +6,6 @@ import receiveEvent from './routes/events/receive';
 import test from './routes/test';
 
 const app = createH3({ debug: true });
-// app.use(authMiddleware);
-
-app.use(
-	defineEventHandler(async (event) => {
-		console.log('Event:', event);
-	})
-);
 
 app.get('/test', test);
 app.get('/domains', addDomain);

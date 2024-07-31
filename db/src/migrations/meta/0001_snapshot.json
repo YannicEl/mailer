@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "ee964013-0b96-42b5-b726-17f969d82c77",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "288459fe-bd3b-4688-adea-f72236d5690a",
+  "prevId": "ee964013-0b96-42b5-b726-17f969d82c77",
   "tables": {
     "api_key": {
       "name": "api_key",
@@ -81,8 +81,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "message_id": {
-          "name": "message_id",
+        "email": {
+          "name": "email",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -106,10 +106,10 @@
         }
       },
       "indexes": {
-        "contact_message_id_unique": {
-          "name": "contact_message_id_unique",
+        "contact_email_unique": {
+          "name": "contact_email_unique",
           "columns": [
-            "message_id"
+            "email"
           ],
           "isUnique": true
         }
@@ -594,7 +594,9 @@
   "_meta": {
     "schemas": {},
     "tables": {},
-    "columns": {}
+    "columns": {
+      "\"contact\".\"message_id\"": "\"contact\".\"email\""
+    }
   },
   "internal": {
     "indexes": {}

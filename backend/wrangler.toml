@@ -5,6 +5,10 @@ compatibility_flags = ["nodejs_compat"]
 
 [env.dev]
 name = "mailer_backend_dev"
+routes = [
+	{ pattern = "what.yannic.at", custom_domain = true }
+]
+
 
 [env.prod]
 name = "mailer_backend_prod"

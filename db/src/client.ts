@@ -38,7 +38,7 @@ function _update<Table extends SQLiteTable>(db: DrizzleDB, table: Table) {
 
 function _select<Table extends SQLiteTable>(db: DrizzleDB, table: Table) {
 	return async (where: WhereFunction<Table>) => {
-		db.select().from(table).where(where(table, getOperators()));
+		return db.select().from(table).where(where(table, getOperators()));
 	};
 }
 

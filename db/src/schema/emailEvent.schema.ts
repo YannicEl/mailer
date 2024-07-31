@@ -1,19 +1,19 @@
 import { relations } from 'drizzle-orm';
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { user } from './user.schema';
+import { integer, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { email } from './email.schema';
 import { timestamps } from './utils';
 
 export const emailEvent = sqliteTable('email_event', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
-	userId: text('user_id')
-		.references(() => user.id)
+	emailId: integer('email_id')
+		.references(() => email.id)
 		.notNull(),
 	...timestamps,
 });
 
-export const apiKeyRelationRelations = relations(emailEvent, ({ one }) => ({
-	user: one(user, {
-		fields: [emailEvent.userId],
-		references: [user.id],
+export const emailEventRelations = relations(emailEvent, ({ one }) => ({
+	email: one(email, {
+		fields: [emailEvent.emailId],
+		references: [email.id],
 	}),
 }));
