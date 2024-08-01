@@ -6,12 +6,14 @@ compatibility_flags = ["nodejs_compat"]
 [env.dev]
 name = "mailer_backend_dev"
 routes = [
-	{ pattern = "what.yannic.at", custom_domain = true }
+	{ pattern = "dev-api.mailer.yannic.at", custom_domain = true }
 ]
-
 
 [env.prod]
 name = "mailer_backend_prod"
+routes = [
+	{ pattern = "api.mailer.yannic.at", custom_domain = true }
+]
 
 [placement]
 mode = "smart"

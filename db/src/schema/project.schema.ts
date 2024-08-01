@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm';
 import { integer, sqliteTable } from 'drizzle-orm/sqlite-core';
 import { apiKey } from './apiKey.schema';
 import { contact } from './contact.schema';
+import { domain } from './domain.schema';
 import { email } from './email.schema';
 import { projectsToUsers } from './projectsToUsers.schema';
 import { timestamps } from './utils';
@@ -18,4 +19,5 @@ export const projectsRelations = relations(project, ({ many }) => ({
 	apiKeys: many(apiKey),
 	contacts: many(contact),
 	emails: many(email),
+	domains: many(domain),
 }));

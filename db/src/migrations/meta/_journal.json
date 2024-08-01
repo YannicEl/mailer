@@ -15,6 +15,13 @@
       "when": 1722426655346,
       "tag": "0001_fuzzy_rictor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1722495979199,
+      "tag": "0002_fresh_sersi",
+      "breakpoints": true
     }
   ]
 }

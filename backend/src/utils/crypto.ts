@@ -1,21 +1,21 @@
-export function bufferToHex(value: ArrayBuffer): string {
-	const buffer = new Uint8Array(value);
+export function bufferToHex(buffer: ArrayBuffer): string {
+	const bytes = new Uint8Array(buffer);
 
 	let hexString = '';
-	for (let i = 0; i < buffer.length; i++) {
-		hexString += buffer[i].toString(16).padStart(2, '0');
+	for (let i = 0; i < bytes.length; i++) {
+		hexString += bytes[i].toString(16).padStart(2, '0');
 	}
 
 	return hexString;
 }
 
-export function stringToArrayBuffer(value: string): ArrayBuffer {
-	return new TextEncoder().encode(value);
+export function stringToArrayBuffer(string: string): ArrayBuffer {
+	return new TextEncoder().encode(string);
 }
 
 export function sha256(value: string): Promise<ArrayBuffer> {
 	const buffer = stringToArrayBuffer(value);
-	return crypto.subtle.digest('SHA-256', buffer);
+	return crypto.subtle.digest('SHA-256', buffer as Uint8Array);
 }
 
 export async function hmacSha256(key: string | ArrayBuffer, value: string): Promise<ArrayBuffer> {
