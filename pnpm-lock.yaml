@@ -33,7 +33,7 @@ importers:
         specifier: 2.0.0-1721905439.b337fe7
         version: 2.0.0-1721905439.b337fe7(crossws@0.2.4)
       pkijs:
-        specifier: ^3.2.4
+        specifier: 3.2.4
         version: 3.2.4
       zod:
         specifier: 3.23.8
