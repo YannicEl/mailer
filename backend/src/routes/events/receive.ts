@@ -1,7 +1,6 @@
 import { defineEventHandler } from 'h3-nightly';
 import { Certificate } from 'pkijs';
 import { z } from 'zod';
-import { base64ToArrayBuffer } from '../../utils/base64';
 
 const baseSchema = z.object({
 	MessageId: z.string(),
@@ -49,67 +48,46 @@ const payload = {
 };
 
 const pemCert = `-----BEGIN CERTIFICATE-----
-MIIDIDCCAgigAwIBAgIBATANBgkqhkiG9w0BAQsFADA3MRkwFwYDVQQDExBUZXN0
-IGNlcnRpZmljYXRlMQ0wCwYDVQQKEwRUZXN0MQswCQYDVQQHEwJVUzAeFw0yMzAy
-MTMwMDAwMDBaFw0yNDAyMTMwMDAwMDBaMDcxGTAXBgNVBAMTEFRlc3QgY2VydGlm
-aWNhdGUxDTALBgNVBAoTBFRlc3QxCzAJBgNVBAcTAlVTMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEAhe8ncyqNwGTNUGeTEMxcrJiwBVBCHTj10E7jqm10
-g5Wo/E7DPMjk6Gyli1XL4ALWqDZrn0Iz1oq8bk5ULYsEB3FlWy+NXIY2ilF+Bz+T
-p12uQmDXlQaU4c6Nm9uNXnCn0FM9cj+9pcQDlxmJkx/3BiHo8+U+aCHuSWBFDjN+
-+1B95UQSrNVHmzg+WyjccvptsAPvATY7bjPZCyo3zXZgl41rLghEzaQ7pstbl2Vb
-Scy1R2hdmrtKyd42bF3RCqQ9DuO/YgOMd2mgdEbDDH80khn9HXxRx9nOMWf2bR44
-tDfqHYda9UcSq8JNOb9msKPskwI9CX3vJq4doUQn4/3ZuwIDAQABozcwNTAOBgNV
-HQ8BAf8EBAMCBsAwDwYDVR0TAQH/BAUwAwIBADASBgNVHSAECzAJMAcGBSoDBAUG
-MA0GCSqGSIb3DQEBCwUAA4IBAQAXkqSAUNu+lRnUHAVcw4QMQ9GwUfZIFD403BVC
-WCi75/RFNYY+RF3PD0ypFJ61bHvcpJ8j/CDk7hokLWQhEZ2kd6FKtAqGOX+fEnLD
-SJdw1pLVZx7bBwnDxlvaCnn2wlcqTI5kwyONGWHU681Wfz72zJHMsGYW7GmQCOmb
-M7UHrVkGxQueYi4MqxfAumR0oh+FMvTqc74IrOn68EguWGanLMqQZsgZeQKAfukJ
-8pXY3a08hHKgvk+7NCogqBtiFUYVJ8R6EZ7VDDI4FtV7IwtlzhKiuShWp+wmuae5
-dTlg6DIG2NY1ecIoxnpPDwZcfvQY9NGrjhKvK96IFhx2FGn0
+MIIFzzCCBLegAwIBAgIQAp8ooylKMhQDdxA0uvpYWzANBgkqhkiG9w0BAQsFADA8
+MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRwwGgYDVQQDExNBbWF6b24g
+UlNBIDIwNDggTTAxMB4XDTIzMTIxNDAwMDAwMFoXDTI0MTEyMDIzNTk1OVowHDEa
+MBgGA1UEAxMRc25zLmFtYXpvbmF3cy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IB
+DwAwggEKAoIBAQCudTQAmRaTM3R/bnxIYBtxqkwy29XbkO0cJ9OCeA656uJH+lm+
+nqShf13xyx6TdiUk/S4ehinkOxHBKTjSIuHgh+VfPwhqiV9EHxokGUvPCc1PmUl0
+XLCU1N+wtf1QZPuBjW0Ja3jLknDcoXrKYGcJGqP35EB36MO8uLhHVqZqoaAoQU6B
+tR2PrMB1shIiqUi7uwzAAvPGDgwc9nO9wX5OVQFk8qEcFBCW32O7wOj034CNSRso
+ntQ/fxqlZoJdcvC+Z0VgOHEEPQt9yF2XZVJYdLxs0FNUrOsJKpzZCimLEqSfRmCy
+EgEv+UteNhD7E4hDRY5dwXE/eyyA5ri3zzEZAgMBAAGjggLrMIIC5zAfBgNVHSME
+GDAWgBSBuA5jiokSGOX6OztQlZ/m5ZAThTAdBgNVHQ4EFgQUGOkdg9DPQtVX7owz
+puU0BPZ/UZQwHAYDVR0RBBUwE4IRc25zLmFtYXpvbmF3cy5jb20wEwYDVR0gBAww
+CjAIBgZngQwBAgEwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
+BggrBgEFBQcDAjA7BgNVHR8ENDAyMDCgLqAshipodHRwOi8vY3JsLnIybTAxLmFt
+YXpvbnRydXN0LmNvbS9yMm0wMS5jcmwwdQYIKwYBBQUHAQEEaTBnMC0GCCsGAQUF
+BzABhiFodHRwOi8vb2NzcC5yMm0wMS5hbWF6b250cnVzdC5jb20wNgYIKwYBBQUH
+MAKGKmh0dHA6Ly9jcnQucjJtMDEuYW1hem9udHJ1c3QuY29tL3IybTAxLmNlcjAM
+BgNVHRMBAf8EAjAAMIIBfwYKKwYBBAHWeQIEAgSCAW8EggFrAWkAdwDuzdBk1dsa
+zsVct520zROiModGfLzs3sNRSFlGcR+1mwAAAYxmlLKpAAAEAwBIMEYCIQC7Wfn0
+SmVztjM8AstsrNsHeYeW7AETzLAN43x7elB8pwIhAMIwrkbXu/PpNZihBlOPBj04
+wS7vZuw42uVjy9yXn4UZAHYASLDja9qmRzQP5WoC+p0w6xxSActW3SyB2bu/qznY
+hHMAAAGMZpSyygAABAMARzBFAiEAutVlW1Oax7n5RLBsWXeRmzA/iVKJqcZhjeoZ
+4ZzFunECIGKbdbDvZc0Y4moXUopJIXo3p4NwakKczZ9dIWVE/1ZjAHYA2ra/az+1
+tiKfm8K7XGvocJFxbLtRhIU0vaQ9MEjX+6sAAAGMZpSyowAABAMARzBFAiAA7R7c
+nWrPPHGfRGYER0ketkeD5BGOSUxLZ8zyraYiSAIhAJuZ5TZZj4oNgm4Nkh6xCQkq
+Gc39XPPTr8AzCAXxoK5lMA0GCSqGSIb3DQEBCwUAA4IBAQClJ4h/4mZnlkzeP9Dy
+aZkSMmWFNNu9W80gwSa/T5oiqYWQz7mjdeIxFnWh/GNsH7UL2zVQqGiUe7/3lwrX
+actsL5G/YQuzrqEJnO8/fQFdoQ2jG4iX0LbPFLfUJi3bq5WsMOKO3yjOfFe+jyXF
+9E5zcEMB86e2Rn7kxCJQwv0EdbMFCfEzISjUARzWd5swUOTaa/jFkgAYGTLNUOd/
+sutMoG10mzPvbLvJUdHFBBfBchxbKmfndtlsKlDh35yVgAVGzItLr0g2VhIU44Nt
+SfSFzgCZ4hrvQJTIsaEghvu5ZXFgpRmBRxDGd+7mE56SDJDQUjUkJMMokKmH6yNP
+JLla
 -----END CERTIFICATE-----`;
 
-// const pemCert = `-----BEGIN CERTIFICATE-----
-// MIIFzzCCBLegAwIBAgIQAp8ooylKMhQDdxA0uvpYWzANBgkqhkiG9w0BAQsFADA8
-// MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRwwGgYDVQQDExNBbWF6b24g
-// UlNBIDIwNDggTTAxMB4XDTIzMTIxNDAwMDAwMFoXDTI0MTEyMDIzNTk1OVowHDEa
-// MBgGA1UEAxMRc25zLmFtYXpvbmF3cy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IB
-// DwAwggEKAoIBAQCudTQAmRaTM3R/bnxIYBtxqkwy29XbkO0cJ9OCeA656uJH+lm+
-// nqShf13xyx6TdiUk/S4ehinkOxHBKTjSIuHgh+VfPwhqiV9EHxokGUvPCc1PmUl0
-// XLCU1N+wtf1QZPuBjW0Ja3jLknDcoXrKYGcJGqP35EB36MO8uLhHVqZqoaAoQU6B
-// tR2PrMB1shIiqUi7uwzAAvPGDgwc9nO9wX5OVQFk8qEcFBCW32O7wOj034CNSRso
-// ntQ/fxqlZoJdcvC+Z0VgOHEEPQt9yF2XZVJYdLxs0FNUrOsJKpzZCimLEqSfRmCy
-// EgEv+UteNhD7E4hDRY5dwXE/eyyA5ri3zzEZAgMBAAGjggLrMIIC5zAfBgNVHSME
-// GDAWgBSBuA5jiokSGOX6OztQlZ/m5ZAThTAdBgNVHQ4EFgQUGOkdg9DPQtVX7owz
-// puU0BPZ/UZQwHAYDVR0RBBUwE4IRc25zLmFtYXpvbmF3cy5jb20wEwYDVR0gBAww
-// CjAIBgZngQwBAgEwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
-// BggrBgEFBQcDAjA7BgNVHR8ENDAyMDCgLqAshipodHRwOi8vY3JsLnIybTAxLmFt
-// YXpvbnRydXN0LmNvbS9yMm0wMS5jcmwwdQYIKwYBBQUHAQEEaTBnMC0GCCsGAQUF
-// BzABhiFodHRwOi8vb2NzcC5yMm0wMS5hbWF6b250cnVzdC5jb20wNgYIKwYBBQUH
-// MAKGKmh0dHA6Ly9jcnQucjJtMDEuYW1hem9udHJ1c3QuY29tL3IybTAxLmNlcjAM
-// BgNVHRMBAf8EAjAAMIIBfwYKKwYBBAHWeQIEAgSCAW8EggFrAWkAdwDuzdBk1dsa
-// zsVct520zROiModGfLzs3sNRSFlGcR+1mwAAAYxmlLKpAAAEAwBIMEYCIQC7Wfn0
-// SmVztjM8AstsrNsHeYeW7AETzLAN43x7elB8pwIhAMIwrkbXu/PpNZihBlOPBj04
-// wS7vZuw42uVjy9yXn4UZAHYASLDja9qmRzQP5WoC+p0w6xxSActW3SyB2bu/qznY
-// hHMAAAGMZpSyygAABAMARzBFAiEAutVlW1Oax7n5RLBsWXeRmzA/iVKJqcZhjeoZ
-// 4ZzFunECIGKbdbDvZc0Y4moXUopJIXo3p4NwakKczZ9dIWVE/1ZjAHYA2ra/az+1
-// tiKfm8K7XGvocJFxbLtRhIU0vaQ9MEjX+6sAAAGMZpSyowAABAMARzBFAiAA7R7c
-// nWrPPHGfRGYER0ketkeD5BGOSUxLZ8zyraYiSAIhAJuZ5TZZj4oNgm4Nkh6xCQkq
-// Gc39XPPTr8AzCAXxoK5lMA0GCSqGSIb3DQEBCwUAA4IBAQClJ4h/4mZnlkzeP9Dy
-// aZkSMmWFNNu9W80gwSa/T5oiqYWQz7mjdeIxFnWh/GNsH7UL2zVQqGiUe7/3lwrX
-// actsL5G/YQuzrqEJnO8/fQFdoQ2jG4iX0LbPFLfUJi3bq5WsMOKO3yjOfFe+jyXF
-// 9E5zcEMB86e2Rn7kxCJQwv0EdbMFCfEzISjUARzWd5swUOTaa/jFkgAYGTLNUOd/
-// sutMoG10mzPvbLvJUdHFBBfBchxbKmfndtlsKlDh35yVgAVGzItLr0g2VhIU44Nt
-// SfSFzgCZ4hrvQJTIsaEghvu5ZXFgpRmBRxDGd+7mE56SDJDQUjUkJMMokKmH6yNP
-// JLla
-// -----END CERTIFICATE-----`;
-
 export default defineEventHandler(async (event) => {
-	const buffer = pemCertificateToArrayBuffer(pemCert);
-	const cert = Certificate.fromBER(buffer);
+	// Create new Certificate instance from the BASE64 encoded data
+	const key = await getPublicKeyFromX509Cert(pemCert);
+	console.log(key);
 
-	console.log(cert);
-
-	return new Response('OK');
+	return new Response(key.algorithm.name);
 
 	// try {
 	// 	// const body = await validateJsonData(schema, event.request);
@@ -174,11 +152,23 @@ async function fetchCert(url: string) {
 	return certificate;
 }
 
-function pemCertificateToArrayBuffer(pemCert: string): ArrayBuffer {
-	const base64Cert = pemCert
+async function getPublicKeyFromX509Cert(pem: string): Promise<CryptoKey> {
+	const base64Cert = pem
 		.replace('-----BEGIN CERTIFICATE-----', '')
 		.replace('-----END CERTIFICATE-----', '')
 		.replace(/\n/g, '');
 
-	return base64ToArrayBuffer(base64Cert);
+	const buffer = base64ToArrayBuffer(base64Cert);
+
+	const certificate = Certificate.fromBER(buffer);
+	return certificate.getPublicKey();
+}
+
+function base64ToArrayBuffer(base64: string): ArrayBuffer {
+	var binaryString = atob(base64);
+	var bytes = new Uint8Array(binaryString.length);
+	for (var i = 0; i < binaryString.length; i++) {
+		bytes[i] = binaryString.charCodeAt(i);
+	}
+	return bytes.buffer;
 }
