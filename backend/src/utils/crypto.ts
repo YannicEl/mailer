@@ -15,7 +15,7 @@ export function stringToArrayBuffer(string: string): ArrayBuffer {
 
 export function sha256(value: string): Promise<ArrayBuffer> {
 	const buffer = stringToArrayBuffer(value);
-	return crypto.subtle.digest('SHA-256', buffer as Uint8Array);
+	return crypto.subtle.digest('SHA-256', buffer);
 }
 
 export async function hmacSha256(key: string | ArrayBuffer, value: string): Promise<ArrayBuffer> {

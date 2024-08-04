@@ -1,6 +1,7 @@
 import { defineEventHandler } from 'h3-nightly';
 import { Certificate } from 'pkijs';
 import { z } from 'zod';
+import { sha256 } from '../../utils/crypto';
 
 const baseSchema = z.object({
 	MessageId: z.string(),
@@ -30,21 +31,21 @@ const schema = z.union([
 ]);
 
 const payload = {
-	MessageId: 'b4268362-d21f-4011-ad28-9cc811a3a5ec',
+	MessageId: '26e98303-2f91-41a1-9144-9a7035873669',
 	TopicArn: 'arn:aws:sns:eu-central-1:466136624261:ses',
 	Message:
 		'You have chosen to subscribe to the topic arn:aws:sns:eu-central-1:466136624261:ses.\nTo confirm the subscription, visit the SubscribeURL included in this message.',
-	Timestamp: '2024-08-01T10:35:40.705Z',
+	Timestamp: '2024-08-04T07:47:47.920Z',
 	SignatureVersion: '2',
 	Signature:
-		'qvgb3S6FmQQqYgkusw8o2P6N4miGIM6ykZFZd6ZAk7QD66jEFLPKdvrGM2Br5i28ZSchnUt/EihQQEfDcfzFLqtVfrqiNhQmmJze+v1jKQqDebOd4qCf3Ni8PkbKmwkz81D9m9MdpCEPiISyWPMToDWtyHokA/3YZR9A5wvpnaiQG8M4GmiWR6AEv0cNVBThE/HBrBRooZqKqtrdQiM7jrwH22Gx4qb9jvc8Av8GGmY2tNtFzOMftEq92GnUWpmhduYkghAb08QI2fex2jB3WKLrD3h2ZIomstrmcAMCB9+nR+T7T3kEd6+bSe45wD1oLqlzb40p1t0qJRe51WCd6w==',
+		'cnochdmmxXH9szT3Zje44N0Iyma8u5OdmSIeP5pUloFKJ90OT5YbdyHeO2YESoJyEToFYg8yD2XeW5Hv49Mash7H8+OPqX4ynlI6t1TGSeyELgB0VgbJ1VU+eK6cWkzOMg3ZYIsTxrYBNY3Tw7kbxsepGdSxHyWzmIny3beEA8sHCEtyvxvMFfTmpu0XqFI7G4TkpXG7KNxoREFzEZVOOUx+ZsP8olZssLGAvY2nHF5fwrKT/d4F2Uhk4iuOh0id05JNLm/mMUBce2GpELPNZwWZQ31ohUo383wUMFz6J1TS//3OXoWZdGyo45yb6ciLpIiCyZP2/cGX5Rj5oMBKcA==',
 	SigningCertURL:
 		'https://sns.eu-central-1.amazonaws.com/SimpleNotificationService-60eadc530605d63b8e62a523676ef735.pem',
 	Type: 'SubscriptionConfirmation',
 	SubscribeURL:
-		'https://sns.eu-central-1.amazonaws.com/?Action=ConfirmSubscription&TopicArn=arn:aws:sns:eu-central-1:466136624261:ses&Token=2336412f37fb687f5d51e6e2425ba1f259d6d70a40028a2e169536ec11310e30b957676509b7590f115621a59c91b10d5fa1cf158a32482bdf86ef35f60ffd238537573827f74a8beffddafca481e046dd31f6bd5fad2cd44e01e8bd746651acbf95e3ee8a703d325cc675c8b629bae4',
+		'https://sns.eu-central-1.amazonaws.com/?Action=ConfirmSubscription&TopicArn=arn:aws:sns:eu-central-1:466136624261:ses&Token=2336412f37fb687f5d51e6e2425ba1f259d6d70fa30a972e00e6ad2694676e27d4883edbb51f989ded92d58bdc556ec8d3b0bbfbf5ec73bd702e906e704f23213dcffe1dabb63ce2e4b4e2e5dee37c9f068465e993d04350e7680a6220422403637824791391460d4c4f69e475c476c2',
 	Token:
-		'2336412f37fb687f5d51e6e2425ba1f259d6d70a40028a2e169536ec11310e30b957676509b7590f115621a59c91b10d5fa1cf158a32482bdf86ef35f60ffd238537573827f74a8beffddafca481e046dd31f6bd5fad2cd44e01e8bd746651acbf95e3ee8a703d325cc675c8b629bae4',
+		'2336412f37fb687f5d51e6e2425ba1f259d6d70fa30a972e00e6ad2694676e27d4883edbb51f989ded92d58bdc556ec8d3b0bbfbf5ec73bd702e906e704f23213dcffe1dabb63ce2e4b4e2e5dee37c9f068465e993d04350e7680a6220422403637824791391460d4c4f69e475c476c2',
 };
 
 const pemCert = `-----BEGIN CERTIFICATE-----
@@ -83,67 +84,54 @@ JLla
 -----END CERTIFICATE-----`;
 
 export default defineEventHandler(async (event) => {
-	// Create new Certificate instance from the BASE64 encoded data
-	const key = await getPublicKeyFromX509Cert(pemCert);
-	console.log(key);
+	try {
+		// const body  = await validateJsonData(schema, event.request);
+		const body = await schema.parse(payload);
+		console.log({ body });
 
-	return new Response(key.algorithm.name);
+		const pemCert = await fetchCert(body.SigningCertURL);
+		const publicKey = await getPublicKeyFromX509Cert(pemCert);
 
-	// try {
-	// 	// const body = await validateJsonData(schema, event.request);
-	// 	const body = await schema.parse(payload);
-	// 	// console.log({ body });
+		const keys = ['Message', 'MessageId', 'Timestamp', 'TopicArn', 'Type'];
+		if (body.Type === 'Notification' && body.Subject) keys.push('Subject');
+		if (body.Type === 'SubscriptionConfirmation') {
+			keys.push('SubscribeURL', 'Token');
+		}
 
-	// 	const publicKey = await fetchCert(body.SigningCertURL);
+		let stringToSign = '';
+		keys.sort().forEach((key) => {
+			stringToSign += `${key}\n${body[key]}\n`;
+		});
 
-	// 	if (body.Type === 'SubscriptionConfirmation') {
-	// 		const stringToSign = [
-	// 			'Message',
-	// 			body.Message,
-	// 			'MessageId',
-	// 			body.MessageId,
-	// 			'SubscribeURL',
-	// 			body.SubscribeURL,
-	// 			'Timestamp',
-	// 			body.Timestamp,
-	// 			'Token',
-	// 			body.Token,
-	// 			'TopicArn',
-	// 			body.TopicArn,
-	// 			'Type',
-	// 			body.Type,
-	// 		].join('\n');
+		console.log({ stringToSign });
 
-	// 		const calculatedSignature = bufferToHex(await hmacSha256(publicKey, stringToSign));
-	// 		console.log({ calculatedSignature });
+		const calculatedSignature = await sha256(stringToSign);
+		console.log({ calculatedSignature });
 
-	// 		const decodedSignature = bufferToHex(base64ToArrayBuffer(body.Signature));
-	// 		console.log({ decodedSignature });
+		const signature = base64ToArrayBuffer(body.Signature);
+		console.log({ signature });
 
-	// 		console.log('signature valid');
-	// 		console.log(calculatedSignature === decodedSignature);
+		const result = await crypto.subtle.verify(
+			{ name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
+			publicKey,
+			signature,
+			calculatedSignature
+		);
 
-	// 		let result = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', publicKey, signature, encoded);
+		console.log({ result });
 
-	// 		// try {
-	// 		// 	const res = await fetch(body.SubscribeURL);
-	// 		// 	const text = await res.text();
-	// 		// 	console.log({ text });
-	// 		// } catch (error) {
-	// 		// 	console.error(error);
-	// 		// }
-	// 	} else {
-	// 		const message = await event.request.json();
-	// 		console.log(message);
-	// 	}
+		// try {
+		// 	const res = await fetch(body.SubscribeURL);
+		// 	const text = await res.text();
+		// 	console.log({ text });
+		// } catch (error) {
+		// 	console.error(error);
+		// }
+	} catch (error) {
+		console.error(error);
+	}
 
-	// 	const text = await event.request.text();
-	// 	console.log(text);
-	// } catch (error) {
-	// 	console.error(error);
-	// }
-
-	// return new Response('OK');
+	return new Response('OK');
 });
 
 async function fetchCert(url: string) {

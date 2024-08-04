@@ -1,69 +1,87 @@
-import * as pkijs from 'pkijs';
+import { createVerify } from 'node:crypto';
+import { Certificate, CryptoEngine, setEngine } from 'pkijs';
+
+const payload = {
+	MessageId: '26e98303-2f91-41a1-9144-9a7035873669',
+	TopicArn: 'arn:aws:sns:eu-central-1:466136624261:ses',
+	Message:
+		'You have chosen to subscribe to the topic arn:aws:sns:eu-central-1:466136624261:ses.\nTo confirm the subscription, visit the SubscribeURL included in this message.',
+	Timestamp: '2024-08-04T07:47:47.920Z',
+	SignatureVersion: '2',
+	Signature:
+		'cnochdmmxXH9szT3Zje44N0Iyma8u5OdmSIeP5pUloFKJ90OT5YbdyHeO2YESoJyEToFYg8yD2XeW5Hv49Mash7H8+OPqX4ynlI6t1TGSeyELgB0VgbJ1VU+eK6cWkzOMg3ZYIsTxrYBNY3Tw7kbxsepGdSxHyWzmIny3beEA8sHCEtyvxvMFfTmpu0XqFI7G4TkpXG7KNxoREFzEZVOOUx+ZsP8olZssLGAvY2nHF5fwrKT/d4F2Uhk4iuOh0id05JNLm/mMUBce2GpELPNZwWZQ31ohUo383wUMFz6J1TS//3OXoWZdGyo45yb6ciLpIiCyZP2/cGX5Rj5oMBKcA==',
+	SigningCertURL:
+		'https://sns.eu-central-1.amazonaws.com/SimpleNotificationService-60eadc530605d63b8e62a523676ef735.pem',
+	Type: 'SubscriptionConfirmation',
+	SubscribeURL:
+		'https://sns.eu-central-1.amazonaws.com/?Action=ConfirmSubscription&TopicArn=arn:aws:sns:eu-central-1:466136624261:ses&Token=2336412f37fb687f5d51e6e2425ba1f259d6d70fa30a972e00e6ad2694676e27d4883edbb51f989ded92d58bdc556ec8d3b0bbfbf5ec73bd702e906e704f23213dcffe1dabb63ce2e4b4e2e5dee37c9f068465e993d04350e7680a6220422403637824791391460d4c4f69e475c476c2',
+	Token:
+		'2336412f37fb687f5d51e6e2425ba1f259d6d70fa30a972e00e6ad2694676e27d4883edbb51f989ded92d58bdc556ec8d3b0bbfbf5ec73bd702e906e704f23213dcffe1dabb63ce2e4b4e2e5dee37c9f068465e993d04350e7680a6220422403637824791391460d4c4f69e475c476c2',
+};
 
 async function main() {
-	// Set crypto engine for PKIjs module
-	// const crypto = new Crypto();
-	// pkijs.setEngine('NodeJS', new pkijs.CryptoEngine({ crypto }));
+	const engine = new CryptoEngine('webcrypto', crypto, crypto.subtle);
+	setEngine(engine);
 
-	// BASE64 representation of the Certificate
-	const pemCert = `-----BEGIN CERTIFICATE-----
-MIIFzzCCBLegAwIBAgIQAp8ooylKMhQDdxA0uvpYWzANBgkqhkiG9w0BAQsFADA8
-MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRwwGgYDVQQDExNBbWF6b24g
-UlNBIDIwNDggTTAxMB4XDTIzMTIxNDAwMDAwMFoXDTI0MTEyMDIzNTk1OVowHDEa
-MBgGA1UEAxMRc25zLmFtYXpvbmF3cy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IB
-DwAwggEKAoIBAQCudTQAmRaTM3R/bnxIYBtxqkwy29XbkO0cJ9OCeA656uJH+lm+
-nqShf13xyx6TdiUk/S4ehinkOxHBKTjSIuHgh+VfPwhqiV9EHxokGUvPCc1PmUl0
-XLCU1N+wtf1QZPuBjW0Ja3jLknDcoXrKYGcJGqP35EB36MO8uLhHVqZqoaAoQU6B
-tR2PrMB1shIiqUi7uwzAAvPGDgwc9nO9wX5OVQFk8qEcFBCW32O7wOj034CNSRso
-ntQ/fxqlZoJdcvC+Z0VgOHEEPQt9yF2XZVJYdLxs0FNUrOsJKpzZCimLEqSfRmCy
-EgEv+UteNhD7E4hDRY5dwXE/eyyA5ri3zzEZAgMBAAGjggLrMIIC5zAfBgNVHSME
-GDAWgBSBuA5jiokSGOX6OztQlZ/m5ZAThTAdBgNVHQ4EFgQUGOkdg9DPQtVX7owz
-puU0BPZ/UZQwHAYDVR0RBBUwE4IRc25zLmFtYXpvbmF3cy5jb20wEwYDVR0gBAww
-CjAIBgZngQwBAgEwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
-BggrBgEFBQcDAjA7BgNVHR8ENDAyMDCgLqAshipodHRwOi8vY3JsLnIybTAxLmFt
-YXpvbnRydXN0LmNvbS9yMm0wMS5jcmwwdQYIKwYBBQUHAQEEaTBnMC0GCCsGAQUF
-BzABhiFodHRwOi8vb2NzcC5yMm0wMS5hbWF6b250cnVzdC5jb20wNgYIKwYBBQUH
-MAKGKmh0dHA6Ly9jcnQucjJtMDEuYW1hem9udHJ1c3QuY29tL3IybTAxLmNlcjAM
-BgNVHRMBAf8EAjAAMIIBfwYKKwYBBAHWeQIEAgSCAW8EggFrAWkAdwDuzdBk1dsa
-zsVct520zROiModGfLzs3sNRSFlGcR+1mwAAAYxmlLKpAAAEAwBIMEYCIQC7Wfn0
-SmVztjM8AstsrNsHeYeW7AETzLAN43x7elB8pwIhAMIwrkbXu/PpNZihBlOPBj04
-wS7vZuw42uVjy9yXn4UZAHYASLDja9qmRzQP5WoC+p0w6xxSActW3SyB2bu/qznY
-hHMAAAGMZpSyygAABAMARzBFAiEAutVlW1Oax7n5RLBsWXeRmzA/iVKJqcZhjeoZ
-4ZzFunECIGKbdbDvZc0Y4moXUopJIXo3p4NwakKczZ9dIWVE/1ZjAHYA2ra/az+1
-tiKfm8K7XGvocJFxbLtRhIU0vaQ9MEjX+6sAAAGMZpSyowAABAMARzBFAiAA7R7c
-nWrPPHGfRGYER0ketkeD5BGOSUxLZ8zyraYiSAIhAJuZ5TZZj4oNgm4Nkh6xCQkq
-Gc39XPPTr8AzCAXxoK5lMA0GCSqGSIb3DQEBCwUAA4IBAQClJ4h/4mZnlkzeP9Dy
-aZkSMmWFNNu9W80gwSa/T5oiqYWQz7mjdeIxFnWh/GNsH7UL2zVQqGiUe7/3lwrX
-actsL5G/YQuzrqEJnO8/fQFdoQ2jG4iX0LbPFLfUJi3bq5WsMOKO3yjOfFe+jyXF
-9E5zcEMB86e2Rn7kxCJQwv0EdbMFCfEzISjUARzWd5swUOTaa/jFkgAYGTLNUOd/
-sutMoG10mzPvbLvJUdHFBBfBchxbKmfndtlsKlDh35yVgAVGzItLr0g2VhIU44Nt
-SfSFzgCZ4hrvQJTIsaEghvu5ZXFgpRmBRxDGd+7mE56SDJDQUjUkJMMokKmH6yNP
-JLla
------END CERTIFICATE-----`;
+	const pemCert = await fetchCert(payload.SigningCertURL);
+	const publicKey = await getPublicKeyFromX509Cert(pemCert);
 
-	// Create new Certificate instance from the BASE64 encoded data
-	const raw = pemCertificateToArrayBuffer(pemCert);
-	const cert = pkijs.Certificate.fromBER(raw);
+	const verify = createVerify('SHA256');
+	let stringToSign = '';
+	const keys = ['Message', 'MessageId', 'SubscribeURL', 'Timestamp', 'Token', 'TopicArn', 'Type'];
+	keys.forEach((key) => {
+		stringToSign += `${key}\n${payload[key]}\n`;
+	});
+	verify.write(stringToSign);
+	verify.end();
 
-	// Output the certificate information
-	console.log('Certificate:');
-	console.log('  Serial number:', cert.serialNumber.valueBlock.toString()); // Serial number: 1
-	console.log(
-		'  Issuer:',
-		cert.issuer.typesAndValues.map((o) => `${o.type}=${o.value.valueBlock.value}`).join(', ')
-	); // Issuer: 2.5.4.3=Test certificate, 2.5.4.10=Test, 2.5.4.7=US
-	console.log(
-		'  Subject:',
-		cert.subject.typesAndValues.map((o) => `${o.type}=${o.value.valueBlock.value}`).join(', ')
-	); // Subject: 2.5.4.3=Test certificate, 2.5.4.10=Test, 2.5.4.7=US
-	console.log('  Public key:', cert.subjectPublicKeyInfo.algorithm.algorithmId); // Public key: 1.2.840.113549.1.1.1
-	console.log('  Not after:', cert.notAfter.value.toDateString()); // Not after: Tue Feb 13 2024
+	const signature = base64ToArrayBuffer(payload.Signature);
+
+	// const valid_1 = verify.verify(publicKey, signature);
+	// console.log({ valid_1 });
+
+	const calculatedSignature = await sha256(stringToSign);
+
+	const valid_2 = await crypto.subtle.verify(
+		{ name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
+		publicKey,
+		signature,
+		calculatedSignature
+	);
+
+	console.log({ valid_2 });
+
+	const valid_3 = await engine.verify(
+		'RSASSA-PKCS1-v1_5',
+		publicKey,
+		signature,
+		calculatedSignature
+	);
+	console.log({ valid_3 });
 }
 
 main().catch((e) => {
 	console.error(e);
 	process.exit(1);
 });
+
+async function fetchCert(url) {
+	const res = await fetch(url);
+	const certificate = await res.text();
+	return certificate;
+}
+
+async function getPublicKeyFromX509Cert(pem) {
+	const base64Cert = pem
+		.replace('-----BEGIN CERTIFICATE-----', '')
+		.replace('-----END CERTIFICATE-----', '')
+		.replace(/\n/g, '');
+
+	const buffer = base64ToArrayBuffer(base64Cert);
+
+	const certificate = Certificate.fromBER(buffer);
+	return certificate.getPublicKey();
+}
 
 function pemCertificateToArrayBuffer(pemCert) {
 	const base64Cert = pemCert
@@ -74,11 +92,20 @@ function pemCertificateToArrayBuffer(pemCert) {
 	return base64ToArrayBuffer(base64Cert);
 }
 
-export function base64ToArrayBuffer(string) {
-	const binaryString = atob(string);
+function base64ToArrayBuffer(base64) {
+	const binaryString = atob(base64);
 	return stringToArrayBuffer(binaryString);
 }
 
-export function stringToArrayBuffer(string) {
-	return new TextEncoder().encode(string);
+function stringToArrayBuffer(string) {
+	const bytes = new Uint8Array(string.length);
+	for (var i = 0; i < string.length; i++) {
+		bytes[i] = string.charCodeAt(i);
+	}
+	return bytes.buffer;
+}
+
+export function sha256(value) {
+	const buffer = stringToArrayBuffer(value);
+	return crypto.subtle.digest('SHA-256', buffer);
 }
