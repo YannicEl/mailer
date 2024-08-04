@@ -28,7 +28,7 @@ const schema = z.union([
 		z.object({
 			Type: z.literal('Notification'),
 			UnsubscribeURL: z.string(),
-			Subject: z.string(),
+			Subject: z.string().optional(),
 		})
 	),
 ]);
