@@ -10,7 +10,12 @@ export function bufferToHex(buffer: ArrayBuffer): string {
 }
 
 export function stringToArrayBuffer(string: string): ArrayBuffer {
-	return new TextEncoder().encode(string);
+	const buffer = new ArrayBuffer(string.length);
+	const bytes = new Uint8Array(buffer);
+	for (let i = 0; i < string.length; i++) {
+		bytes[i] = string.charCodeAt(i);
+	}
+	return bytes.buffer;
 }
 
 export function sha256(value: string): Promise<ArrayBuffer> {
