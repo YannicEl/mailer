@@ -22,13 +22,11 @@ mode = "smart"
 AWS_REGION = "eu-central-1"
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
-AWS_SNS_TOPIC_ARN = "arn:aws:sns:eu-central-1:466136624261:ses"
 
 [env.prod.vars]
 AWS_REGION = "eu-central-1"
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
-AWS_SNS_TOPIC_ARN = "arn:aws:sns:eu-central-1:466136624261:ses"
 
 [[env.dev.d1_databases]]
 binding = "DB"
