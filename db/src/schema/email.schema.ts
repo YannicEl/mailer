@@ -13,7 +13,7 @@ export const email = sqliteTable('email', {
 	projectId: integer('project_id')
 		.references(() => project.id)
 		.notNull(),
-	messageId: text('message_id').unique().notNull(),
+	sesMessageId: text('ses_message_id').unique().notNull(),
 	...timestamps,
 });
 
