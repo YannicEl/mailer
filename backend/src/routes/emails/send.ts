@@ -1,6 +1,6 @@
 import { getDb } from '@mailer/db';
 import { z } from 'zod';
-import { customEventHandler } from '../../utils/handler';
+import { customEventHandler } from '../../utils/handler/default';
 import { getSESClient } from '../../utils/ses';
 import { validateJsonData } from '../../utils/validation';
 
@@ -48,7 +48,7 @@ export default customEventHandler({}, async (event, { project }) => {
 	await db.email.insert({
 		projectId: project.id,
 		contactId: contact.id,
-		messageId,
+		sesMessageId: messageId,
 	});
 
 	return Response.json({ messageId });

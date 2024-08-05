@@ -1,6 +1,6 @@
 import type { DBProject } from '@mailer/db';
 import { defineEventHandler, H3Event } from 'h3-nightly';
-import { validateBearerToken } from './auth';
+import { validateBearerToken } from '../auth';
 
 type CustomEventHandlerParams = {
 	auth?: boolean;
