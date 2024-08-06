@@ -5,3 +5,4 @@ yarn.lock
 worker-configuration.d.ts
 .svelte-kit
 db/src/migrations
+.wrangler

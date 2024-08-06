@@ -1,0 +1,46 @@
+name: CI Backend
+
+on:
+  - push
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  ci_backend:
+    name: CI Backend
+    defaults:
+      run:
+        working-directory: backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --filter @mailer/backend
+
+      - name: Format check
+        run: cd .. && pnpm run format:check
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Deploy dev
+        if: (github.head_ref || github.ref_name) != 'prod'
+        run: pnpm run deploy:dev
+
+      - name: Deploy dev
+        if: (github.head_ref || github.ref_name) == 'prod'
+        run: pnpm run deploy:prod
