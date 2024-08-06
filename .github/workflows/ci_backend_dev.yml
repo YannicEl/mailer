@@ -4,6 +4,9 @@ on:
   push:
     branches-ignore:
       - main
+    paths:
+      - 'backend/**'
+      - 'db/**'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
