@@ -3,6 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2024-07-25"
 compatibility_flags = ["nodejs_compat"]
 
+logpush = true
+
 [env.dev]
 name = "mailer_backend_dev"
 routes = [
