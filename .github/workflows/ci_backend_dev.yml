@@ -9,7 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   ci_backend:
-    name: CI Backend PROD
+    name: CI Backend DEV
     defaults:
       run:
         working-directory: backend
