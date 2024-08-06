@@ -32,7 +32,7 @@ jobs:
         run: pnpm install --filter @mailer/backend
 
       - name: Format check
-        run: cd .. && pnpm run format:check
+        run: pnpm -w run format:check
 
       - name: Run tests
         run: pnpm test
