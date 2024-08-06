@@ -8,7 +8,6 @@ mode = "smart"
 [env.preview.vars]
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
-FRONTEND_URL = "https://mailer.pages.dev"
 
 [env.production.vars]
 NODE_VERSION = "20"
