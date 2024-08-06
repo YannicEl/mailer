@@ -1,11 +1,12 @@
 {
+	"name": "@mailer/base",
 	"type": "module",
 	"engines": {
 		"node": "20",
 		"pnpm": "9"
 	},
 	"scripts": {
-		"lint": "prettier --check .",
+		"format:check": "prettier --check .",
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
