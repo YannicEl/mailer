@@ -41,6 +41,7 @@ CREATE TABLE `email_event` (
 	`email_id` integer NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updated_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`event_type` text NOT NULL,
 	FOREIGN KEY (`email_id`) REFERENCES `email`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint

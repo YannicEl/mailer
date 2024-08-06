@@ -16,7 +16,9 @@ export default customEventHandler({}, async (event, { project }) => {
 
 	const ses = getSESClient(event);
 
+	const { AWS_SES_CONFIGURATIONSET_NAME } = event.context.env as Env;
 	const { MessageId: messageId } = await ses.emails.send({
+		ConfigurationSetName: AWS_SES_CONFIGURATIONSET_NAME,
 		Destination: {
 			ToAddresses: [body.to],
 		},

@@ -20,11 +20,13 @@ mode = "smart"
 
 [env.dev.vars]
 AWS_REGION = "eu-central-1"
+AWS_SES_CONFIGURATIONSET_NAME = "mailer_dev"
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
 
 [env.prod.vars]
 AWS_REGION = "eu-central-1"
+AWS_SES_CONFIGURATIONSET_NAME = "mailer_prod"
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
 

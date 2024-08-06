@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { integer, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { email } from './email.schema';
 import { timestamps } from './utils';
 
@@ -9,6 +9,7 @@ export const emailEvent = sqliteTable('email_event', {
 		.references(() => email.id)
 		.notNull(),
 	...timestamps,
+	eventType: text('event_type').notNull(),
 });
 
 export const emailEventRelations = relations(emailEvent, ({ one }) => ({

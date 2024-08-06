@@ -3,17 +3,17 @@
 	"type": "module",
 	"main": "src/index.ts",
 	"scripts": {
-		"db:studio:local": "drizzle-kit studio",
-		"db:studio:dev": "drizzle-kit studio -- --dev",
-		"db:studio:prod": "drizzle-kit studio -- --prod",
-		"db:migrate:local": "drizzle-kit generate && drizzle-kit migrate",
-		"db:migrate:dev": "drizzle-kit generate && drizzle-kit migrate -- --dev",
-		"db:migrate:prod": "drizzle-kit generate && drizzle-kit migrate -- --prod"
+		"studio:local": "dotenvx run -f .env -- drizzle-kit studio",
+		"studio:dev": "dotenvx run -f .env -f .env.dev --overload -- drizzle-kit studio",
+		"studio:prod": "dotenvx run -f .env -f .env.prod --overload -- drizzle-kit studio",
+		"migrate:local": "drizzle-kit generate && dotenvx run -f .env -- drizzle-kit migrate",
+		"migrate:dev": "drizzle-kit generate && dotenvx run -f .env -f  .env.dev --overload -- drizzle-kit migrate",
+		"migrate:prod": "drizzle-kit generate && dotenvx run -f .env -f .env.prod --overload -- drizzle-kit migrate"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "4.20240729.0",
+		"@dotenvx/dotenvx": "1.6.4",
 		"better-sqlite3": "11.1.2",
-		"dotenv": "16.4.5",
 		"drizzle-kit": "0.23.2",
 		"wrangler": "3.68.0"
 	},
