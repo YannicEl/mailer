@@ -8,6 +8,7 @@ mode = "smart"
 [env.preview.vars]
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
+PUBLIC_FRONTEND_URL = "test"
 
 [env.production.vars]
 NODE_VERSION = "20"
