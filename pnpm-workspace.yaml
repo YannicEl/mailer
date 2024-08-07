@@ -2,3 +2,4 @@ packages:
   - 'db/**'
   - 'backend/**'
   - 'frontend/**'
+  - 'lib/**'

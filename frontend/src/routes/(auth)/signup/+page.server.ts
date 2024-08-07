@@ -1,7 +1,8 @@
-import { env } from '$env/dynamic/public';
+import { PRIVATE_MAILER_API_KEY } from '$env/static/private';
+import { PUBLIC_BACKEND_URL } from '$env/static/public';
 import { setSessionCookie } from '$lib/server/auth';
-import { useDb } from '$lib/server/db.js';
 import { validateFormData } from '$lib/server/validation';
+import { defineMailerClient } from '@mailer/lib';
 import { redirect } from '@sveltejs/kit';
 import { generateIdFromEntropySize } from 'lucia';
 import { createDate, TimeSpan } from 'oslo';
@@ -13,10 +14,8 @@ const schema = z.object({
 });
 
 export const actions = {
-	default: async ({ request, cookies, locals: { lucia } }) => {
+	default: async ({ request, cookies, locals: { lucia, db } }) => {
 		const data = await validateFormData(schema, request);
-
-		const db = useDb();
 
 		const project = await db.project.insert({});
 
@@ -42,18 +41,16 @@ export const actions = {
 			expiresAt: createDate(new TimeSpan(15, 'm')),
 		});
 
-		await fetch(`${env.PUBLIC_BACKEND_URL}/emails/send`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer key`,
-			},
-			body: JSON.stringify({
-				to: user.email,
-				from: 'me@yannic.at',
-				subject: 'Email Verification Code',
-				body: `Your email verification code is: ${verifictationCode}`,
-			}),
+		const mailer = defineMailerClient({
+			apiKey: PRIVATE_MAILER_API_KEY,
+			baseUrl: PUBLIC_BACKEND_URL,
+		});
+
+		await mailer.emails.send({
+			to: user.email,
+			from: 'me@yannic.at',
+			subject: 'Email Verification Code',
+			body: `Your email verification code is: ${verifictationCode}`,
 		});
 
 		const session = await lucia.createSession(user.id, {});

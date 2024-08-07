@@ -1,0 +1,10 @@
+{
+	"name": "@mailer/lib",
+	"type": "module",
+	"main": "src/index.ts",
+	"scripts": {},
+	"devDependencies": {
+		"@yannicel/typed-api": "0.2.8",
+		"zod": "3.23.8"
+	}
+}
