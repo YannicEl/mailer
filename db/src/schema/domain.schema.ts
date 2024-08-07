@@ -8,7 +8,7 @@ export const domain = sqliteTable('domain', {
 	projectId: integer('project_id')
 		.references(() => project.id)
 		.notNull(),
-	domain: text('email').unique().notNull(),
+	name: text('name').unique().notNull(),
 	...timestamps,
 });
 

@@ -94,9 +94,6 @@ importers:
       '@unocss/reset':
         specifier: 0.61.9
         version: 0.61.9
-      '@yannicel/typed-api':
-        specifier: 0.2.8
-        version: 0.2.8(zod@3.23.8)
       drizzle-orm:
         specifier: 0.32.2
         version: 0.32.2(@cloudflare/workers-types@4.20240806.0)(better-sqlite3@11.1.2)

@@ -1,5 +1,6 @@
 import { defineApiClient } from '@yannicel/typed-api';
-import { z } from 'zod';
+import { addDomainSchema } from '../schemas/addDomain';
+import { sendEmailSchema } from '../schemas/sendEmail';
 
 export type MailerOptions = {
 	apiKey: string;
@@ -20,15 +21,26 @@ export function defineMailerClient({ apiKey, baseUrl }: MailerOptions) {
 						requestInit: {
 							method: 'POST',
 						},
-						requestSchema: z.object({
-							to: z.string(),
-							from: z.string(),
-							subject: z.string(),
-							body: z.string(),
-						}),
-						responseSchema: z.object({
-							messageId: z.string(),
-						}),
+						requestSchema: sendEmailSchema.request,
+						responseSchema: sendEmailSchema.response,
+					},
+				},
+			},
+			domains: {
+				endpoints: {
+					add: {
+						path: '/',
+						requestInit: {
+							method: 'POST',
+						},
+						requestSchema: addDomainSchema.request,
+						responseSchema: addDomainSchema.response,
+					},
+					delete: {
+						path: '/:domain_id',
+						requestInit: {
+							method: 'DELETE',
+						},
 					},
 				},
 			},

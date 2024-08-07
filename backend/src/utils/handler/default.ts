@@ -1,5 +1,6 @@
 import type { DBProject } from '@mailer/db';
-import { defineEventHandler, H3Event } from 'h3-nightly';
+import type { H3Event } from 'h3-nightly';
+import { defineEventHandler } from 'h3-nightly';
 import { validateBearerToken } from '../auth';
 
 type CustomEventHandlerParams = {
@@ -8,7 +9,7 @@ type CustomEventHandlerParams = {
 
 export function customEventHandler(
 	{ auth = true }: CustomEventHandlerParams,
-	handler: (event: H3Event, {}: { project: DBProject }) => Promise<Response>
+	handler: (event: H3Event, ctx: { project: DBProject }) => Promise<Response>
 ) {
 	return defineEventHandler(async (event) => {
 		try {

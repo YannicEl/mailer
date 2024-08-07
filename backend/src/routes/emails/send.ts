@@ -1,19 +1,14 @@
 import { getDb } from '@mailer/db';
-import { z } from 'zod';
+import { sendEmailSchema } from '@mailer/lib';
 import { customEventHandler } from '../../utils/handler/default';
+import { json } from '../../utils/response';
 import { getSESClient } from '../../utils/ses';
 import { validateJsonData } from '../../utils/validation';
 
-const schema = z.object({
-	to: z.string().email(),
-	from: z.string().email(),
-	subject: z.string(),
-	body: z.string(),
-});
-
 export default customEventHandler({}, async (event, { project }) => {
-	const body = await validateJsonData(schema, event.request);
+	const body = await validateJsonData(sendEmailSchema.request, event.request);
 
+	const db = getDb(event.context.env.DB);
 	const ses = getSESClient(event);
 
 	const { AWS_SES_CONFIGURATIONSET_NAME } = event.context.env as Env;
@@ -37,8 +32,6 @@ export default customEventHandler({}, async (event, { project }) => {
 		},
 	});
 
-	const db = getDb(event.context.env.DB);
-
 	let contact = await db.contact.query.findFirst({
 		where: (table, { eq }) => eq(table.email, body.to),
 	});
@@ -53,5 +46,5 @@ export default customEventHandler({}, async (event, { project }) => {
 		sesMessageId: messageId,
 	});
 
-	return Response.json({ messageId });
+	return json<typeof sendEmailSchema.response>({ messageId });
 });
