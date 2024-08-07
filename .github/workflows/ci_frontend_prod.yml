@@ -1,22 +1,22 @@
-name: CI Backend PROD
+name: CI Frontend PROD
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'backend/**'
+      - 'frontend/**'
       - 'db/**'
       - 'lib/**'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  ci_backend:
-    name: CI Backend PROD
+  ci_frontend:
+    name: CI frontend PROD
     defaults:
       run:
-        working-directory: backend
+        working-directory: frontend
     runs-on: ubuntu-latest
     environment: prod
     steps:

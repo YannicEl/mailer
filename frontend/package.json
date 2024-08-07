@@ -8,10 +8,14 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"cf-typegen": "wrangler types --env preview && move worker-configuration.d.ts src/",
-		"deploy:dev": "pnpm run build && wrangler deploy .svelte-kit/cloudflare/_worker.js --env preveiw",
-		"deploy:prod": "pnpm run build && wrangler deploy --env production"
+		"deploy:dev": "pnpm build && wrangler deploy .svelte-kit/cloudflare/_worker.js --env preveiw",
+		"deploy:prod": "pnpm build && wrangler deploy --env production",
+		"test:integration": "playwright test",
+		"test:unit": "vitest run",
+		"test": "pnpm test:unit && pnpm test:integration"
 	},
 	"devDependencies": {
+		"@playwright/test": "1.46.0",
 		"@sveltejs/adapter-cloudflare": "4.7.0",
 		"@sveltejs/kit": "2.5.20",
 		"@sveltejs/vite-plugin-svelte": "3.1.1",
@@ -21,6 +25,7 @@
 		"typescript": "5.5.4",
 		"unocss": "0.61.9",
 		"vite": "5.4.0",
+		"vitest": "1.5.0",
 		"wrangler": "3.69.1"
 	},
 	"dependencies": {
