@@ -6,10 +6,6 @@
 		{
 			"packageNames": ["node"],
 			"enabled": false
-		},
-		{
-			"packageNames": ["pnpm"],
-			"enabled": false
 		}
 	],
 	"rangeStrategy": "pin",
