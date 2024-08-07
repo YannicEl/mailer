@@ -8,8 +8,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"cf-typegen": "wrangler types --env preview && move worker-configuration.d.ts src/",
-		"deploy:dev": "pnpm build && wrangler deploy .svelte-kit/cloudflare/_worker.js --env preveiw",
-		"deploy:prod": "pnpm build && wrangler deploy --env production",
+		"deploy:dev": "pnpm build && wrangler pages deploy --branch dev --commit-dirty=true",
+		"deploy:prod": "pnpm build && wrangler pages deploy --branch main --commit-dirty=true",
 		"test:integration": "playwright test",
 		"test:unit": "vitest run",
 		"test": "pnpm test:unit && pnpm test:integration"
