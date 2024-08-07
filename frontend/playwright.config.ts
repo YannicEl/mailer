@@ -11,7 +11,7 @@ const config: PlaywrightTestConfig = {
 	projects: [
 		{
 			name: 'Desktop Chrome',
-			use: devices['Desktop Chrome'],
+			use: { ...devices['Desktop Chrome'], channel: 'chrome' },
 		},
 		{
 			name: 'Desktop Safari',
