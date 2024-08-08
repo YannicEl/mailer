@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "bacc928c-90e6-4ee7-8f49-ead163db8445",
+  "id": "8fb93f74-a777-46fe-a87e-d4f4274c3557",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "api_key": {
@@ -149,8 +149,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "email": {
-          "name": "email",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -174,10 +174,10 @@
         }
       },
       "indexes": {
-        "domain_email_unique": {
-          "name": "domain_email_unique",
+        "domain_name_unique": {
+          "name": "domain_name_unique",
           "columns": [
-            "email"
+            "name"
           ],
           "isUnique": true
         }
@@ -258,10 +258,10 @@
         }
       },
       "foreignKeys": {
-        "email_contact_id_project_id_fk": {
-          "name": "email_contact_id_project_id_fk",
+        "email_contact_id_contact_id_fk": {
+          "name": "email_contact_id_contact_id_fk",
           "tableFrom": "email",
-          "tableTo": "project",
+          "tableTo": "contact",
           "columnsFrom": [
             "contact_id"
           ],

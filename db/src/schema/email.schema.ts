@@ -8,7 +8,7 @@ import { timestamps } from './utils';
 export const email = sqliteTable('email', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	contactId: integer('contact_id')
-		.references(() => project.id)
+		.references(() => contact.id)
 		.notNull(),
 	projectId: integer('project_id')
 		.references(() => project.id)

@@ -10,7 +10,7 @@ const schema = z.object({
 });
 
 export const load = async ({ locals: { user } }) => {
-	if (!user) return redirect(302, '/login');
+	if (!user) return redirect(302, '/signin');
 	if (user.emailVerified) redirect(302, '/app');
 
 	return { email: user.email };

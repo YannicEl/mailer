@@ -19,7 +19,7 @@ CREATE TABLE `contact` (
 CREATE TABLE `domain` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`project_id` integer NOT NULL,
-	`email` text NOT NULL,
+	`name` text NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updated_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON UPDATE no action ON DELETE no action
@@ -32,7 +32,7 @@ CREATE TABLE `email` (
 	`ses_message_id` text NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updated_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	FOREIGN KEY (`contact_id`) REFERENCES `project`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`contact_id`) REFERENCES `contact`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
@@ -92,6 +92,6 @@ CREATE TABLE `user` (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `contact_email_unique` ON `contact` (`email`);--> statement-breakpoint
-CREATE UNIQUE INDEX `domain_email_unique` ON `domain` (`email`);--> statement-breakpoint
+CREATE UNIQUE INDEX `domain_name_unique` ON `domain` (`name`);--> statement-breakpoint
 CREATE UNIQUE INDEX `email_ses_message_id_unique` ON `email` (`ses_message_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`);

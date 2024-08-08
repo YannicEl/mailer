@@ -2,7 +2,7 @@ import { getDb } from '@mailer/db';
 import { H3Event } from 'h3-nightly';
 
 export async function validateBearerToken(event: H3Event) {
-	const token = event.request.headers.get('Authorization') ?? 'key';
+	const token = event.request.headers.get('Authorization');
 	if (!token) return;
 
 	const [_, apiKey] = token.split(' ');
@@ -12,11 +12,11 @@ export async function validateBearerToken(event: H3Event) {
 	const project = await db.project.query.findFirst({
 		with: {
 			apiKeys: {
-				where: (table, { eq }) => eq(table.key, token),
+				where: (table, { eq }) => eq(table.key, apiKey),
 			},
 		},
 	});
 
-	if (!project) return;
+	if (!project?.apiKeys?.length) return;
 	return project;
 }

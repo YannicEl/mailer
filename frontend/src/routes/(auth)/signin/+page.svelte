@@ -1,11 +1,8 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
-	type Props = { data: PageData };
-	const { data }: Props = $props();
+	import { enhance } from '$app/forms';
 </script>
 
-<form>
+<form method="post" use:enhance class="flex flex-col">
 	<label>
 		Email
 		<input type="text" name="email" />

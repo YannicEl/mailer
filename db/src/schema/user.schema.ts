@@ -6,6 +6,8 @@ import { projectsToUsers } from './projectsToUsers.schema';
 import { session } from './session.schema';
 import { timestamps } from './utils';
 
+export type DBUser = typeof user.$inferSelect;
+
 export const user = sqliteTable('user', {
 	id: text('id').primaryKey(),
 	projectId: integer('project_id')
