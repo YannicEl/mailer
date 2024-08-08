@@ -17,7 +17,9 @@ export const actions = {
 		});
 
 		if (!user) {
-			const project = await db.project.insert({});
+			const project = await db.project.insert({
+				name: 'Personal',
+			});
 
 			user = await db.user.insert({
 				id: generateIdFromEntropySize(16),

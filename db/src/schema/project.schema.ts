@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { integer, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { apiKey } from './apiKey.schema';
 import { contact } from './contact.schema';
 import { domain } from './domain.schema';
@@ -11,6 +11,8 @@ export type DBProject = typeof project.$inferSelect;
 
 export const project = sqliteTable('project', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
+	publicId: text('public_id').unique().notNull(),
+	name: text('name').notNull(),
 	...timestamps,
 });
 

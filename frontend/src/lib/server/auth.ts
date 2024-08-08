@@ -70,7 +70,6 @@ export async function sendVerificationCode(user: DBUser): Promise<void> {
 	await db.emailVerificationCode.delete((table, { eq }) => eq(table.userId, user.id));
 
 	const verifictationCode = generateRandomString(8, alphabet('0-9'));
-	console.log({ verifictationCode });
 	await db.emailVerificationCode.insert({
 		userId: user.id,
 		code: verifictationCode,
