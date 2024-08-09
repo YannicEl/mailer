@@ -8,5 +8,7 @@
 		<input type="text" name="email" />
 	</label>
 
-	<button>Login</button>
+	<button>Sign in</button>
 </form>
+
+<a href="/signup">or sign up</a>

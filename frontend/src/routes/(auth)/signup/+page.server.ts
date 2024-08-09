@@ -19,11 +19,11 @@ export const actions = {
 		if (!user) {
 			const project = await db.project.insert({
 				name: 'Personal',
+				slug: 'personal',
 			});
 
 			user = await db.user.insert({
 				id: generateIdFromEntropySize(16),
-				projectId: project.id,
 				email: data.email,
 			});
 

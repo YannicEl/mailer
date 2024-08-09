@@ -58,6 +58,8 @@ CREATE TABLE `email_verification_code` (
 --> statement-breakpoint
 CREATE TABLE `project` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text NOT NULL,
+	`slug` text NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updated_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
@@ -92,6 +94,9 @@ CREATE TABLE `user` (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `contact_email_unique` ON `contact` (`email`);--> statement-breakpoint
+CREATE UNIQUE INDEX `contact_project_id_email_unique` ON `contact` (`project_id`,`email`);--> statement-breakpoint
 CREATE UNIQUE INDEX `domain_name_unique` ON `domain` (`name`);--> statement-breakpoint
+CREATE UNIQUE INDEX `domain_project_id_name_unique` ON `domain` (`project_id`,`name`);--> statement-breakpoint
 CREATE UNIQUE INDEX `email_ses_message_id_unique` ON `email` (`ses_message_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `project_id_slug_unique` ON `project` (`id`,`slug`);--> statement-breakpoint
 CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`);

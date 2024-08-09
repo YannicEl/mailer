@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "8fb93f74-a777-46fe-a87e-d4f4274c3557",
+  "id": "93f09a41-d9d4-49fc-a001-945c31d8258d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "api_key": {
@@ -112,6 +112,14 @@
             "email"
           ],
           "isUnique": true
+        },
+        "contact_project_id_email_unique": {
+          "name": "contact_project_id_email_unique",
+          "columns": [
+            "project_id",
+            "email"
+          ],
+          "isUnique": true
         }
       },
       "foreignKeys": {
@@ -177,6 +185,14 @@
         "domain_name_unique": {
           "name": "domain_name_unique",
           "columns": [
+            "name"
+          ],
+          "isUnique": true
+        },
+        "domain_project_id_name_unique": {
+          "name": "domain_project_id_name_unique",
+          "columns": [
+            "project_id",
             "name"
           ],
           "isUnique": true
@@ -432,6 +448,20 @@
           "notNull": true,
           "autoincrement": true
         },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "integer",
@@ -449,7 +479,16 @@
           "default": "CURRENT_TIMESTAMP"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "project_id_slug_unique": {
+          "name": "project_id_slug_unique",
+          "columns": [
+            "id",
+            "slug"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}

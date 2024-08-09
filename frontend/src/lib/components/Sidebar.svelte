@@ -49,7 +49,7 @@
 		</nav>
 	</div>
 
-	<a href="api/auth/signout">sign out</a>
+	<a href="/api/auth/signout">sign out</a>
 </aside>
 
 <style>

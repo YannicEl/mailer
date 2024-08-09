@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1723114910527,
-      "tag": "0000_cultured_lenny_balinger",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1723135269367,
-      "tag": "0001_cultured_stick",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1723135492628,
-      "tag": "0002_deep_squadron_sinister",
+      "when": 1723214750977,
+      "tag": "0000_brief_terrax",
       "breakpoints": true
     }
   ]
