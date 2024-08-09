@@ -15,8 +15,8 @@ importers:
         specifier: 3.2.6
         version: 3.2.6(prettier@3.3.2)(svelte@5.0.0-next.210)
       prettier-plugin-tailwindcss:
-        specifier: 0.6.5
-        version: 0.6.5(prettier-plugin-organize-imports@4.0.0(prettier@3.3.2)(typescript@5.5.4))(prettier-plugin-svelte@3.2.6(prettier@3.3.2)(svelte@5.0.0-next.210))(prettier@3.3.2)
+        specifier: 0.6.6
+        version: 0.6.6(prettier-plugin-organize-imports@4.0.0(prettier@3.3.2)(typescript@5.5.4))(prettier-plugin-svelte@3.2.6(prettier@3.3.2)(svelte@5.0.0-next.210))(prettier@3.3.2)
 
   backend:
     dependencies:
@@ -111,11 +111,11 @@ importers:
         specifier: 1.46.0
         version: 1.46.0
       '@sveltejs/adapter-cloudflare':
-        specifier: 4.7.0
-        version: 4.7.0(@sveltejs/kit@2.5.20(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(wrangler@3.70.0(@cloudflare/workers-types@4.20240806.0))
+        specifier: 4.7.1
+        version: 4.7.1(@sveltejs/kit@2.5.21(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(wrangler@3.70.0(@cloudflare/workers-types@4.20240806.0))
       '@sveltejs/kit':
-        specifier: 2.5.20
-        version: 2.5.20(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10))
+        specifier: 2.5.21
+        version: 2.5.21(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10))
       '@sveltejs/vite-plugin-svelte':
         specifier: 3.1.1
         version: 3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10))
@@ -1305,14 +1305,14 @@ packages:
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
-  '@sveltejs/adapter-cloudflare@4.7.0':
-    resolution: {integrity: sha512-8K2Bw7ykLfIypqFZ8CvNsi0vvM9iWyWsuCGcuTwW6Z7FF+EJNe3V5UJwdXlz20AvdPRZ00S/0XF6Ns3iwBWcfw==}
+  '@sveltejs/adapter-cloudflare@4.7.1':
+    resolution: {integrity: sha512-GZ2NUFtQgpDtp+IECunzPAF7WkvGYhSWDjI7KPpaVp1TrUrL7EvZh6KeaXDGwDfy33VC6/myHZtvBi7D+wlBWA==}
     peerDependencies:
       '@sveltejs/kit': ^2.0.0
       wrangler: ^3.28.4
 
-  '@sveltejs/kit@2.5.20':
-    resolution: {integrity: sha512-47rJ5BoYwURE/Rp7FNMLp3NzdbWC9DQ/PmKd0mebxT2D/PrPxZxcLImcD3zsWdX2iS6oJk8ITJbO/N2lWnnUqA==}
+  '@sveltejs/kit@2.5.21':
+    resolution: {integrity: sha512-zHkaVZB5WNKVtosPhpPHLLvCdhUs3j6rRhDjRcXz9Mi7ZOeMe+xpzFkm7vs7RYQKMWDPUIfDngFDM3iGPyntMw==}
     engines: {node: '>=18.13'}
     hasBin: true
     peerDependencies:
@@ -2529,8 +2529,8 @@ packages:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
 
-  prettier-plugin-tailwindcss@0.6.5:
-    resolution: {integrity: sha512-axfeOArc/RiGHjOIy9HytehlC0ZLeMaqY09mm8YCkMzznKiDkwFzOpBvtuhuv3xG5qB73+Mj7OCe2j/L1ryfuQ==}
+  prettier-plugin-tailwindcss@0.6.6:
+    resolution: {integrity: sha512-OPva5S7WAsPLEsOuOWXATi13QrCKACCiIonFgIR6V4lYv4QLp++UXVhZSzRbZxXGimkQtQT86CC6fQqTOybGng==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -2544,6 +2544,7 @@ packages:
       prettier-plugin-import-sort: '*'
       prettier-plugin-jsdoc: '*'
       prettier-plugin-marko: '*'
+      prettier-plugin-multiline-arrays: '*'
       prettier-plugin-organize-attributes: '*'
       prettier-plugin-organize-imports: '*'
       prettier-plugin-sort-imports: '*'
@@ -2569,6 +2570,8 @@ packages:
       prettier-plugin-jsdoc:
         optional: true
       prettier-plugin-marko:
+        optional: true
+      prettier-plugin-multiline-arrays:
         optional: true
       prettier-plugin-organize-attributes:
         optional: true
@@ -4021,15 +4024,15 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
-  '@sveltejs/adapter-cloudflare@4.7.0(@sveltejs/kit@2.5.20(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(wrangler@3.70.0(@cloudflare/workers-types@4.20240806.0))':
+  '@sveltejs/adapter-cloudflare@4.7.1(@sveltejs/kit@2.5.21(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(wrangler@3.70.0(@cloudflare/workers-types@4.20240806.0))':
     dependencies:
       '@cloudflare/workers-types': 4.20240806.0
-      '@sveltejs/kit': 2.5.20(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10))
+      '@sveltejs/kit': 2.5.21(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10))
       esbuild: 0.21.5
       worktop: 0.8.0-next.18
       wrangler: 3.70.0(@cloudflare/workers-types@4.20240806.0)
 
-  '@sveltejs/kit@2.5.20(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10))':
+  '@sveltejs/kit@2.5.21(@sveltejs/vite-plugin-svelte@3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10)))(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@5.0.0-next.210)(vite@5.4.0(@types/node@20.14.10))
       '@types/cookie': 0.6.0
@@ -5290,7 +5293,7 @@ snapshots:
       prettier: 3.3.2
       svelte: 5.0.0-next.210
 
-  prettier-plugin-tailwindcss@0.6.5(prettier-plugin-organize-imports@4.0.0(prettier@3.3.2)(typescript@5.5.4))(prettier-plugin-svelte@3.2.6(prettier@3.3.2)(svelte@5.0.0-next.210))(prettier@3.3.2):
+  prettier-plugin-tailwindcss@0.6.6(prettier-plugin-organize-imports@4.0.0(prettier@3.3.2)(typescript@5.5.4))(prettier-plugin-svelte@3.2.6(prettier@3.3.2)(svelte@5.0.0-next.210))(prettier@3.3.2):
     dependencies:
       prettier: 3.3.2
     optionalDependencies:
