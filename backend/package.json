@@ -10,17 +10,17 @@
 		"deploy:prod": "wrangler deploy --env prod"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "0.4.19",
+		"@cloudflare/vitest-pool-workers": "0.4.20",
 		"@cloudflare/workers-types": "4.20240806.0",
 		"typescript": "5.5.4",
 		"vitest": "1.5.0",
-		"wrangler": "3.69.1"
+		"wrangler": "3.70.0"
 	},
 	"dependencies": {
 		"@mailer/db": "workspace:",
 		"@mailer/lib": "workspace:",
 		"@yannicel/typed-api": "0.2.8",
-		"drizzle-orm": "0.32.2",
+		"drizzle-orm": "0.33.0",
 		"h3-nightly": "2.0.0-1721905439.b337fe7",
 		"pkijs": "3.2.4",
 		"zod": "3.23.8"
