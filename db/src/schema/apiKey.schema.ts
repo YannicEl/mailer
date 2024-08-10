@@ -8,7 +8,8 @@ export const apiKey = sqliteTable('api_key', {
 	projectId: integer('project_id')
 		.references(() => project.id)
 		.notNull(),
-	key: text('key').notNull(),
+	name: text('name').notNull(),
+	key: text('key').notNull().unique(),
 	...timestamps,
 });
 

@@ -85,10 +85,6 @@ export async function sendVerificationCode(user: DBUser): Promise<void> {
 	});
 }
 
-export async function signIn() {}
-
-export async function signUp() {}
-
 export async function signOut(session?: Session | null): Promise<void> {
 	if (!session) session = useSession();
 	if (session) {

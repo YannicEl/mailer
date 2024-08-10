@@ -9,9 +9,9 @@
 	let { data, header, row }: Props = $props();
 </script>
 
-<table>
-	<thead>
-		<tr>
+<table class="w-full rounded-sm border">
+	<thead class="bg-gray-1">
+		<tr class="text-left">
 			{@render header()}
 		</tr>
 	</thead>
@@ -24,3 +24,6 @@
 		{/each}
 	</tbody>
 </table>
+
+<style lang="scss">
+</style>
