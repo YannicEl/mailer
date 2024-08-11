@@ -10,6 +10,11 @@
 		{
 			"packageNames": ["pnpm"],
 			"enabled": false
+		},
+		{
+			"matchFileNames": ["backend/**"],
+			"matchPackageNames": ["vitest"],
+			"enabled": false
 		}
 	],
 	"rangeStrategy": "pin",
@@ -19,6 +24,5 @@
 	},
 	"npm": {
 		"commitMessageTopic": "{{prettyDepType}} {{depName}}"
-	},
-	"ignoreDeps": ["vitest"]
+	}
 }
