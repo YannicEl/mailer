@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "2d1204f4-6106-461b-bb91-7182a1c9b738",
+  "id": "f81764a8-7373-4686-8e8d-5db9e90c1e49",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "api_key": {
@@ -13,6 +13,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "public_id": {
+          "name": "public_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         },
         "project_id": {
           "name": "project_id",
@@ -53,6 +60,13 @@
         }
       },
       "indexes": {
+        "api_key_public_id_unique": {
+          "name": "api_key_public_id_unique",
+          "columns": [
+            "public_id"
+          ],
+          "isUnique": true
+        },
         "api_key_key_unique": {
           "name": "api_key_key_unique",
           "columns": [
@@ -89,6 +103,13 @@
           "notNull": true,
           "autoincrement": true
         },
+        "public_id": {
+          "name": "public_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "project_id": {
           "name": "project_id",
           "type": "integer",
@@ -121,6 +142,13 @@
         }
       },
       "indexes": {
+        "contact_public_id_unique": {
+          "name": "contact_public_id_unique",
+          "columns": [
+            "public_id"
+          ],
+          "isUnique": true
+        },
         "contact_email_unique": {
           "name": "contact_email_unique",
           "columns": [
@@ -165,6 +193,13 @@
           "notNull": true,
           "autoincrement": true
         },
+        "public_id": {
+          "name": "public_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "project_id": {
           "name": "project_id",
           "type": "integer",
@@ -197,6 +232,13 @@
         }
       },
       "indexes": {
+        "domain_public_id_unique": {
+          "name": "domain_public_id_unique",
+          "columns": [
+            "public_id"
+          ],
+          "isUnique": true
+        },
         "domain_name_unique": {
           "name": "domain_name_unique",
           "columns": [
@@ -241,6 +283,13 @@
           "notNull": true,
           "autoincrement": true
         },
+        "public_id": {
+          "name": "public_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "contact_id": {
           "name": "contact_id",
           "type": "integer",
@@ -280,6 +329,13 @@
         }
       },
       "indexes": {
+        "email_public_id_unique": {
+          "name": "email_public_id_unique",
+          "columns": [
+            "public_id"
+          ],
+          "isUnique": true
+        },
         "email_ses_message_id_unique": {
           "name": "email_ses_message_id_unique",
           "columns": [
@@ -463,6 +519,13 @@
           "notNull": true,
           "autoincrement": true
         },
+        "public_id": {
+          "name": "public_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "name": {
           "name": "name",
           "type": "text",
@@ -495,6 +558,13 @@
         }
       },
       "indexes": {
+        "project_public_id_unique": {
+          "name": "project_public_id_unique",
+          "columns": [
+            "public_id"
+          ],
+          "isUnique": true
+        },
         "project_id_slug_unique": {
           "name": "project_id_slug_unique",
           "columns": [
@@ -652,6 +722,13 @@
           "notNull": true,
           "autoincrement": false
         },
+        "public_id": {
+          "name": "public_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "email": {
           "name": "email",
           "type": "text",
@@ -685,6 +762,13 @@
         }
       },
       "indexes": {
+        "user_public_id_unique": {
+          "name": "user_public_id_unique",
+          "columns": [
+            "public_id"
+          ],
+          "isUnique": true
+        },
         "user_email_unique": {
           "name": "user_email_unique",
           "columns": [

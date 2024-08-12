@@ -5,6 +5,13 @@
 
 	type Props = { data: PageData };
 	let { data }: Props = $props();
+
+	type ApiKey = PageData['apiKeys'][number];
+	let selection = $state<ApiKey[]>([]);
+
+	function doSomething(apiKey: ApiKey): void {
+		console.log(apiKey);
+	}
 </script>
 
 <h1>Api Keys</h1>
@@ -17,16 +24,20 @@
 	<button>Create API Key</button>
 </form>
 
-<ResponsiveTable data={data.apiKeys}>
+<ResponsiveTable data={data.apiKeys} bind:selection>
 	{#snippet header()}
 		<th>Name</th>
 		<th>Key</th>
 		<th>CreatedAt</th>
+		<th></th>
 	{/snippet}
 
-	{#snippet row({ name, key, createdAt })}
-		<td>{name}</td>
-		<td>{key}</td>
-		<td>{createdAt}</td>
+	{#snippet row(apiKey)}
+		<td>{apiKey.name}</td>
+		<td>{apiKey.key}</td>
+		<td>{apiKey.createdAt}</td>
+		<td>
+			<button onclick={() => doSomething(apiKey)}>...</button>
+		</td>
 	{/snippet}
 </ResponsiveTable>

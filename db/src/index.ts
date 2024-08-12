@@ -6,8 +6,8 @@ import { schema } from './schema';
 export type { DBProject } from './schema/index';
 
 export type DB = ReturnType<typeof getDb>;
-export function getDb(D1: D1Database) {
-	const db = drizzle(D1, { schema });
+export function getDb(D1: D1Database, { logger }: { logger: boolean } = { logger: false }) {
+	const db = drizzle(D1, { schema, logger });
 	return defineDbClient({ db, schema });
 }
 

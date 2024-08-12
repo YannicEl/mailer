@@ -4,9 +4,7 @@ import { useDb } from '$lib/server/db';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	context.event = event;
-
-	context.db = useDb();
+	context.db = useDb(event);
 	event.locals.db = context.db;
 
 	const lucia = getLucia(context.db.drizzle);
@@ -32,6 +30,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	event.locals.user = user;
 	event.locals.session = session;
+
+	context.event = event;
 
 	return resolve(event);
 };

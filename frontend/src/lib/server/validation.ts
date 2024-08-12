@@ -38,3 +38,13 @@ export function formDataToObject(
 
 	return ret;
 }
+
+export function validateSearchParameters<T>(schema: Schema<T>, searchParams: URLSearchParams): T {
+	const params: Record<string, string> = {};
+
+	searchParams.forEach((value, key) => {
+		params[key] = value;
+	});
+
+	return schema.parse(params);
+}

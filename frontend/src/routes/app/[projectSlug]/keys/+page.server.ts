@@ -2,12 +2,25 @@ import { getProjectAndUser } from '$lib/server/db.js';
 import { validateFormData } from '$lib/server/validation.js';
 import { z } from 'zod';
 
-export const load = async ({ parent, locals: { db } }) => {
+export const load = async ({ parent, url, locals: { db } }) => {
 	const { project } = await parent();
 
-	const apiKeys = await db.apiKey.select((table, { eq }) => eq(table.projectId, project.id));
+	const pageSize = Number(url.searchParams.get('pageSize') ?? 10);
+	const page = Number(url.searchParams.get('page') ?? 0);
 
-	const publicApiKeys = apiKeys.map(({ name, key, createdAt }) => ({ name, key, createdAt }));
+	const apiKeys = await db.apiKey.query.findMany({
+		where: (table, { eq }) => eq(table.projectId, project.id),
+		orderBy: (table, { asc }) => [asc(table.id)],
+		limit: pageSize,
+		offset: pageSize * page,
+	});
+
+	const publicApiKeys = apiKeys.map(({ publicId, name, key, createdAt }) => ({
+		id: publicId,
+		name,
+		key,
+		createdAt,
+	}));
 
 	return { apiKeys: publicApiKeys };
 };

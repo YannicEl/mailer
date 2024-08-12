@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core';
+import { generateBrandedId } from '../utils';
 import { apiKey } from './apiKey.schema';
 import { contact } from './contact.schema';
 import { domain } from './domain.schema';
@@ -13,6 +14,11 @@ export const project = sqliteTable(
 	'project',
 	{
 		id: integer('id').primaryKey({ autoIncrement: true }),
+		publicId: text('public_id')
+			.notNull()
+			.unique()
+			.$default(() => generateBrandedId('pro')),
+
 		name: text('name').notNull(),
 		slug: text('slug').notNull(),
 		...timestamps,

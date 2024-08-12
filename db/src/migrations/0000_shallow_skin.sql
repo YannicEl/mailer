@@ -1,5 +1,6 @@
 CREATE TABLE `api_key` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`public_id` text NOT NULL,
 	`project_id` integer NOT NULL,
 	`name` text NOT NULL,
 	`key` text NOT NULL,
@@ -10,6 +11,7 @@ CREATE TABLE `api_key` (
 --> statement-breakpoint
 CREATE TABLE `contact` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`public_id` text NOT NULL,
 	`project_id` integer NOT NULL,
 	`email` text NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -19,6 +21,7 @@ CREATE TABLE `contact` (
 --> statement-breakpoint
 CREATE TABLE `domain` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`public_id` text NOT NULL,
 	`project_id` integer NOT NULL,
 	`name` text NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -28,6 +31,7 @@ CREATE TABLE `domain` (
 --> statement-breakpoint
 CREATE TABLE `email` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`public_id` text NOT NULL,
 	`contact_id` integer NOT NULL,
 	`project_id` integer NOT NULL,
 	`ses_message_id` text NOT NULL,
@@ -59,6 +63,7 @@ CREATE TABLE `email_verification_code` (
 --> statement-breakpoint
 CREATE TABLE `project` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`public_id` text NOT NULL,
 	`name` text NOT NULL,
 	`slug` text NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -86,17 +91,24 @@ CREATE TABLE `session` (
 --> statement-breakpoint
 CREATE TABLE `user` (
 	`id` text PRIMARY KEY NOT NULL,
+	`public_id` text NOT NULL,
 	`email` text NOT NULL,
 	`email_verified` integer DEFAULT false NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updated_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 --> statement-breakpoint
+CREATE UNIQUE INDEX `api_key_public_id_unique` ON `api_key` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `api_key_key_unique` ON `api_key` (`key`);--> statement-breakpoint
+CREATE UNIQUE INDEX `contact_public_id_unique` ON `contact` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `contact_email_unique` ON `contact` (`email`);--> statement-breakpoint
 CREATE UNIQUE INDEX `contact_project_id_email_unique` ON `contact` (`project_id`,`email`);--> statement-breakpoint
+CREATE UNIQUE INDEX `domain_public_id_unique` ON `domain` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `domain_name_unique` ON `domain` (`name`);--> statement-breakpoint
 CREATE UNIQUE INDEX `domain_project_id_name_unique` ON `domain` (`project_id`,`name`);--> statement-breakpoint
+CREATE UNIQUE INDEX `email_public_id_unique` ON `email` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `email_ses_message_id_unique` ON `email` (`ses_message_id`);--> statement-breakpoint
+CREATE UNIQUE INDEX `project_public_id_unique` ON `project` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `project_id_slug_unique` ON `project` (`id`,`slug`);--> statement-breakpoint
+CREATE UNIQUE INDEX `user_public_id_unique` ON `user` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`);

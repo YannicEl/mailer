@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { generateBrandedId } from '../utils';
 import { emailVerificationCode } from './emailVerifictationCode.schema';
 import { projectsToUsers } from './projectsToUsers.schema';
 import { session } from './session.schema';
@@ -9,6 +10,10 @@ export type DBUser = typeof user.$inferSelect;
 
 export const user = sqliteTable('user', {
 	id: text('id').primaryKey(),
+	publicId: text('public_id')
+		.notNull()
+		.unique()
+		.$default(() => generateBrandedId('usr')),
 	email: text('email').unique().notNull(),
 	emailVerified: integer('email_verified', { mode: 'boolean' }).notNull().default(false),
 	...timestamps,

@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { generateBrandedId } from '../utils';
 import { contact } from './contact.schema';
 import { emailEvent } from './emailEvent.schema';
 import { project } from './project.schema';
@@ -7,6 +8,10 @@ import { timestamps } from './utils';
 
 export const email = sqliteTable('email', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
+	publicId: text('public_id')
+		.notNull()
+		.unique()
+		.$default(() => generateBrandedId('eml')),
 	contactId: integer('contact_id')
 		.references(() => contact.id)
 		.notNull(),

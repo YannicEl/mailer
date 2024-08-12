@@ -2,13 +2,13 @@ import { context, useEvent } from '$lib/server/context';
 import type { DB, DBProject } from '@mailer/db';
 import { getDb, schema } from '@mailer/db';
 import type { DBUser } from '@mailer/db/src/schema/user.schema';
-import { error, redirect } from '@sveltejs/kit';
+import { error, redirect, type RequestEvent } from '@sveltejs/kit';
 import { and, eq } from 'drizzle-orm';
 
-export function useDb(): DB {
+export function useDb(event?: RequestEvent): DB {
 	if (context.db) return context.db;
 
-	const event = useEvent();
+	if (!event) event = useEvent();
 	if (!event) error(500, 'event not found');
 	if (!event.platform?.env) throw new Error('Cloudflare bindings not found');
 

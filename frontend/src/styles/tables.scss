@@ -1,0 +1,22 @@
+table.custom {
+	--apply: w-full border-1 border-black border-separate rounded;
+
+	td {
+		--apply: py-4 text-sm;
+	}
+
+	thead {
+		tr:first-child th {
+			--apply: pb-2 text-left;
+		}
+	}
+
+	td,
+	th {
+		--apply: pr-6;
+
+		&:first-child {
+			--apply: pl-6;
+		}
+	}
+}
