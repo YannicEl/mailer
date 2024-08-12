@@ -1,6 +1,6 @@
 import { sendVerificationCode, setSessionCookie } from '$lib/server/auth';
-import { validateFormData } from '$lib/server/validation';
-import { redirect } from '@sveltejs/kit';
+import { formDataToObject } from '$lib/server/validation';
+import { fail, redirect } from '@sveltejs/kit';
 import { generateIdFromEntropySize } from 'lucia';
 import { z } from 'zod';
 
@@ -10,7 +10,10 @@ const schema = z.object({
 
 export const actions = {
 	default: async ({ request, cookies, locals: { lucia, db } }) => {
-		const data = await validateFormData(schema, request);
+		const json = formDataToObject(await request.formData());
+		const { success, data } = schema.safeParse(json);
+
+		if (!success) return fail(400, { error: true });
 
 		let user = await db.user.query.findFirst({
 			where: (table, { eq }) => eq(table.email, data.email),

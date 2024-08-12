@@ -2,7 +2,6 @@
 	import type { SvelteHTMLElements } from 'svelte/elements';
 
 	type Props = {} & SvelteHTMLElements['svg'];
-
 	let { ...props }: Props = $props();
 </script>
 

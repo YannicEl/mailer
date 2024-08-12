@@ -24,6 +24,7 @@ export const actions = {
 		const sessionCookie = lucia.createSessionCookie(session.id);
 		setSessionCookie(cookies, sessionCookie);
 
+
 		redirect(302, '/verify-email');
 	},
 };
