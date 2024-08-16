@@ -8,10 +8,6 @@
 			"enabled": false
 		},
 		{
-			"packageNames": ["pnpm"],
-			"enabled": true
-		},
-		{
 			"matchFileNames": ["backend/**"],
 			"matchPackageNames": ["vitest"],
 			"enabled": false
