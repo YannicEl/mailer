@@ -4,10 +4,13 @@
 	"extends": ["config:recommended", "group:allNonMajor", ":semanticCommitTypeAll(chore)"],
 	"packageRules": [
 		{
-			"packageNames": ["node"],
+			"matchDepTypes": ["engines"],
 			"enabled": false
 		},
-
+		{
+			"packageNames": ["pnpm"],
+			"enabled": true
+		},
 		{
 			"matchFileNames": ["backend/**"],
 			"matchPackageNames": ["vitest"],
