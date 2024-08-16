@@ -1,5 +1,6 @@
 import { sendVerificationCode, setSessionCookie } from '$lib/server/auth';
-import { formDataToObject } from '$lib/server/validation';
+import { ERRORS } from '$lib/server/errors.js';
+import { validateFormData } from '$lib/server/validation';
 import { fail, redirect } from '@sveltejs/kit';
 import { generateIdFromEntropySize } from 'lucia';
 import { z } from 'zod';
@@ -10,38 +11,41 @@ const schema = z.object({
 
 export const actions = {
 	default: async ({ request, cookies, locals: { lucia, db } }) => {
-		const json = formDataToObject(await request.formData());
-		const { success, data } = schema.safeParse(json);
+		try {
+			const { success, data } = await validateFormData(schema, request);
+			if (!success) return fail(400, { error: ERRORS.INVALID_EMAIL });
 
-		if (!success) return fail(400, { error: true });
-
-		let user = await db.user.query.findFirst({
-			where: (table, { eq }) => eq(table.email, data.email),
-		});
-
-		if (!user) {
-			const project = await db.project.insert({
-				name: 'Personal',
-				slug: 'personal',
+			let user = await db.user.query.findFirst({
+				where: (table, { eq }) => eq(table.email, data.email),
 			});
 
-			user = await db.user.insert({
-				id: generateIdFromEntropySize(16),
-				email: data.email,
-			});
+			if (!user) {
+				const project = await db.project.insert({
+					name: 'Personal',
+					slug: 'personal',
+				});
 
-			await db.projectsToUsers.insert({
-				projectId: project.id,
-				userId: user.id,
-			});
+				user = await db.user.insert({
+					id: generateIdFromEntropySize(16),
+					email: data.email,
+				});
+
+				await db.projectsToUsers.insert({
+					projectId: project.id,
+					userId: user.id,
+				});
+			}
+
+			await sendVerificationCode(user);
+
+			const session = await lucia.createSession(user.id, {});
+
+			const sessionCookie = lucia.createSessionCookie(session.id);
+			setSessionCookie(cookies, sessionCookie);
+		} catch (error) {
+			console.error(error);
+			return fail(400, { error: ERRORS.UNKNOWN_ERROR });
 		}
-
-		await sendVerificationCode(user);
-
-		const session = await lucia.createSession(user.id, {});
-
-		const sessionCookie = lucia.createSessionCookie(session.id);
-		setSessionCookie(cookies, sessionCookie);
 
 		redirect(302, '/verify-email');
 	},

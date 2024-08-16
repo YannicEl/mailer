@@ -1,4 +1,4 @@
-import { context, useEvent } from '$lib/server/context';
+import { context, useEvent } from '$lib/context';
 import type { DB, DBProject } from '@mailer/db';
 import { getDb, schema } from '@mailer/db';
 import type { DBUser } from '@mailer/db/src/schema/user.schema';

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import ResponsiveTable from '$lib/components/ResponsiveTable.svelte';
+	import { formatDate } from '$lib/format';
 	import type { PageData } from './$types';
 
 	type Props = { data: PageData };
@@ -35,7 +36,7 @@
 	{#snippet row(apiKey)}
 		<td>{apiKey.name}</td>
 		<td>{apiKey.key}</td>
-		<td>{apiKey.createdAt}</td>
+		<td>{formatDate(apiKey.createdAt)}</td>
 		<td>
 			<button onclick={() => doSomething(apiKey)}>...</button>
 		</td>

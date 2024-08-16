@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { Schema } from 'zod';
+import type { SafeParseReturnType, Schema } from 'zod';
 
 export async function validateJsonData<T>(schema: Schema<T>, request: Request): Promise<T> {
 	try {
@@ -11,11 +11,14 @@ export async function validateJsonData<T>(schema: Schema<T>, request: Request): 
 	}
 }
 
-export async function validateFormData<T>(schema: Schema<T>, request: Request): Promise<T> {
+export async function validateFormData<T>(
+	schema: Schema<T>,
+	request: Request
+): Promise<SafeParseReturnType<T, T>> {
 	try {
 		const formData = await request.formData();
 		const parsedFormData = formDataToObject(formData);
-		return schema.parse(parsedFormData);
+		return schema.safeParse(parsedFormData);
 	} catch (err) {
 		console.error(err);
 		error(422);

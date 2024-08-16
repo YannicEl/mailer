@@ -1,12 +1,24 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
-	import type { SubmitFunction } from './$types';
+	import FormError from '$lib/components/FormError.svelte';
+	import type { ActionData, SubmitFunction } from './$types';
+
+	type Props = {
+		form: ActionData;
+	};
+	const { form }: Props = $props();
 
 	let loading = $state(false);
 
 	const submit: SubmitFunction = () => {
 		loading = true;
+
+		return ({ update }) => {
+			loading = false;
+
+			update();
+		};
 	};
 </script>
 
@@ -22,3 +34,7 @@
 		<a href="signup">Don't have an account? <span class="underline">Sign up.</span></a>
 	</div>
 </form>
+
+{#if form?.error}
+	<FormError error={form.error} />
+{/if}

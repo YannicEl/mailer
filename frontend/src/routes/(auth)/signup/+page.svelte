@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import Alert from '$lib/components/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import FormError from '$lib/components/FormError.svelte';
 	import type { ActionData, SubmitFunction } from './$types';
 
 	type Props = {
@@ -31,10 +31,10 @@
 	<div class="flex flex-col items-center gap-1">
 		<Button {loading}>Sign up</Button>
 
-		<a href="signin">Already have an account? <span class="underline">Sign up.</span></a>
+		<a href="signin">Already have an account? <span class="underline">Sign in.</span></a>
 	</div>
 </form>
 
 {#if form?.error}
-	<Alert type="error" title="Title">This is an alert</Alert>
+	<FormError error={form.error} />
 {/if}
