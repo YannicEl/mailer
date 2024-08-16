@@ -9,7 +9,7 @@
 		},
 		{
 			"packageNames": ["pnpm"],
-			"enabled": false
+			"enabled": true
 		},
 		{
 			"matchFileNames": ["backend/**"],
