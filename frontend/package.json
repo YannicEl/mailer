@@ -15,12 +15,12 @@
 		"test": "pnpm test:unit && pnpm test:integration"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.46.0",
+		"@playwright/test": "1.46.1",
 		"@sveltejs/adapter-cloudflare": "4.7.2",
 		"@sveltejs/kit": "2.5.22",
 		"@sveltejs/vite-plugin-svelte": "3.1.1",
 		"sass-embedded": "1.77.8",
-		"svelte": "5.0.0-next.222",
+		"svelte": "5.0.0-next.223",
 		"svelte-check": "3.8.5",
 		"tslib": "2.6.3",
 		"typescript": "5.5.4",
