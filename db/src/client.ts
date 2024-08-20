@@ -44,7 +44,7 @@ function _select<Table extends SQLiteTable>(db: DrizzleDB, table: Table) {
 
 function _delete<Table extends SQLiteTable>(db: DrizzleDB, table: Table) {
 	return async (where: WhereFunction<Table>) => {
-		db.delete(table).where(where(table, getOperators()));
+		return db.delete(table).where(where(table, getOperators()));
 	};
 }
 

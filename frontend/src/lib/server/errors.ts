@@ -1,5 +1,9 @@
 export type FormErrorType = keyof typeof ERRORS | (string & {});
 export const ERRORS = {
+	INVALID_FORM: {
+		title: 'Invalid form',
+		message: 'Please fill out all required fields.',
+	},
 	INVALID_EMAIL: {
 		title: 'Invalid email',
 		message: 'Please enter a valid email address.',
