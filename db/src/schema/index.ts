@@ -7,6 +7,7 @@ import * as emailEvent from './emailEvent.schema';
 import * as emailVerificationCode from './emailVerifictationCode.schema';
 import * as project from './project.schema';
 import * as projectsToUsers from './projectsToUsers.schema';
+import * as sender from './sender.schema';
 import * as session from './session.schema';
 import * as user from './user.schema';
 
@@ -23,6 +24,7 @@ export const schema = {
 	...emailVerificationCode,
 	...project,
 	...projectsToUsers,
+	...sender,
 	...session,
 	...user,
 };

@@ -24,6 +24,7 @@ CREATE TABLE `domain` (
 	`public_id` text NOT NULL,
 	`project_id` integer NOT NULL,
 	`name` text NOT NULL,
+	`status` text NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updated_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON UPDATE no action ON DELETE no action
@@ -34,11 +35,13 @@ CREATE TABLE `email` (
 	`public_id` text NOT NULL,
 	`contact_id` integer NOT NULL,
 	`project_id` integer NOT NULL,
+	`sender_id` integer NOT NULL,
 	`ses_message_id` text NOT NULL,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updated_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	FOREIGN KEY (`contact_id`) REFERENCES `contact`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON UPDATE no action ON DELETE no action
+	FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`sender_id`) REFERENCES `sender`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `email_event` (
@@ -80,6 +83,19 @@ CREATE TABLE `projects_to_users` (
 	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE TABLE `sender` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`public_id` text NOT NULL,
+	`project_id` integer NOT NULL,
+	`domain_id` integer NOT NULL,
+	`name` text,
+	`email` text NOT NULL,
+	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`updated_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	FOREIGN KEY (`project_id`) REFERENCES `project`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`domain_id`) REFERENCES `domain`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
 CREATE TABLE `session` (
 	`id` text PRIMARY KEY NOT NULL,
 	`user_id` text NOT NULL,
@@ -110,5 +126,6 @@ CREATE UNIQUE INDEX `email_public_id_unique` ON `email` (`public_id`);--> statem
 CREATE UNIQUE INDEX `email_ses_message_id_unique` ON `email` (`ses_message_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `project_public_id_unique` ON `project` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `project_id_slug_unique` ON `project` (`id`,`slug`);--> statement-breakpoint
+CREATE UNIQUE INDEX `sender_public_id_unique` ON `sender` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `user_public_id_unique` ON `user` (`public_id`);--> statement-breakpoint
 CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`);

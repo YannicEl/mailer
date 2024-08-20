@@ -11,6 +11,25 @@ export default customEventHandler({}, async (event, { project }) => {
 	const db = getDb(event.context.env.DB);
 	const ses = getSESClient(event);
 
+	let sender = await db.sender.query.findFirst({
+		where: (table, { and, eq }) => and(eq(table.projectId, project.id), eq(table.email, body.from)),
+	});
+
+	if (!sender) {
+		const domain = await db.domain.query.findFirst({
+			where: (table, { and, eq }) =>
+				and(eq(table.projectId, project.id), eq(table.name, body.from.split('@')[1])),
+		});
+
+		if (!domain) throw new Error('Domain not found');
+
+		sender = await db.sender.insert({
+			projectId: project.id,
+			domainId: domain.id,
+			email: body.from,
+		});
+	}
+
 	const { AWS_SES_CONFIGURATIONSET_NAME } = event.context.env as Env;
 	const { MessageId: messageId } = await ses.emails.send({
 		ConfigurationSetName: AWS_SES_CONFIGURATIONSET_NAME,
@@ -40,11 +59,12 @@ export default customEventHandler({}, async (event, { project }) => {
 		contact = await db.contact.insert({ email: body.to, projectId: project.id });
 	}
 
-	await db.email.insert({
+	const email = await db.email.insert({
 		projectId: project.id,
 		contactId: contact.id,
+		senderId: sender.id,
 		sesMessageId: messageId,
 	});
 
-	return json<typeof sendEmailSchema.response>({ messageId });
+	return json<typeof sendEmailSchema.response>({ id: email.publicId });
 });

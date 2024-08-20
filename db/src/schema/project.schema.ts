@@ -18,7 +18,6 @@ export const project = sqliteTable(
 			.notNull()
 			.unique()
 			.$default(() => generateBrandedId('pro')),
-
 		name: text('name').notNull(),
 		slug: text('slug').notNull(),
 		...timestamps,

@@ -8,6 +8,6 @@ export const sendEmailSchema = {
 		body: z.string(),
 	}),
 	response: z.object({
-		messageId: z.string(),
+		id: z.string(),
 	}),
 };

@@ -11,14 +11,23 @@ export default customEventHandler({}, async (event, { project }) => {
 	const db = getDb(event.context.env.DB);
 	const ses = getSESClient(event);
 
+	const { AWS_SES_CONFIGURATIONSET_NAME } = event.context.env as Env;
 	const identity = await ses.identities.create({
+		ConfigurationSetName: AWS_SES_CONFIGURATIONSET_NAME,
 		EmailIdentity: body.name,
 	});
 
-	await db.domain.insert({
+	if (!identity.DkimAttributes.Status) throw new Error('Failed to add domain');
+
+	const domain = await db.domain.insert({
 		projectId: project.id,
 		name: body.name,
+		status: identity.DkimAttributes.Status,
 	});
 
-	return json<typeof addDomainSchema.response>({ name: body.name });
+	return json<typeof addDomainSchema.response>({
+		id: domain.publicId,
+		name: body.name,
+		status: domain.status,
+	});
 });

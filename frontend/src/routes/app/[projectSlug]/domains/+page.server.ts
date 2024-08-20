@@ -1,4 +1,5 @@
 import { ERRORS } from '$lib/server/errors';
+import { mailer } from '$lib/server/mailer.js';
 import { validateFormData } from '$lib/server/validation';
 import { fail } from '@sveltejs/kit';
 import { z } from 'zod';
@@ -16,9 +17,10 @@ export const load = async ({ parent, url, locals: { db } }) => {
 		offset: pageSize * page,
 	});
 
-	const domainsMapped = apiKeys.map(({ publicId, name, createdAt }) => ({
+	const domainsMapped = apiKeys.map(({ publicId, name, status, createdAt }) => ({
 		id: publicId,
 		name,
+		status,
 		createdAt,
 	}));
 
@@ -30,16 +32,20 @@ const addSchema = z.object({
 });
 
 const removeSchema = z.object({
-	apiKeyId: z.string().min(1),
+	domainId: z.string().min(1),
 });
 
 export const actions = {
 	add: async ({ request }) => {
 		const { success, data } = await validateFormData(addSchema, request);
 		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });
+
+		await mailer.domains.add({ name: data.name });
 	},
 	remove: async ({ request }) => {
 		const { success, data } = await validateFormData(removeSchema, request);
 		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });
+
+		await mailer.domains.delete({ domain_id: data.domainId });
 	},
 };

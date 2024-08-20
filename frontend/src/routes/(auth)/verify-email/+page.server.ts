@@ -1,6 +1,7 @@
 import { useDb } from '$lib/server/db.js';
+import { ERRORS } from '$lib/server/errors';
 import { validateFormData } from '$lib/server/validation';
-import { error, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import type { User } from 'lucia';
 import { isWithinExpirationDate } from 'oslo';
 import { z } from 'zod';
@@ -18,11 +19,12 @@ export const load = async ({ locals: { user } }) => {
 
 export const actions = {
 	default: async ({ request, cookies, locals: { db, user, lucia } }) => {
-		const { verificationCode } = await validateFormData(schema, request);
+		const { data, success } = await validateFormData(schema, request);
+		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });
 
 		if (!user) return error(401, 'Unauthorized');
 
-		const validCode = await verifyVerificationCode(user, verificationCode);
+		const validCode = await verifyVerificationCode(user, data.verificationCode);
 		if (!validCode) return error(401, 'Unauthorized');
 
 		await lucia.invalidateUserSessions(user.id);

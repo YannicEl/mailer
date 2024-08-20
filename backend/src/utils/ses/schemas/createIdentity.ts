@@ -32,9 +32,9 @@ export const createIdentity = {
 				SigningAttributesOrigin: z.enum(['AWS_SES', 'EXTERNAL']),
 				SigningEnabled: z.boolean().optional(),
 				Status: z.enum(['PENDING', 'SUCCESS', 'FAILED', 'TEMPORARY_FAILURE', 'NOT_STARTED']),
+				Tokens: z.array(z.string()).optional(),
 			})
 			.partial(),
-		Tokens: z.array(z.string()).optional(),
 		IdentityType: z.enum(['DOMAIN', 'EMAIL_ADDRESS', 'MANAGED_DOMAIN']),
 		VerifiedForSendingStatus: z.boolean(),
 	}),
