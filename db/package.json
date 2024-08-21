@@ -13,7 +13,7 @@
 	"devDependencies": {
 		"@cloudflare/workers-types": "4.20240815.0",
 		"@dotenvx/dotenvx": "1.8.0",
-		"better-sqlite3": "11.1.2",
+		"better-sqlite3": "11.2.0",
 		"drizzle-kit": "0.24.0",
 		"wrangler": "3.72.1"
 	},
