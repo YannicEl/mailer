@@ -8,8 +8,8 @@
 	type Props = { data: PageData };
 	let { data }: Props = $props();
 
-	type ApiKey = PageData['domains'][number];
-	let selection = $state<ApiKey[]>([]);
+	type Domain = PageData['domains'][number];
+	let selection = $state<Domain[]>([]);
 </script>
 
 <h1>Domains</h1>

@@ -5,26 +5,21 @@
 
 	type Props = { data: PageData };
 	let { data }: Props = $props();
-
-	type Email = PageData['emails'][number];
-	let selection = $state<Email[]>([]);
 </script>
 
-<h1>Email</h1>
+<div>Sender: {data.contact.id}</div>
+<div>Email: {data.contact.email}</div>
+<div>CreatedAt: {formatDate(data.contact.createdAt)}</div>
 
-<ResponsiveTable data={data.emails} bind:selection>
+<ResponsiveTable data={data.contact.emails} selectable={false} pagination={false}>
 	{#snippet header()}
 		<th>From</th>
-		<th>To</th>
 		<th>CreatedAt</th>
 	{/snippet}
 
 	{#snippet row(email)}
 		<td>
-			<a href="senders/{email.sender.id}">{email.sender.email}</a>
-		</td>
-		<td>
-			<a href="contacts/{email.contact.id}">{email.contact.email}</a>
+			<a href="/app/{data.project.slug}/senders/{email.sender.id}">{email.sender.email}</a>
 		</td>
 		<td>{formatDate(email.createdAt)}</td>
 	{/snippet}

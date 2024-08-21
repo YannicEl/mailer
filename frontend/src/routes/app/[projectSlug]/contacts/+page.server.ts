@@ -4,29 +4,18 @@ export const load = async ({ parent, url, locals: { db } }) => {
 	const pageSize = Number(url.searchParams.get('pageSize') ?? 10);
 	const page = Number(url.searchParams.get('page') ?? 0);
 
-	const emails = await db.email.query.findMany({
-		with: {
-			sender: true,
-			contact: true,
-		},
+	const contacts = await db.contact.query.findMany({
 		where: (table, { eq }) => eq(table.projectId, project.id),
 		orderBy: (table, { asc }) => [asc(table.id)],
 		limit: pageSize,
 		offset: pageSize * page,
 	});
 
-	const emailsMapped = emails.map(({ publicId, sender, contact, createdAt }) => ({
+	const contactsMapped = contacts.map(({ publicId, email, createdAt }) => ({
 		id: publicId,
-		sender: {
-			id: sender.publicId,
-			email: sender.email,
-		},
-		contact: {
-			id: contact.publicId,
-			email: contact.email,
-		},
+		email,
 		createdAt,
 	}));
 
-	return { emails: emailsMapped };
+	return { contacts: contactsMapped };
 };

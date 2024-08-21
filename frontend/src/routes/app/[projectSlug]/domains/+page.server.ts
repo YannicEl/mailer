@@ -10,14 +10,14 @@ export const load = async ({ parent, url, locals: { db } }) => {
 	const pageSize = Number(url.searchParams.get('pageSize') ?? 10);
 	const page = Number(url.searchParams.get('page') ?? 0);
 
-	const apiKeys = await db.domain.query.findMany({
+	const domains = await db.domain.query.findMany({
 		where: (table, { eq }) => eq(table.projectId, project.id),
 		orderBy: (table, { asc }) => [asc(table.id)],
 		limit: pageSize,
 		offset: pageSize * page,
 	});
 
-	const domainsMapped = apiKeys.map(({ publicId, name, status, createdAt }) => ({
+	const domainsMapped = domains.map(({ publicId, name, status, createdAt }) => ({
 		id: publicId,
 		name,
 		status,

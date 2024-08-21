@@ -5,8 +5,10 @@
 
 	import type { SvelteHTMLElements } from 'svelte/elements';
 
-	type Props = {} & SvelteHTMLElements['aside'];
-	let { ...props }: Props = $props();
+	type Props = {
+		project: string;
+	} & SvelteHTMLElements['aside'];
+	let { project, ...props }: Props = $props();
 
 	const routes = [
 		{
@@ -18,6 +20,16 @@
 			path: 'domains',
 			name: 'Domains',
 			icon: 'i-mdi-earth',
+		},
+		{
+			path: 'senders',
+			name: 'Senders',
+			icon: 'i-mdi-send',
+		},
+		{
+			path: 'contacts',
+			name: 'Contacts',
+			icon: 'i-mdi-account',
 		},
 		{
 			path: 'keys',
@@ -36,8 +48,8 @@
 				{#each routes as route}
 					<li>
 						<a
-							class:active={$page.url.pathname === `/app/${route.path}`}
-							href={route.path}
+							class:active={$page.url.pathname.startsWith(`/app/${project}/${route.path}`)}
+							href="/app/{project}/{route.path}"
 							class="flex items-center gap-2 rounded-sm p-1 px-2"
 						>
 							<Icon icon={route.icon} />
