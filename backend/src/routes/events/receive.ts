@@ -122,7 +122,7 @@ export default snsEventHandler({ messageSchema }, async (event, message) => {
 
 	await db.emailEvent.insert({
 		emailId: email.id,
-		eventType: message.eventType,
+		type: message.eventType,
 	});
 
 	return new Response('OK');

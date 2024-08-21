@@ -17,6 +17,7 @@
 		<th>From</th>
 		<th>To</th>
 		<th>CreatedAt</th>
+		<th></th>
 	{/snippet}
 
 	{#snippet row(email)}
@@ -27,5 +28,8 @@
 			<a href="contacts/{email.contact.id}">{email.contact.email}</a>
 		</td>
 		<td>{formatDate(email.createdAt)}</td>
+		<td>
+			<a class="button" href="emails/{email.id}">details</a>
+		</td>
 	{/snippet}
 </ResponsiveTable>
