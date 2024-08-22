@@ -2,6 +2,7 @@ import type { DrizzleD1Database } from 'drizzle-orm/d1';
 import * as apiKey from './apiKey.schema';
 import * as contact from './contact.schema';
 import * as domain from './domain.schema';
+import * as domainDkimToken from './domainDkimToken.schema';
 import * as email from './email.schema';
 import * as emailEvent from './emailEvent.schema';
 import * as emailVerificationCode from './emailVerifictationCode.schema';
@@ -19,6 +20,7 @@ export const schema = {
 	...apiKey,
 	...contact,
 	...domain,
+	...domainDkimToken,
 	...email,
 	...emailEvent,
 	...emailVerificationCode,
