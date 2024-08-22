@@ -4,6 +4,10 @@ import { validateFormData } from '$lib/server/validation';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 
+export const load = async ({ locals: { user } }) => {
+	if (user?.emailVerified) redirect(302, '/app');
+};
+
 const schema = z.object({
 	email: z.string().email(),
 });
