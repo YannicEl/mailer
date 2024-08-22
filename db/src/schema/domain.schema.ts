@@ -1,7 +1,7 @@
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core';
 import { generateBrandedId } from '../utils';
-import { domainDkimToken } from './domainDkimToken.schema';
+import { dnsRecord } from './dnsRecord.schema';
 import { project } from './project.schema';
 import { sender } from './sender.schema';
 import { timestamps } from './utils';
@@ -34,5 +34,5 @@ export const domainRelations = relations(domain, ({ one, many }) => ({
 		references: [project.id],
 	}),
 	senders: many(sender),
-	dkimToken: many(domainDkimToken),
+	dnsRecords: many(dnsRecord),
 }));

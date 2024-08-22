@@ -27,21 +27,11 @@ export const load = async ({ parent, url, locals: { db } }) => {
 	return { domains: domainsMapped };
 };
 
-const addSchema = z.object({
-	name: z.string().min(1),
-});
-
 const removeSchema = z.object({
 	domainId: z.string().min(1),
 });
 
 export const actions = {
-	add: async ({ request }) => {
-		const { success, data } = await validateFormData(addSchema, request);
-		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });
-
-		await mailer.domains.add({ name: data.name });
-	},
 	remove: async ({ request }) => {
 		const { success, data } = await validateFormData(removeSchema, request);
 		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });

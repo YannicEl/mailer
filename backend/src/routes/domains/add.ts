@@ -17,7 +17,9 @@ export default customEventHandler({}, async (event, { project }) => {
 		EmailIdentity: body.name,
 	});
 
-	if (!identity.DkimAttributes.Status) throw new Error('Failed to add domain');
+	if (!identity.DkimAttributes.Status || !identity.DkimAttributes.Tokens) {
+		throw new Error('Failed to add domain');
+	}
 
 	const domain = await db.domain.insert({
 		projectId: project.id,
@@ -25,9 +27,30 @@ export default customEventHandler({}, async (event, { project }) => {
 		status: identity.DkimAttributes.Status,
 	});
 
+	const records: { name: string; type: string; value: string }[] = [];
+	identity.DkimAttributes.Tokens.forEach((token) => {
+		records.push({
+			type: 'CNAME',
+			name: `${token}._domainkey.${body.name}`,
+			value: `${token}.dkim.amazonses.com`,
+		});
+	});
+
+	await Promise.all(
+		records.map((record) => {
+			return db.dnsRecord.insert({
+				domainId: domain.id,
+				name: record.name,
+				type: record.type,
+				value: record.value,
+			});
+		})
+	);
+
 	return json<typeof addDomainSchema.response>({
 		id: domain.publicId,
 		name: body.name,
 		status: domain.status,
+		records,
 	});
 });

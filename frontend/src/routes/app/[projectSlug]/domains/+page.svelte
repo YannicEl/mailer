@@ -14,18 +14,11 @@
 
 <h1>Domains</h1>
 
-<Form method="post" action="?/add" class="flex flex-col gap-4">
-	{#snippet children({ loading })}
-		<label>
-			<input type="text" name="name" />
-		</label>
-
-		<Button {loading}>Create API Key</Button>
-	{/snippet}
-</Form>
+<a class="button" href="domains/add">Add domain</a>
 
 <ResponsiveTable data={data.domains} bind:selection>
 	{#snippet header()}
+		<th>Id</th>
 		<th>Name</th>
 		<th>Status</th>
 		<th>CreatedAt</th>
@@ -33,14 +26,17 @@
 	{/snippet}
 
 	{#snippet row(domain)}
-		<td>{domain.name}</td>
+		<td>{domain.id}</td>
+		<td>
+			<a href="domains/{domain.id}">{domain.name}</a>
+		</td>
 		<td>{domain.status}</td>
 		<td>{formatDate(domain.createdAt)}</td>
 		<td>
 			<Form method="post" action="?/remove">
 				{#snippet children({ loading })}
-					<input type="hidden" name="apiKeyId" value={domain.id} />
-					<Button {loading}>Remove</Button>
+					<input type="hidden" name="domainId" value={domain.id} />
+					<Button {loading}>Remove {domain.id}</Button>
 				{/snippet}
 			</Form>
 		</td>

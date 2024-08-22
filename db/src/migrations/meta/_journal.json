@@ -15,6 +15,13 @@
       "when": 1724317304156,
       "tag": "0001_broad_hawkeye",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1724318305932,
+      "tag": "0002_watery_ghost_rider",
+      "breakpoints": true
     }
   ]
 }

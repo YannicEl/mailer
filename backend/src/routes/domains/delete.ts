@@ -15,8 +15,9 @@ export default customEventHandler({}, async (event, { project }) => {
 	const ses = getSESClient(event);
 
 	const domain = await db.domain.query.findFirst({
-		where: (table, { eq, and }) =>
-			and(eq(table.id, Number(domain_id)), eq(table.projectId, project.id)),
+		where: (table, { eq, and }) => {
+			return and(eq(table.projectId, project.id), eq(table.publicId, domain_id));
+		},
 	});
 
 	if (!domain) throw new Error('Domain not found');
@@ -25,9 +26,9 @@ export default customEventHandler({}, async (event, { project }) => {
 		email_identity: domain.name,
 	});
 
-	await db.domain.delete((table, { eq, and }) =>
-		and(eq(table.id, Number(domain_id)), eq(table.projectId, project.id))
-	);
+	await db.dnsRecord.delete((table, { eq }) => eq(table.domainId, domain.id));
+
+	await db.domain.delete((table, { eq, and }) => and(eq(table.id, domain.id)));
 
 	return new Response(null, { status: 204 });
 });
