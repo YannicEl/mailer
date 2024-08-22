@@ -18,7 +18,6 @@
 
 <ResponsiveTable data={data.domains} bind:selection>
 	{#snippet header()}
-		<th>Id</th>
 		<th>Name</th>
 		<th>Status</th>
 		<th>CreatedAt</th>
@@ -26,7 +25,6 @@
 	{/snippet}
 
 	{#snippet row(domain)}
-		<td>{domain.id}</td>
 		<td>
 			<a href="domains/{domain.id}">{domain.name}</a>
 		</td>
@@ -36,7 +34,7 @@
 			<Form method="post" action="?/remove">
 				{#snippet children({ loading })}
 					<input type="hidden" name="domainId" value={domain.id} />
-					<Button {loading}>Remove {domain.id}</Button>
+					<Button {loading}>Remove</Button>
 				{/snippet}
 			</Form>
 		</td>

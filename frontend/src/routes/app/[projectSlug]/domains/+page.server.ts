@@ -1,3 +1,4 @@
+import { getProjectAndUser } from '$lib/server/db';
 import { ERRORS } from '$lib/server/errors';
 import { mailer } from '$lib/server/mailer.js';
 import { validateFormData } from '$lib/server/validation';
@@ -32,10 +33,18 @@ const removeSchema = z.object({
 });
 
 export const actions = {
-	remove: async ({ request }) => {
+	remove: async ({ request, locals: { db } }) => {
 		const { success, data } = await validateFormData(removeSchema, request);
 		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });
 
-		await mailer.domains.delete({ domain_id: data.domainId });
+		const { project } = await getProjectAndUser();
+		const domain = await db.domain.query.findFirst({
+			where: (table, { and, eq }) =>
+				and(eq(table.projectId, project.id), eq(table.publicId, data.domainId)),
+		});
+
+		if (!domain) return fail(404, ERRORS.UNKNOWN_ERROR);
+
+		await mailer.domains.delete({ domain_id: domain.publicId });
 	},
 };

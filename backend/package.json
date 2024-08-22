@@ -19,7 +19,7 @@
 	"dependencies": {
 		"@mailer/db": "workspace:",
 		"@mailer/lib": "workspace:",
-		"@yannicel/typed-api": "0.2.10",
+		"@yannicel/typed-api": "0.2.11",
 		"drizzle-orm": "0.33.0",
 		"h3-nightly": "2.0.0-1723770244.b337fe7",
 		"pkijs": "3.2.4",
