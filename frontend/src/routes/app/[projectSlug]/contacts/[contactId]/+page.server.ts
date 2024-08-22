@@ -30,6 +30,7 @@ export const load = async ({ parent, params, locals: { db } }) => {
 			createdAt: email.createdAt,
 		})),
 	};
+
 	return {
 		contact: contactMapped,
 	};
