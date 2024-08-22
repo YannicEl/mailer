@@ -14,7 +14,7 @@
 		"@cloudflare/workers-types": "4.20240821.1",
 		"@dotenvx/dotenvx": "1.9.0",
 		"better-sqlite3": "11.2.1",
-		"drizzle-kit": "0.24.0",
+		"drizzle-kit": "0.24.1",
 		"wrangler": "3.72.1"
 	},
 	"dependencies": {
