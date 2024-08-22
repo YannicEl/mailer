@@ -3,5 +3,5 @@
 .env.*
 !.env.example
 
-.sqlite-wal
-.sqlite-shm
+*.sqlite-wal
+*.sqlite-shm
