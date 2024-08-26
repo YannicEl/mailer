@@ -1,4 +1,19 @@
-button,
-.button {
-	--apply: inline-block border-1 border-black bg-black text-white rounded py-1 px-2;
+.button,
+a[data-button],
+button[data-button] {
+	--apply: flex relative gap-2 items-center justify-center px-4 py-1 text-base rounded-sm border-1;
+
+	&.primary,
+	&[data-button='primary'] {
+		--apply: bg-black text-white border-black;
+	}
+
+	&.secondary,
+	&[data-button='secondary'] {
+		--apply: text-black border-transparent;
+
+		&:hover {
+			--apply: bg-gray-2;
+		}
+	}
 }

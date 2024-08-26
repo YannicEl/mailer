@@ -18,5 +18,8 @@ export default defineConfig({
 		fontFamily: {
 			sans: ['Inter', 'sans-serif'],
 		},
+		borderRadius: {
+			sm: '0.2rem',
+		},
 	},
 });
