@@ -9,5 +9,5 @@
 </script>
 
 <Alert type="error" title={error.title}>
-	{error.message}
+	{@html error.message}
 </Alert>

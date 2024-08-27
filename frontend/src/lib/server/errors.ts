@@ -6,7 +6,8 @@ export const ERRORS = {
 	},
 	INVALID_EMAIL_OR_CODE: {
 		title: 'Invalid email or code',
-		message: 'The email or verification code you entered is invalid.',
+		message:
+			'The email or verification code you entered is invalid. Please <a href="/signup">try again here.</a>',
 	},
 	INVALID_EMAIL: {
 		title: 'Invalid email',

@@ -12,12 +12,12 @@
 	{#snippet children({ loading })}
 		<label>
 			Email:
-			<input type="email" name="email" value={data.email} />
+			<input type="email" name="email" required value={data.email} />
 		</label>
 
 		<label>
 			Code:
-			<input type="text" name="verificationCode" />
+			<input type="text" name="verificationCode" required />
 		</label>
 
 		<Button class="w-full" {loading}>Verify</Button>
