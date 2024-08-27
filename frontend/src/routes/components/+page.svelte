@@ -18,27 +18,29 @@
 
 	<h2>Forms</h2>
 
-	<Form method="post" class="flex flex-col gap-2">
-		<label>
-			Email:
-			<Input type="email" icon="i-mdi-email" />
-		</label>
+	<Form class="flex flex-col gap-2">
+		{#snippet children({ loading })}
+			<label>
+				Email:
+				<Input type="email" icon="i-mdi-email" />
+			</label>
 
-		<label>
-			Password:
-			<Input type="password" />
-		</label>
+			<label>
+				Password:
+				<Input type="password" />
+			</label>
 
-		<label>
-			Checkbox
-			<Input type="checkbox" />
-		</label>
+			<label>
+				Checkbox
+				<Input type="checkbox" />
+			</label>
 
-		<label>
-			Radio
-			<Input type="radio" />
-		</label>
+			<label>
+				Radio
+				<Input type="radio" />
+			</label>
 
-		<Button>Submit</Button>
+			<Button {loading}>Submit</Button>
+		{/snippet}
 	</Form>
 </div>

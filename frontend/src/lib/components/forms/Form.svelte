@@ -27,6 +27,6 @@
 	};
 </script>
 
-<form {...props} use:enhance={wrappedSubmit}>
+<form method="post" {...props} use:enhance={wrappedSubmit}>
 	{@render children({ loading })}
 </form>

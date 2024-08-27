@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
 	import Form from '$lib/components/forms/Form.svelte';
 	import ResponsiveTable from '$lib/components/ResponsiveTable.svelte';
@@ -15,13 +14,15 @@
 
 <h1>Api Keys</h1>
 
-<form method="post" action="?/add" use:enhance class="flex flex-col gap-4">
-	<label>
-		<input type="text" name="name" />
-	</label>
+<Form action="?/add" class="flex flex-col gap-4">
+	{#snippet children({ loading })}
+		<label>
+			<input type="text" name="name" />
+		</label>
 
-	<button>Create API Key</button>
-</form>
+		<Button {loading}>Create API Key</Button>
+	{/snippet}
+</Form>
 
 <ResponsiveTable data={data.apiKeys} bind:selection>
 	{#snippet header()}
@@ -36,7 +37,7 @@
 		<td>{apiKey.key}</td>
 		<td>{formatDate(apiKey.createdAt)}</td>
 		<td>
-			<Form method="post" action="?/remove">
+			<Form action="?/remove">
 				{#snippet children({ loading })}
 					<input type="hidden" name="apiKeyId" value={apiKey.id} />
 					<Button {loading}>Remove</Button>

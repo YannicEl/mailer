@@ -80,8 +80,8 @@
 </table>
 
 {#if pagination}
-	<div>
-		<a class="button" href={backLink}>back</a>
-		<a class="button" href={nextLink}>next</a>
+	<div class="flex gap-2">
+		<a class="button primary" href={backLink}>back</a>
+		<a class="button primary" href={nextLink}>next</a>
 	</div>
 {/if}

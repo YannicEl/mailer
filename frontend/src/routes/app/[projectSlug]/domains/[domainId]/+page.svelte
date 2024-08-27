@@ -14,13 +14,13 @@
 <div>Status: {data.domain.status}</div>
 <div>CreatedAt: {formatDate(data.domain.createdAt)}</div>
 
-<Form method="post" action="?/verify">
+<Form action="?/verify">
 	{#snippet children({ loading })}
 		<Button {loading}>Verify</Button>
 	{/snippet}
 </Form>
 
-<Form method="post" action="?/remove">
+<Form action="?/remove">
 	{#snippet children({ loading })}
 		<Button {loading}>Remove</Button>
 	{/snippet}

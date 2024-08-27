@@ -1,21 +1,29 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import type { PageData } from './$types';
+	import Button from '$lib/components/Button.svelte';
+	import FormError from '$lib/components/FormError.svelte';
+	import Form from '$lib/components/forms/Form.svelte';
+	import type { ActionData, PageData } from './$types';
 
-	type Props = { data: PageData };
-	const { data }: Props = $props();
+	type Props = { data: PageData; form: ActionData };
+	const { data, form }: Props = $props();
 </script>
 
-<form method="post" use:enhance class="flex flex-col">
-	<label>
-		Email:
-		<input type="text" name="email" bind:value={data.email} />
-	</label>
+<Form class="flex flex-col gap-4">
+	{#snippet children({ loading })}
+		<label>
+			Email:
+			<input type="email" name="email" value={data.email} />
+		</label>
 
-	<label>
-		Code:
-		<input type="text" name="verificationCode" />
-	</label>
+		<label>
+			Code:
+			<input type="text" name="verificationCode" />
+		</label>
 
-	<button>Verify</button>
-</form>
+		<Button class="w-full" {loading}>Verify</Button>
+	{/snippet}
+</Form>
+
+{#if form?.error}
+	<FormError error={form.error} />
+{/if}

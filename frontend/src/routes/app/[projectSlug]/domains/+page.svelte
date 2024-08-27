@@ -31,7 +31,7 @@
 		<td>{domain.status}</td>
 		<td>{formatDate(domain.createdAt)}</td>
 		<td>
-			<Form method="post" action="?/remove">
+			<Form action="?/remove">
 				{#snippet children({ loading })}
 					<input type="hidden" name="domainId" value={domain.id} />
 					<Button {loading}>Remove</Button>
