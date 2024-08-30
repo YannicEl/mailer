@@ -10,11 +10,11 @@
 		"deploy:prod": "wrangler deploy --env prod"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "0.4.26",
+		"@cloudflare/vitest-pool-workers": "0.4.27",
 		"@cloudflare/workers-types": "4.20240821.1",
 		"typescript": "5.5.4",
 		"vitest": "1.5.0",
-		"wrangler": "3.72.3"
+		"wrangler": "3.73.0"
 	},
 	"dependencies": {
 		"@mailer/db": "workspace:",
