@@ -1,5 +1,5 @@
+import { context } from '$lib/context';
 import { getLucia, setSessionCookie } from '$lib/server/auth';
-import { context } from '$lib/server/context';
 import { useDb } from '$lib/server/db';
 import type { Handle } from '@sveltejs/kit';
 

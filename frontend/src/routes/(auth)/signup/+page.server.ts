@@ -1,5 +1,6 @@
-import { sendVerificationCode, setSessionCookie } from '$lib/server/auth';
-import { formDataToObject } from '$lib/server/validation';
+import { sendVerificationCode } from '$lib/server/auth';
+import { ERRORS } from '$lib/server/errors.js';
+import { validateFormData } from '$lib/server/validation';
 import { fail, redirect } from '@sveltejs/kit';
 import { generateIdFromEntropySize } from 'lucia';
 import { z } from 'zod';
@@ -10,10 +11,8 @@ const schema = z.object({
 
 export const actions = {
 	default: async ({ request, cookies, locals: { lucia, db } }) => {
-		const json = formDataToObject(await request.formData());
-		const { success, data } = schema.safeParse(json);
-
-		if (!success) return fail(400, { error: true });
+		const { success, data } = await validateFormData(schema, request);
+		if (!success) return fail(400, { error: ERRORS.UNKNOWN_ERROR });
 
 		let user = await db.user.query.findFirst({
 			where: (table, { eq }) => eq(table.email, data.email),
@@ -38,11 +37,7 @@ export const actions = {
 
 		await sendVerificationCode(user);
 
-		const session = await lucia.createSession(user.id, {});
-
-		const sessionCookie = lucia.createSessionCookie(session.id);
-		setSessionCookie(cookies, sessionCookie);
-
-		redirect(302, '/verify-email');
+		const params = new URLSearchParams({ email: data.email });
+		redirect(302, `/verify-email?${params.toString()}`);
 	},
 };

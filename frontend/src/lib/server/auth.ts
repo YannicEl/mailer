@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import { useEvent } from '$lib/server/context';
+import { useEvent } from '$lib/context';
 import { DrizzleSQLiteAdapter } from '@lucia-auth/adapter-drizzle';
 import type { DrizzleDB } from '@mailer/db';
 import { schema } from '@mailer/db';
@@ -81,7 +81,7 @@ export async function sendVerificationCode(user: DBUser): Promise<void> {
 		to: user.email,
 		from: 'me@yannic.at',
 		subject: 'Email Verification Code',
-		body: `Your email verification code is: ${verifictationCode}`,
+		text: `Your email verification code is: ${verifictationCode}`,
 	});
 }
 

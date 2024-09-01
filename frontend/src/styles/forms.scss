@@ -1,7 +1,17 @@
 label {
-	--apply: flex flex-col gap-0.5 text-sm font-semibold;
+	--apply: flex flex-col gap-0.5 text-sm;
 }
 
-label input {
-	--apply: border-1 w-full appearance-none rounded border-black bg-white px-2 py-1 text-base;
+textarea,
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='search'],
+select {
+	--apply: border-1 border-gray-5 w-full appearance-none rounded px-3 py-1 text-base;
+
+	&:hover:not(:disabled),
+	&:focus {
+		--apply: border-black;
+	}
 }

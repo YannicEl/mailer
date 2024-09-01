@@ -9,7 +9,7 @@ export const emailEvent = sqliteTable('email_event', {
 		.references(() => email.id)
 		.notNull(),
 	...timestamps,
-	eventType: text('event_type').notNull(),
+	type: text('event_type').notNull(),
 });
 
 export const emailEventRelations = relations(emailEvent, ({ one }) => ({

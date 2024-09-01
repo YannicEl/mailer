@@ -1,9 +1,9 @@
 {
 	"name": "@mailer/base",
 	"type": "module",
-	"packageManager": "pnpm@9.6.0",
+	"packageManager": "pnpm@9.9.0",
 	"engines": {
-		"node": "20",
+		"node": "22",
 		"pnpm": "9"
 	},
 	"scripts": {

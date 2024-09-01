@@ -14,13 +14,16 @@ export const getIdentity = {
 				Tokens: z.array(z.string()),
 			})
 			.partial(),
+		FeedbackForwardingStatus: z.boolean(),
 		IdentityType: z.enum(['DOMAIN', 'EMAIL_ADDRESS', 'MANAGED_DOMAIN']),
 		MailFromAttributes: z.object({
 			BehaviorOnMxFailure: z.enum(['USE_DEFAULT_VALUE', 'REJECT_MESSAGE']),
-			MailFromDomain: z.string(),
-			MailFromDomainStatus: z.enum(['PENDING', 'SUCCESS', 'FAILED', 'TEMPORARY_FAILURE']),
+			MailFromDomain: z.string().or(z.null()),
+			MailFromDomainStatus: z
+				.enum(['PENDING', 'SUCCESS', 'FAILED', 'TEMPORARY_FAILURE'])
+				.or(z.null()),
 		}),
-		Policies: z.map(z.string(), z.string()),
+		Policies: z.record(z.string(), z.string()),
 		Tags: z.array(
 			z.object({
 				Key: z.string(),
@@ -29,22 +32,25 @@ export const getIdentity = {
 		),
 		VerificationInfo: z
 			.object({
-				ErrorType: z.enum([
-					'SERVICE_ERROR',
-					'DNS_SERVER_ERROR',
-					'HOST_NOT_FOUND',
-					'TYPE_NOT_FOUND',
-					'INVALID_VALUE',
-				]),
-				LastCheckedTimestamp: z.number(),
-				LastSuccessTimestamp: z.number(),
+				ErrorType: z
+					.enum([
+						'SERVICE_ERROR',
+						'DNS_SERVER_ERROR',
+						'HOST_NOT_FOUND',
+						'TYPE_NOT_FOUND',
+						'INVALID_VALUE',
+					])
+					.or(z.null()),
+				LastCheckedTimestamp: z.number().or(z.null()),
+				LastSuccessTimestamp: z.number().or(z.null()),
 				SOARecord: z
 					.object({
 						AdminEmail: z.string(),
 						PrimaryNameServer: z.string(),
 						SerialNumber: z.number(),
 					})
-					.partial(),
+					.partial()
+					.or(z.null()),
 			})
 			.partial(),
 		VerificationStatus: z.enum([

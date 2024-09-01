@@ -1,29 +1,33 @@
 import { useDb } from '$lib/server/db.js';
+import { ERRORS } from '$lib/server/errors';
 import { validateFormData } from '$lib/server/validation';
-import { error, redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type { User } from 'lucia';
 import { isWithinExpirationDate } from 'oslo';
 import { z } from 'zod';
 
+export const load = async ({ locals: { user } }) => {
+	if (user?.emailVerified) redirect(302, '/app');
+};
+
 const schema = z.object({
+	email: z.string().email(),
 	verificationCode: z.string(),
 });
 
-export const load = async ({ locals: { user } }) => {
-	if (!user) return redirect(302, '/signin');
-	if (user.emailVerified) redirect(302, '/app');
-
-	return { email: user.email };
-};
-
 export const actions = {
-	default: async ({ request, cookies, locals: { db, user, lucia } }) => {
-		const { verificationCode } = await validateFormData(schema, request);
+	default: async ({ request, cookies, locals: { db, lucia } }) => {
+		const { data, success } = await validateFormData(schema, request);
+		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });
 
-		if (!user) return error(401, 'Unauthorized');
+		const user = await db.user.query.findFirst({
+			where: (table, { eq }) => eq(table.email, data.email),
+		});
 
-		const validCode = await verifyVerificationCode(user, verificationCode);
-		if (!validCode) return error(401, 'Unauthorized');
+		if (!user) return fail(400, { error: ERRORS.INVALID_EMAIL_OR_CODE });
+
+		const validCode = await verifyVerificationCode(user, data.verificationCode);
+		if (!validCode) return fail(400, { error: ERRORS.INVALID_EMAIL_OR_CODE });
 
 		await lucia.invalidateUserSessions(user.id);
 		await db.user.update({ emailVerified: true }, (table, { eq }) => eq(table.id, user.id));

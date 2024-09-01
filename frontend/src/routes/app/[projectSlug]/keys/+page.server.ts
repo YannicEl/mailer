@@ -1,5 +1,7 @@
 import { getProjectAndUser } from '$lib/server/db.js';
+import { ERRORS } from '$lib/server/errors';
 import { validateFormData } from '$lib/server/validation.js';
+import { fail } from '@sveltejs/kit';
 import { z } from 'zod';
 
 export const load = async ({ parent, url, locals: { db } }) => {
@@ -15,23 +17,29 @@ export const load = async ({ parent, url, locals: { db } }) => {
 		offset: pageSize * page,
 	});
 
-	const publicApiKeys = apiKeys.map(({ publicId, name, key, createdAt }) => ({
+	const apiKeysMapped = apiKeys.map(({ publicId, name, key, createdAt }) => ({
 		id: publicId,
 		name,
 		key,
 		createdAt,
 	}));
 
-	return { apiKeys: publicApiKeys };
+	return { apiKeys: apiKeysMapped };
 };
 
-const schema = z.object({
+const addSchema = z.object({
 	name: z.string().min(1),
 });
 
+const removeSchema = z.object({
+	apiKeyId: z.string().min(1),
+});
+
 export const actions = {
-	default: async ({ request, locals: { db } }) => {
-		const data = await validateFormData(schema, request);
+	add: async ({ request, locals: { db } }) => {
+		const { success, data } = await validateFormData(addSchema, request);
+		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });
+
 		const { project } = await getProjectAndUser();
 
 		await db.apiKey.insert({
@@ -39,5 +47,15 @@ export const actions = {
 			name: data.name,
 			key: Math.random().toString(36).substring(2),
 		});
+	},
+	remove: async ({ request, locals: { db } }) => {
+		const { success, data } = await validateFormData(removeSchema, request);
+		if (!success) return fail(400, { error: ERRORS.INVALID_FORM });
+
+		const { project } = await getProjectAndUser();
+
+		await db.apiKey.delete((table, { eq, and }) =>
+			and(eq(table.projectId, project.id), eq(table.publicId, data.apiKeyId))
+		);
 	},
 };

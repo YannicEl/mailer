@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import Button from '$lib/components/Button.svelte';
+	import Form from '$lib/components/forms/Form.svelte';
 	import ResponsiveTable from '$lib/components/ResponsiveTable.svelte';
+	import { formatDate } from '$lib/format';
 	import type { PageData } from './$types';
 
 	type Props = { data: PageData };
@@ -8,21 +10,19 @@
 
 	type ApiKey = PageData['apiKeys'][number];
 	let selection = $state<ApiKey[]>([]);
-
-	function doSomething(apiKey: ApiKey): void {
-		console.log(apiKey);
-	}
 </script>
 
 <h1>Api Keys</h1>
 
-<form method="post" use:enhance class="flex flex-col gap-4">
-	<label>
-		<input type="text" name="name" />
-	</label>
+<Form action="?/add" class="flex flex-col gap-4">
+	{#snippet children({ loading })}
+		<label>
+			<input type="text" name="name" />
+		</label>
 
-	<button>Create API Key</button>
-</form>
+		<Button {loading}>Create API Key</Button>
+	{/snippet}
+</Form>
 
 <ResponsiveTable data={data.apiKeys} bind:selection>
 	{#snippet header()}
@@ -35,9 +35,14 @@
 	{#snippet row(apiKey)}
 		<td>{apiKey.name}</td>
 		<td>{apiKey.key}</td>
-		<td>{apiKey.createdAt}</td>
+		<td>{formatDate(apiKey.createdAt)}</td>
 		<td>
-			<button onclick={() => doSomething(apiKey)}>...</button>
+			<Form action="?/remove">
+				{#snippet children({ loading })}
+					<input type="hidden" name="apiKeyId" value={apiKey.id} />
+					<Button {loading}>Remove</Button>
+				{/snippet}
+			</Form>
 		</td>
 	{/snippet}
 </ResponsiveTable>

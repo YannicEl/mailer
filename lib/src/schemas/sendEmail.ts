@@ -5,9 +5,10 @@ export const sendEmailSchema = {
 		to: z.string().email(),
 		from: z.string().email(),
 		subject: z.string(),
-		body: z.string(),
+		text: z.string().optional(),
+		html: z.string().optional(),
 	}),
 	response: z.object({
-		messageId: z.string(),
+		id: z.string(),
 	}),
 };

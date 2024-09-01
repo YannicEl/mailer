@@ -19,7 +19,8 @@ export function customEventHandler(
 				if (!project) return new Response('Unauthorized', { status: 401 });
 			}
 
-			return handler(event, { project: project! });
+			const response = await handler(event, { project: project! });
+			return response;
 		} catch (error) {
 			console.error(error);
 			return new Response('Internal Server Error', { status: 500 });

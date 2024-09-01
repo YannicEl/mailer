@@ -1,5 +1,6 @@
 import { defineApiClient } from '@yannicel/typed-api';
 import { addDomainSchema } from '../schemas/addDomain';
+import { getDomainSchema } from '../schemas/getDomain';
 import { sendEmailSchema } from '../schemas/sendEmail';
 
 export type MailerOptions = {
@@ -35,6 +36,13 @@ export function defineMailerClient({ apiKey, baseUrl }: MailerOptions) {
 						},
 						requestSchema: addDomainSchema.request,
 						responseSchema: addDomainSchema.response,
+					},
+					get: {
+						path: '/:domain_id',
+						requestInit: {
+							method: 'GET',
+						},
+						responseSchema: getDomainSchema.response,
 					},
 					delete: {
 						path: '/:domain_id',
