@@ -30,6 +30,16 @@ export default customEventHandler({}, async (event, { project }) => {
 		});
 	}
 
+	const bodyType = body.text ? 'Text' : 'Html';
+	let emailBody: string;
+	if (body.text) {
+		emailBody = body.text;
+	} else if (body.html) {
+		emailBody = body.html;
+	} else {
+		throw new Error('Either text or html must be provided');
+	}
+
 	const { AWS_SES_CONFIGURATIONSET_NAME } = event.context.env as Env;
 	const { MessageId: messageId } = await ses.emails.send({
 		ConfigurationSetName: AWS_SES_CONFIGURATIONSET_NAME,
@@ -40,8 +50,8 @@ export default customEventHandler({}, async (event, { project }) => {
 		Content: {
 			Simple: {
 				Body: {
-					Text: {
-						Data: body.body,
+					[bodyType]: {
+						Data: emailBody,
 					},
 				},
 				Subject: {

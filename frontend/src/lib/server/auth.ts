@@ -81,7 +81,7 @@ export async function sendVerificationCode(user: DBUser): Promise<void> {
 		to: user.email,
 		from: 'me@yannic.at',
 		subject: 'Email Verification Code',
-		body: `Your email verification code is: ${verifictationCode}`,
+		text: `Your email verification code is: ${verifictationCode}`,
 	});
 }
 

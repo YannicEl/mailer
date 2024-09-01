@@ -22,7 +22,7 @@
 		{#snippet children({ loading })}
 			<label>
 				Email:
-				<Input type="email" icon="i-mdi-email" />
+				<Input type="email" />
 			</label>
 
 			<label>

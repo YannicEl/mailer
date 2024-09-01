@@ -97,7 +97,7 @@ const subscriptionSchema = baseSchema.merge(
 	})
 );
 
-const messageSchema = z.union([
+const messageSchema = z.discriminatedUnion('eventType', [
 	bounceSchema,
 	complaintSchema,
 	deliverySchema,
