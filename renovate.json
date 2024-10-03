@@ -6,11 +6,6 @@
 		{
 			"matchDepTypes": ["engines"],
 			"enabled": false
-		},
-		{
-			"matchFileNames": ["backend/**"],
-			"matchPackageNames": ["vitest"],
-			"enabled": false
 		}
 	],
 	"rangeStrategy": "pin",
