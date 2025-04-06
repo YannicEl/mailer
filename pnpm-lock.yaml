@@ -136,7 +136,7 @@ importers:
         version: 5.7.3
       unocss:
         specifier: 0.65.4
-        version: 0.65.4(postcss@8.4.47)(rollup@4.21.0)(vite@5.4.14(@types/node@20.14.10)(sass-embedded@1.83.4))(vue@3.5.13(typescript@5.7.3))
+        version: 0.65.4(postcss@8.5.2)(rollup@4.21.0)(vite@5.4.14(@types/node@20.14.10)(sass-embedded@1.83.4))(vue@3.5.13(typescript@5.7.3))
       vite:
         specifier: 5.4.14
         version: 5.4.14(@types/node@20.14.10)(sass-embedded@1.83.4)
@@ -4216,13 +4216,13 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  '@unocss/postcss@0.65.4(postcss@8.4.47)':
+  '@unocss/postcss@0.65.4(postcss@8.5.2)':
     dependencies:
       '@unocss/config': 0.65.4
       '@unocss/core': 0.65.4
       '@unocss/rule-utils': 0.65.4
       css-tree: 3.1.0
-      postcss: 8.4.47
+      postcss: 8.5.2
       tinyglobby: 0.2.10
     transitivePeerDependencies:
       - supports-color
@@ -4414,7 +4414,7 @@ snapshots:
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
       estree-walker: 2.0.2
-      magic-string: 0.30.11
+      magic-string: 0.30.17
       postcss: 8.5.2
       source-map-js: 1.2.1
 
@@ -5616,12 +5616,12 @@ snapshots:
       pathe: 1.1.2
       ufo: 1.5.4
 
-  unocss@0.65.4(postcss@8.4.47)(rollup@4.21.0)(vite@5.4.14(@types/node@20.14.10)(sass-embedded@1.83.4))(vue@3.5.13(typescript@5.7.3)):
+  unocss@0.65.4(postcss@8.5.2)(rollup@4.21.0)(vite@5.4.14(@types/node@20.14.10)(sass-embedded@1.83.4))(vue@3.5.13(typescript@5.7.3)):
     dependencies:
       '@unocss/astro': 0.65.4(rollup@4.21.0)(vite@5.4.14(@types/node@20.14.10)(sass-embedded@1.83.4))(vue@3.5.13(typescript@5.7.3))
       '@unocss/cli': 0.65.4(rollup@4.21.0)
       '@unocss/core': 0.65.4
-      '@unocss/postcss': 0.65.4(postcss@8.4.47)
+      '@unocss/postcss': 0.65.4(postcss@8.5.2)
       '@unocss/preset-attributify': 0.65.4
       '@unocss/preset-icons': 0.65.4
       '@unocss/preset-mini': 0.65.4

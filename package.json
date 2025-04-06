@@ -1,10 +1,10 @@
 {
 	"name": "@mailer/base",
 	"type": "module",
-	"packageManager": "pnpm@9.15.5",
+	"packageManager": "pnpm@10.7.1",
 	"engines": {
-		"node": "22",
-		"pnpm": "9"
+		"node": "23",
+		"pnpm": "10"
 	},
 	"scripts": {
 		"format:check": "prettier --check .",
@@ -14,5 +14,21 @@
 		"prettier-plugin-organize-imports": "4.1.0",
 		"prettier-plugin-svelte": "3.3.3",
 		"prettier-plugin-tailwindcss": "0.6.11"
+	},
+  "pnpm": {
+		"onlyBuiltDependencies": [
+			"better-sqlite3",
+			"canvas",
+			"esbuild",
+			"sharp",
+			"workerd"
+		],
+		"peerDependencyRules": {
+			"allowedVersions": {
+				"vitest": "3",
+				"@vitest/runner": "3",
+				"@vitest/snapshot": "3"
+			}
+		}
 	}
 }
