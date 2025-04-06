@@ -11,15 +11,9 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-<<<<<<< HEAD
-		"prettier-plugin-organize-imports": "4.0.0",
-		"prettier-plugin-svelte": "3.2.6",
-		"prettier-plugin-tailwindcss": "0.6.6"
-=======
 		"prettier-plugin-organize-imports": "4.1.0",
 		"prettier-plugin-svelte": "3.3.3",
 		"prettier-plugin-tailwindcss": "0.6.11"
->>>>>>> dev
 	},
   "pnpm": {
 		"onlyBuiltDependencies": [
@@ -29,11 +23,7 @@
 			"sharp",
 			"workerd"
 		],
-<<<<<<< HEAD
-    "peerDependencyRules": {
-=======
 		"peerDependencyRules": {
->>>>>>> dev
 			"allowedVersions": {
 				"vitest": "3",
 				"@vitest/runner": "3",
