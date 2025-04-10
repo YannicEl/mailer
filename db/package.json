@@ -11,13 +11,13 @@
 		"migrate:prod": "drizzle-kit generate && dotenvx run -f .env -f .env.prod --overload -- drizzle-kit migrate"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "4.20250204.0",
-		"@dotenvx/dotenvx": "1.35.0",
-		"better-sqlite3": "11.8.1",
-		"drizzle-kit": "0.30.4",
-		"wrangler": "3.108.1"
+		"@cloudflare/workers-types": "4.20250410.0",
+		"@dotenvx/dotenvx": "1.39.1",
+		"better-sqlite3": "11.9.1",
+		"drizzle-kit": "0.30.6",
+		"wrangler": "3.114.5"
 	},
 	"dependencies": {
-		"drizzle-orm": "0.39.3"
+		"drizzle-orm": "0.41.0"
 	}
 }
