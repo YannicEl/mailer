@@ -12,7 +12,7 @@
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.8.25",
 		"@cloudflare/workers-types": "4.20250506.0",
-		"typescript": "5.7.3",
+		"typescript": "5.8.3",
 		"vitest": "3.1.3",
 		"wrangler": "4.14.1"
 	},
@@ -20,9 +20,9 @@
 		"@mailer/db": "workspace:",
 		"@mailer/lib": "workspace:",
 		"@yannicel/typed-api": "0.2.13",
-		"drizzle-orm": "0.39.3",
-		"h3-nightly": "2.0.0-20250119-012829-fb480ec",
-		"pkijs": "3.2.4",
-		"zod": "3.24.2"
+		"drizzle-orm": "0.43.1",
+		"h3-nightly": "2.0.0-20250428-102154-f1115f3",
+		"pkijs": "3.2.5",
+		"zod": "3.24.4"
 	}
 }
