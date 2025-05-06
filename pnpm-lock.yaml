@@ -58,8 +58,8 @@ importers:
         specifier: 2.1.2
         version: 2.1.2(@types/node@20.14.10)(sass-embedded@1.83.4)
       wrangler:
-        specifier: 3.108.1
-        version: 3.108.1(@cloudflare/workers-types@4.20250204.0)
+        specifier: 4.14.1
+        version: 4.14.1(@cloudflare/workers-types@4.20250204.0)
 
   db:
     dependencies:
@@ -80,8 +80,8 @@ importers:
         specifier: 0.30.4
         version: 0.30.4
       wrangler:
-        specifier: 3.108.1
-        version: 3.108.1(@cloudflare/workers-types@4.20250204.0)
+        specifier: 4.14.1
+        version: 4.14.1(@cloudflare/workers-types@4.20250204.0)
 
   frontend:
     dependencies:
@@ -3428,9 +3428,20 @@ packages:
       '@cloudflare/workers-types':
         optional: true
 
+  wrangler@4.14.1:
+    resolution: {integrity: sha512-EU7IThP7i68TBftJJSveogvWZ5k/WRijcJh3UclDWiWWhDZTPbL6LOJEFhHKqFzHOaC4Y2Aewt48rfTz0e7oCw==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+    peerDependencies:
+      '@cloudflare/workers-types': ^4.20250428.0
+    peerDependenciesMeta:
+      '@cloudflare/workers-types':
+        optional: true
+
   wrangler@4.14.2:
     resolution: {integrity: sha512-kD0ilA7WXwhDt1lfyPwppZ2/lT9uwDLp93tfqnqrUENmP/uj+5tErzfZY51emtgXZoU1HFK6HytBEYLRCvCiPg==}
     engines: {node: '>=18.0.0'}
+    deprecated: This version has a bug in wrangler dev introduced by the update to use Node.js v20
     hasBin: true
     peerDependencies:
       '@cloudflare/workers-types': ^4.20250428.0
@@ -6247,6 +6258,24 @@ snapshots:
       path-to-regexp: 6.3.0
       unenv: 2.0.0-rc.1
       workerd: 1.20250204.0
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20250204.0
+      fsevents: 2.3.3
+      sharp: 0.33.5
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  wrangler@4.14.1(@cloudflare/workers-types@4.20250204.0):
+    dependencies:
+      '@cloudflare/kv-asset-handler': 0.4.0
+      '@cloudflare/unenv-preset': 2.3.1(unenv@2.0.0-rc.15)(workerd@1.20250428.0)
+      blake3-wasm: 2.1.5
+      esbuild: 0.25.2
+      miniflare: 4.20250428.1
+      path-to-regexp: 6.3.0
+      unenv: 2.0.0-rc.15
+      workerd: 1.20250428.0
     optionalDependencies:
       '@cloudflare/workers-types': 4.20250204.0
       fsevents: 2.3.3
