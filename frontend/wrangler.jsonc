@@ -1,0 +1,39 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "mailer-frontend",
+	"main": "./.cloudflare/worker.js",
+	"assets": {
+		"directory": ".cloudflare/public",
+		"binding": "ASSETS",
+	},
+	"compatibility_date": "2025-04-12",
+	"compatibility_flags": ["nodejs_compat"],
+
+	"observability": { "enabled": true },
+	"placement": {
+		"mode": "smart",
+	},
+
+	"env": {
+		"dev": {
+			"routes": [{ "pattern": "dev.mailer.yannic.at", "custom_domain": true }],
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "mailer-dev",
+					"database_id": "01c3ff83-fa8a-432f-aee6-e437bdb2a8d3",
+				},
+			],
+		},
+		"prod": {
+			"routes": [{ "pattern": ".mailer.yannic.at", "custom_domain": true }],
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "mailer-prod",
+					"database_id": "84f04dd9-8f7c-4463-be83-64782df4139f",
+				},
+			],
+		},
+	},
+}

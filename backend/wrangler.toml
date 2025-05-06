@@ -9,7 +9,7 @@ enabled = true
 [env.dev]
 name = "mailer_backend_dev"
 routes = [
-	{ pattern = "dev-api.mailer.yannic.at", custom_domain = true }
+	{ pattern = "dev.api.mailer.yannic.at", custom_domain = true }
 ]
 
 [env.prod]
