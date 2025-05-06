@@ -25,11 +25,7 @@
 			"workerd"
 		],
 		"peerDependencyRules": {
-			"allowedVersions": {
-				"vitest": "3",
-				"@vitest/runner": "3",
-				"@vitest/snapshot": "3"
-			}
+			"allowedVersions": {}
 		}
 	}
 }
