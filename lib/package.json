@@ -5,6 +5,6 @@
 	"scripts": {},
 	"devDependencies": {
 		"@yannicel/typed-api": "0.2.13",
-		"zod": "3.24.2"
+		"zod": "3.24.4"
 	}
 }
