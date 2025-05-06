@@ -10,7 +10,7 @@ const config = {
 	kit: {
 		adapter: adapter({
 			platformProxy: {
-				configPath: 'wrangler.toml',
+				configPath: 'wrangler.jsonc',
 				environment: 'preview',
 				persist: {
 					path: '../db/local-db/v3',
