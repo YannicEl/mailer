@@ -1,7 +1,7 @@
 {
 	"name": "@mailer/base",
 	"type": "module",
-	"packageManager": "pnpm@10.10.0",
+	"packageManager": "pnpm@10.34.5",
 	"engines": {
 		"node": "22",
 		"pnpm": "10"
@@ -11,10 +11,10 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"prettier": "3.5.3",
-		"prettier-plugin-organize-imports": "4.1.0",
-		"prettier-plugin-svelte": "3.3.3",
-		"prettier-plugin-tailwindcss": "0.6.11"
+		"prettier": "3.9.6",
+		"prettier-plugin-organize-imports": "4.3.0",
+		"prettier-plugin-svelte": "3.5.2",
+		"prettier-plugin-tailwindcss": "0.8.1"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
